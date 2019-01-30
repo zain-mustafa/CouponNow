@@ -1,0 +1,17 @@
+.businessowner {
+  background-color: lightblue;
+}
+
+.businessowner:hover {
+  background-color: darkblue;
+  color: white;
+}
+
+.customer {
+  background-color: lightgreen;
+}
+
+.customer:hover {
+  background-color: darkgreen;
+  color: white;
+}

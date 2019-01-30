@@ -1,0 +1,40 @@
+<mat-card>
+    <!-- Creating a Login form using Angulars FormsModule wiht the submit function onLogin() implemented -->
+    <form #ownerForm="ngForm" (submit)="onSignup(ownerForm)">
+
+      <!-- Firstname input using ngModel with the validators and the given name -->
+      <mat-form-field>
+          <input #firstnameInput="ngModel" name="firstname" ngModel matInput type="text" placeholder="Firstname" required>
+          <mat-error *ngIf="firstnameInput.invalid"> Please enter your Firstname.</mat-error>
+      </mat-form-field>
+
+      <!-- Lastname input using ngModel with the validators and the given name -->
+      <mat-form-field>
+        <input #lastnameInput="ngModel" name="lastname" ngModel matInput type="text" placeholder="Lastname" required>
+        <mat-error *ngIf="lastnameInput.invalid"> Please enter your Lastname.</mat-error>
+      </mat-form-field>
+
+      <!-- Phone Number input using ngModel with the validators and the given name -->
+      <mat-form-field>
+          <input #phoneInput="ngModel" name="phone" ngModel matInput type="number" placeholder="Phone Number" required minlength="10" maxlength="10">
+          <mat-error *ngIf="phoneInput.invalid"> Please enter a valid Phone Number.</mat-error>
+        </mat-form-field>
+
+      <!-- Email input using ngModel with the validators and the given name -->
+      <mat-form-field>
+        <input #emailInput="ngModel" name="email" ngModel matInput type="email" placeholder="E-mail" required email>
+        <mat-error *ngIf="emailInput.invalid"> Please enter a valid E-mail.</mat-error>
+      </mat-form-field>
+
+       <!-- Password input using ngModel with the validators and the given name -->
+      <mat-form-field>
+          <input matInput type="password" name="password" ngModel  placeholder="Password" #passwordInput="ngModel" required>
+          <mat-error *ngIf="passwordInput.invalid"> Please enter a valid Password.</mat-error>
+      </mat-form-field>
+
+
+
+      <!-- Signup button -->
+      <button mat-raised-button color="primary">Sign Up</button>
+    </form>
+  </mat-card>

@@ -1,0 +1,32 @@
+<mat-toolbar class="header-nav" color="primary">
+  <a [routerLink]="['']" >
+    <span>CouponNow</span>
+  </a>
+
+  <!-- This fills the remaining space of the current row -->
+  <span class="example-fill-remaining-space"></span>
+
+  <!-- Setting up the top navigation -->
+  <span>
+    <ul>
+      <li *ngIf="!showLogout">
+        <a mat-button [routerLink]="['/login']"> Login </a>
+      </li>
+      <li *ngIf="!showLogout">
+      <a mat-button [routerLink]="['']" > Sign Up </a>
+      </li>
+      <li *ngIf="showLogout">
+        <button mat-button [matMenuTriggerFor]="menu">Campaign</button>
+        <mat-menu #menu="matMenu">
+          <button  mat-menu-item [routerLink]="['/campaign']">Create</button>
+          <button  mat-menu-item [routerLink]="['/campaign/list']">List</button>
+        </mat-menu>
+      </li>
+      <li>
+        <button mat-button *ngIf="showLogout" (click)="logout()">Logout</button>
+      </li>
+    </ul>
+  </span>
+  <!-- End of navigation -->
+
+</mat-toolbar>

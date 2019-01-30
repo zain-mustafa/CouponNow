@@ -1,0 +1,22 @@
+<mat-card>
+  <mat-card-title>Campaign Info</mat-card-title>
+  <mat-accordion multi="true" *ngIf="campaigns.length > 0">
+    <mat-expansion-panel *ngFor="let campaign of campaigns">
+      <mat-expansion-panel-header>
+        {{ campaign.name }}
+      </mat-expansion-panel-header>
+      <p>{{ campaign.business }}</p>
+      <p>{{ campaign.location }}</p>
+      <p>{{ campaign.startDate }}</p>
+      <p>{{ campaign.endDate }}</p>
+      <p>{{ campaign.maxQty }}</p>
+      <mat-action-row>
+        <button mat-button color="primary">EDIT</button>
+        <button mat-button color="warn" >DELETE</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</mat-card>
+<p class="info-text mat-body-1"
+*ngIf="campaigns.length <= 0">
+No campaigns added yet!</p>

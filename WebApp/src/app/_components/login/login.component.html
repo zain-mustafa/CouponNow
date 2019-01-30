@@ -1,0 +1,30 @@
+<mat-card>
+  <!-- Creating a Login form using Angulars FormsModule wiht the submit function onLogin() implemented -->
+  <form #loginForm="ngForm" (submit)="onLogin(loginForm)">
+    <!-- First input field for email address of the user -->
+    <mat-form-field>
+      <!-- Email input using ngModel with the validators and the given name -->
+      <input #emailInput="ngModel" name="email" ngModel matInput type="email" placeholder="E-mail" required email>
+      <mat-error *ngIf="emailInput.invalid"> Please enter a valid email.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <!-- Password input using ngModel with the validators and the given name -->
+        <input matInput type="password" name="password" ngModel  placeholder="Password" #passwordInput="ngModel" required>
+        <mat-error *ngIf="passwordInput.invalid"> Please enter a valid password.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <!-- Selectors for Account types -->
+      <mat-select name="type" placeholder="Account Type" ngModel #accountType="ngModel" required>
+        <mat-option value="customer">Customer</mat-option>
+        <mat-option value="owner">Business Owner</mat-option>
+      </mat-select>
+      <mat-error *ngIf="accountType.invalid"> Please select a valid Account Type.</mat-error>
+    </mat-form-field>
+
+    <!-- Login button -->
+    <button mat-raised-button color="primary">Login</button>
+  </form>
+</mat-card>
+

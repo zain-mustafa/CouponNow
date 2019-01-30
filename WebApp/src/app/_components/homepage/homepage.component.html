@@ -1,0 +1,10 @@
+      <mat-grid-list cols="4" rowHeight="100px">
+        <!-- Setting up Grid objects for Signup Screen -->
+        <a [routerLink]="['/ownersignup']">
+          <mat-grid-tile class="businessowner" [colspan]="2" [rowspan]="3"> Signup As A Business Owner </mat-grid-tile>
+        </a>
+        <a [routerLink]="['/customersignup']">
+          <mat-grid-tile class="customer" [colspan]="2" [rowspan]="3"> Signup As A Customer </mat-grid-tile>
+        </a>
+        <!-- End of Grid Objects -->
+        </mat-grid-list>

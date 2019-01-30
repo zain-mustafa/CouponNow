@@ -1,0 +1,34 @@
+<mat-card>
+  <!-- Creating a Login form using Angulars FormsModule wiht the submit function onLogin() implemented -->
+  <form #customerForm="ngForm" (submit)="onSignup(customerForm)">
+    <!-- Firstname input using ngModel with the validators and the given name -->
+    <mat-form-field>
+        <input #firstnameInput="ngModel" name="firstname" ngModel matInput type="text" placeholder="Firstname" required>
+        <mat-error *ngIf="emailInput.invalid"> Please enter your Firstname.</mat-error>
+    </mat-form-field>
+
+    <!-- Lastname input using ngModel with the validators and the given name -->
+    <mat-form-field>
+      <input #lastnameInput="ngModel" name="lastname" ngModel matInput type="text" placeholder="Lastname" required>
+      <mat-error *ngIf="emailInput.invalid"> Please enter your Lastname.</mat-error>
+    </mat-form-field>
+
+    <!-- Email input using ngModel with the validators and the given name -->
+    <mat-form-field>
+      <input #emailInput="ngModel" name="email" ngModel matInput type="email" placeholder="E-mail" required email>
+      <mat-error *ngIf="emailInput.invalid"> Please enter a valid E-mail.</mat-error>
+    </mat-form-field>
+
+     <!-- Password input using ngModel with the validators and the given name -->
+    <mat-form-field>
+        <input matInput type="password" name="password" ngModel  placeholder="Password" #passwordInput="ngModel" required>
+        <mat-error *ngIf="passwordInput.invalid"> Please enter a valid Password.</mat-error>
+    </mat-form-field>
+
+
+
+    <!-- Signup button -->
+    <button mat-raised-button color="primary">Sign Up</button>
+  </form>
+</mat-card>
+
