@@ -31,6 +31,7 @@ import { CustomerService } from './_services/customer.service';
 import { OwnerlandingComponent } from './_components/ownerlanding/ownerlanding.component';
 import { CampaignComponent } from './_components/campaign/campaign.component';
 import { CampaignlistComponent } from './_components/campaignlist/campaignlist.component';
+import { ChooseInterestsComponent } from './_components/chooseinterests/choose-interests.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { CampaignlistComponent } from './_components/campaignlist/campaignlist.c
     OwnerlandingComponent,
     OwnerlandingComponent,
     CampaignComponent,
-    CampaignlistComponent
+    CampaignlistComponent,
+    ChooseInterestsComponent
   ],
   imports: [
     BrowserModule,
