@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+@import
+  'functions',
+  'variables',
+  'mixins',
+  'print',
+  'reboot',
+  'type';
+
+  $body-color: #f1f0ee;
+
+  body {
+    color: $body-color;
+  }

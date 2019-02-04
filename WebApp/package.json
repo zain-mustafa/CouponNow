@@ -30,7 +30,19 @@
     "mongoose-unique-validator": "^2.0.2",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
-    "zone.js": "~0.8.26"
+    "zone.js": "~0.8.26",
+    "@ng-bootstrap/ng-bootstrap": "1.0.0",
+    "ajv": "6.2.1",
+    "ajv-keywords": "3.1.0",
+    "bootstrap": "4.0.0",
+    "copy-webpack-plugin": "4.3.0",
+    "font-awesome": "4.7.0",
+    "jquery": "3.2.1",
+    "jw-bootstrap-switch-ng2": "1.0.10",
+    "ng2-nouislider": "1.7.7",
+    "nouislider": "9.2.0",
+    "popper.js": "1.12.9",
+    "rellax": "1.4.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.11.4",

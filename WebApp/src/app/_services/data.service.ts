@@ -5,6 +5,7 @@ import { Observable, Subject } from 'rxjs';
 
 export class DataService {
     private subject = new Subject<any>();
+    private ownerSubject = new Subject<any>();
 
     setLogin(status: boolean) {
         this.subject.next({ isLogin: status });
@@ -12,5 +13,13 @@ export class DataService {
 
     getLogin(): Observable<any> {
         return this.subject.asObservable();
+    }
+
+    setOwner (status: boolean) {
+      this.ownerSubject.next({ customerType: status});
+    }
+
+    getOwnerStatus(): Observable<any> {
+      return this.ownerSubject.asObservable();
     }
 }

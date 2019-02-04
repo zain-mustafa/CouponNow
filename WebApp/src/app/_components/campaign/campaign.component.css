@@ -7,6 +7,19 @@ mat-form-field {
   width: 100%;
 }
 .date {
-  width: 20%;
+  width: 40%;
   margin-right: 3rem;
+}
+
+.custom-wrapper {
+  background-color: rgb(249, 99, 50);
+  padding-bottom: 0;
+  margin-bottom: 0;
+  background-position: center center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+.z-depth-5 {
+  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.3);
 }

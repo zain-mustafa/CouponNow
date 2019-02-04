@@ -1,4 +1,7 @@
-main {
-  width: 80%;
-  margin: 1rem auto;
+mat-select .placeholder {
+  color: white;
+}
+
+.login-placeholder {
+  color: white;
 }
