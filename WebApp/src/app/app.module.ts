@@ -31,6 +31,7 @@ import { CustomerService } from './_services/customer.service';
 import { OwnerlandingComponent } from './_components/ownerlanding/ownerlanding.component';
 import { CampaignComponent } from './_components/campaign/campaign.component';
 import { CampaignlistComponent } from './_components/campaignlist/campaignlist.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { CampaignlistComponent } from './_components/campaignlist/campaignlist.c
     MatDatepickerModule,
     MatNativeDateModule,
     MatMenuModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDialogModule
   ],
   providers: [
     OwnerService,

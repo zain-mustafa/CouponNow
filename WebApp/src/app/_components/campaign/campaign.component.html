@@ -1,4 +1,4 @@
-<mat-card>
+<!-- <mat-card>
   <mat-card-title >Create Campaign</mat-card-title>
   <form #campaignForm="ngForm" (submit)="onCreateCampaign(campaignForm)">
     <mat-form-field>
@@ -42,4 +42,61 @@
 
     <button mat-raised-button color="primary">Create Campaign</button>
   </form>
-</mat-card>
+</mat-card> -->
+
+<div class="wrapper">
+    <div class="container" style="text-align: center;">
+        <div class="col-md-8 content-center" style="display: inline-block;">
+            <div>
+                <mat-card class="z-depth-5" style="margin-top: 100px;">
+                  <form class="form" #campaignForm="ngForm" (submit)="onCreateCampaign(campaignForm)">
+                    <h2 class="title"> Your Campaign Details</h2>
+                    <div>
+                        <mat-form-field appearance="fill">
+                            <input #campaignNameInput="ngModel" name="campaignName" ngModel matInput type="text" placeholder="Campaign Name" required >
+                            <mat-error *ngIf="campaignNameInput.invalid"> Please enter a valid name for the Campaign.</mat-error>
+                          </mat-form-field>
+
+                          <mat-form-field appearance="fill">
+                            <mat-select name="business" placeholder="Select Business" (ngModelChange)="onChangeBusiness($event)" ngModel #businessName="ngModel" required>
+                              <mat-option *ngFor="let business of business" [value]="business.name">{{ business.name }}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="businessName.invalid"> Please select a valid Business from the drop down.</mat-error>
+                          </mat-form-field>
+
+                          <mat-form-field appearance="fill">
+                            <mat-select name="locations" placeholder="Select Location" ngModel #locationName="ngModel" required multiple>
+                              <mat-option *ngFor="let location of gottemlocations" [value]="location.name">{{ location.name }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+
+                          <mat-form-field appearance="fill">
+                            <input #maxQtyInput="ngModel" name="maxQty" ngModel matInput type="number" placeholder="Max Coupons" required >
+                            <mat-error *ngIf="maxQtyInput.invalid"> Please enter amount.</mat-error>
+                          </mat-form-field>
+
+                          <section>
+                            <mat-form-field class="date" appearance="fill">
+                              <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="Choose a start date" name="startDate" ngModel #startDate="ngModel" required>
+                              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                              <mat-datepicker #picker></mat-datepicker>
+                              <mat-error *ngIf="startDate.invalid"> Please select a valid Start Date.</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="date" appearance="fill">
+                              <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="maxpicker" placeholder="Choose an end date" name="endDate" ngModel #endDate="ngModel" required>
+                              <mat-datepicker-toggle matSuffix [for]="maxpicker"></mat-datepicker-toggle>
+                              <mat-datepicker #maxpicker></mat-datepicker>
+                              <mat-error *ngIf="endDate.invalid"> Please select a valid End Date.</mat-error>
+                            </mat-form-field>
+                          </section>
+                      </div>
+                      <div class="footer text-center">
+                          <button class="btn btn-primary btn-round btn-lg btn-block">Create Campaign</button>
+                      </div>
+                  </form>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+  </div>

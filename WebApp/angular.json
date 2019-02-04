@@ -24,9 +24,21 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.css"
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "./src/styles.scss",
+              "src/styles.css",
+              "./node_modules/bootstrap/scss/bootstrap.scss",
+              "src/assets/sass/now-ui-kit.scss",
+              "./src/assets/css/demo.css"
             ],
-            "scripts": []
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./node_modules/bootstrap/scss"
+              ]
+            },
+            "scripts": [
+              "./node_modules/rellax/rellax.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -133,5 +145,10 @@
       }
     }
   },
-  "defaultProject": "WebApp"
+  "defaultProject": "WebApp",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

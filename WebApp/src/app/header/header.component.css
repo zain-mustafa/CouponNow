@@ -1,18 +1,26 @@
-.example-fill-remaining-space {
+/* .example-fill-remaining-space {
   flex: 1 1 auto;
-}
+} */
 
-ul {
+/* ul {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
-}
+} */
 
-a {
+/* a {
   text-decoration: none;
-}
+} */
 
-a:visited {
+/* a:visited {
   color: white;
+} */
+
+.navbar-default{
+  transition:500ms ease;
+  background:transparent;
+}
+.navbar-default.scrolled{
+  background:#000;
 }
