@@ -32,6 +32,7 @@ import { OwnerlandingComponent } from './_components/ownerlanding/ownerlanding.c
 import { CampaignComponent } from './_components/campaign/campaign.component';
 import { CampaignlistComponent } from './_components/campaignlist/campaignlist.component';
 import { ChooseInterestsComponent } from './_components/chooseinterests/choose-interests.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { ChooseInterestsComponent } from './_components/chooseinterests/choose-i
     MatDatepickerModule,
     MatNativeDateModule,
     MatMenuModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDialogModule
   ],
   providers: [
     OwnerService,
