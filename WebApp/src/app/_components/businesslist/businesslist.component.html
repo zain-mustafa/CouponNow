@@ -1,0 +1,22 @@
+<mat-card>
+  <mat-card-title>Businesses</mat-card-title>
+  <mat-accordion multi="true" *ngIf="businesslist.length > 0">
+    <mat-expansion-panel *ngFor="let business of businesslist">
+      <mat-expansion-panel-header>
+        {{ business.businessname }}
+      </mat-expansion-panel-header>
+      <p>{{ business.licensenum }}</p>
+      <p>{{ business.streetnum }}</p>
+      <p>{{ business.streetname }}</p>
+      <p>{{ business.city }}</p>
+      <p>{{ business.postalcode}}</p>
+      <mat-action-row>
+        <button mat-button color="primary">EDIT</button>
+        <button mat-button color="warn" >DELETE</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</mat-card>
+<p class="info-text mat-body-1"
+*ngIf="businesslist.length <= 0">
+No businesses added yet!</p>

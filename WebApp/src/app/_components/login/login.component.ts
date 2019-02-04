@@ -52,6 +52,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('token', response['token']);
         localStorage.setItem('customerType', 'owner');
         console.log(response);
+        localStorage.setItem('email', form.value.email);
+        this.router.navigate(['/ownerlanding']);
         this.dataService.setLogin(true);
         this.dataService.setOwner(true);
         this.router.navigate(['/ownerlanding']);

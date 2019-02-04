@@ -32,6 +32,8 @@ import { OwnerlandingComponent } from './_components/ownerlanding/ownerlanding.c
 import { CampaignComponent } from './_components/campaign/campaign.component';
 import { CampaignlistComponent } from './_components/campaignlist/campaignlist.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { BusinessComponent } from './_components/business/business.component';
+import { BusinesslistComponent } from './_components/businesslist/businesslist.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     OwnerlandingComponent,
     OwnerlandingComponent,
     CampaignComponent,
-    CampaignlistComponent
+    CampaignlistComponent,
+    BusinessComponent,
+    BusinesslistComponent
   ],
   imports: [
     BrowserModule,

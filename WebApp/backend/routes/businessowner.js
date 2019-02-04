@@ -89,5 +89,49 @@ router.post('/login', (req, res, next) => {
     });
 });
 
+router.post('/addbusiness', (req, res, next) => {
+
+  BusinessOwner.findOne({email: req.body.owneremail})
+  .then(owner => {
+    // If the email is not found
+    if (!owner) {
+      return res.status(401),json({
+        message: "Account Authentication Failed"
+      });
+    }
+    owner.business.push(req.body.business);
+  
+    owner.save()
+    .then(result => {
+      res.status(201).json({ // 201 indicates creation and responds the result in json format
+        message: 'Business Added!',
+      });
+    })
+    .catch(err => { // 500 indicates Server Error and returns the error in json format
+      res.status(500).json({
+        error: err
+      });
+    });
+  });
+});
+
+router.get('/listbusiness', (req,res,next) => {
+  
+  //identify business owner
+  BusinessOwner.findOne({email: 'bilbo@mail.com'})//req.body.owneremail
+  .then(owner =>{
+    res.status(200).json({
+        businesslist: owner.business,
+        message: 'Businesses fetched'
+    })
+  .catch(err => {
+    return res.status(401),json({
+    message: "Business Retrival Failed"
+    });
+   });
+  });
+
+});
+
 //Used to export the router so that it can be used externally
 module.exports = router;

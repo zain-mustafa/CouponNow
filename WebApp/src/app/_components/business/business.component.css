@@ -1,0 +1,13 @@
+mat-card {
+    background-color: white;
+    width: auto;
+   }
+   
+   mat-form-field {
+     width: 100%;
+   }
+   .date {
+     width: 20%;
+     margin-right: 3rem;
+   }
+   

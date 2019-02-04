@@ -7,7 +7,15 @@ const customerSchema = mongoose.Schema({
   lastname: { type: String, required: true },
   phone: { type: Number, required: true},
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true}
+  password: { type: String, required: true},
+  business:[{
+     businessname: { type: String},
+      licensenum: { type: String},
+      streetnum: { type: String},
+      streetname: { type: String},
+      city: { type: String},
+      postalcode: { type: String},
+  }]
 });
 
 // For validation checks with the unique attribute
