@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const customerRoutes = require('./routes/customers');
 const ownerRoutes = require('./routes/businessowner');
 const campaignRoutes = require('./routes/campaign');
+const chooseInterestRoutes = require('./routes/chooseinterests');
 
 const app = express();
 

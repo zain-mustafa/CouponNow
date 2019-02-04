@@ -1,7 +1,7 @@
 const mongoose = require('mongoose'),
         Schema = mongoose.Schema;
 
-const tagSchema = new Schema({
+const customerInterestSchema = new Schema({
         customer_id: {
                 type: Schema.Types.ObjectId,
                 ref: 'Customer',
@@ -14,6 +14,6 @@ const tagSchema = new Schema({
         }
 });
 
-tagSchema.index({customer_id: 1, tag_id: 1}, {unique: true});
+customerInterestSchema.index({customer_id: 1, tag_id: 1}, {unique: true});
 
-module.exports = mongoose.model("CustomerInterest", tagSchema);
+module.exports = mongoose.model("CustomerInterest", customerInterestSchema);

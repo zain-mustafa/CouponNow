@@ -1,9 +1,21 @@
-<mat-grid-list [cols]="breakpoint" rowHeight="1:0.5" (window:resize)="onResize($event)">
-  <mat-grid-tile
-      *ngFor="let tile of tiles"
-      [colspan]="tile.cols"
-      [rowspan]="tile.rows"
-      [style.background]="tile.color">
-    {{tile.text}}
-  </mat-grid-tile>
-</mat-grid-list>
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>What are you interested in hearing about?</mat-card-title>
+    </mat-card-header>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <label formArrayName="interests" *ngFor="let order of form.controls.interests.controls; let i = index">
+        <input type="checkbox" [formControlName]="i">
+        {{interests[i].name}}
+        <br />
+      </label>
+
+      <br />
+      <div class="container">
+        <div *ngIf="!form.valid">At least one interest must be selected</div>
+        <button>submit</button>
+      </div>
+    </form>
+  </mat-card>
+</div>
