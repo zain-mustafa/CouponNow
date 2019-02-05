@@ -15,7 +15,7 @@ function chooseInterests (req) {
         .then(function(tags) {
             let customerInterests = [];
             tags.forEach(function(tag) {
-                tagId = tag._id;
+                let tagId = tag._id;
                 let customerInterest = new CustomerInterest({customer_id: customerId, tag_id: tagId});
 
                 customerInterest.save(function (err) {
@@ -26,14 +26,6 @@ function chooseInterests (req) {
 
                 customerInterests += customerInterest;
             })
-
-            // CustomerInterest.insertMany(customerInterests)
-            //     .then((docs) => {
-            //         console.log("Saved " + customerInterests);
-            //     })
-            //     .catch((error) => {
-            //         console.log(error);
-            //     });
         })
 }
 
