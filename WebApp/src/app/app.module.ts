@@ -33,6 +33,7 @@ import { CampaignComponent } from './_components/campaign/campaign.component';
 import { CampaignlistComponent } from './_components/campaignlist/campaignlist.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatTabsModule} from '@angular/material/tabs';
+import { OwnerProfileComponent } from './_components/owner-profile/owner-profile.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     OwnerlandingComponent,
     OwnerlandingComponent,
     CampaignComponent,
-    CampaignlistComponent
+    CampaignlistComponent,
+    OwnerProfileComponent
   ],
   imports: [
     BrowserModule,
