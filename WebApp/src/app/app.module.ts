@@ -33,6 +33,8 @@ import { CampaignComponent } from './_components/campaign/campaign.component';
 import { CampaignlistComponent } from './_components/campaignlist/campaignlist.component';
 import { ChooseInterestsComponent } from './_components/chooseinterests/choose-interests.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatTabsModule} from '@angular/material/tabs';
+import { OwnerProfileComponent } from './_components/owner-profile/owner-profile.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     OwnerlandingComponent,
     CampaignComponent,
     CampaignlistComponent,
+    OwnerProfileComponent,
     ChooseInterestsComponent
   ],
   imports: [
@@ -67,7 +70,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatNativeDateModule,
     MatMenuModule,
     MatExpansionModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTabsModule
   ],
   providers: [
     OwnerService,
