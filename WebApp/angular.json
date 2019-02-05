@@ -29,7 +29,9 @@
               "src/styles.css",
               "./node_modules/bootstrap/scss/bootstrap.scss",
               "src/assets/sass/now-ui-kit.scss",
-              "./src/assets/css/demo.css"
+              "./src/assets/css/demo.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/font-awesome/css/font-awesome.min.css"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [

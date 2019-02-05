@@ -1,7 +1,58 @@
 <div class="wrapper">
   <div class="container" style="text-align: center;">
-      <div class="col-md-8 content-center" style="display: inline-block;">
+      <div class="col-md-12 content-center" style="display: inline-block; padding-top: 100px;">
           <div>
+            <h2 class="title"> Admin Panel </h2>
+            <div class="separator separator-primary"></div>
+            <mat-card class="z-depth-5">
+                <mat-tab-group style="text-align: left;">
+
+                    <!-- Business Tab -->
+                    <mat-tab label="Businesses">
+                      <div *ngIf="!businesses">
+                          <div class="alert alert-danger">
+                              You do not have any businesses added.
+                          </div>
+                      </div>
+                      <a><button type="button" class="btn btn-info" style="width: 200px;">Add a Business</button></a>
+
+                    </mat-tab>
+
+                    <!-- Campaigns Tab -->
+                    <mat-tab label="Campaigns">
+
+                        <div *ngIf="!campaigns">
+                            <div class="alert alert-danger">
+                                You do not have any campaigns created.
+                            </div>
+                        </div>
+                        <a [routerLink]="['/campaign']"><button type="button" class="btn btn-info" style="width: 200px;">Add a Campaign</button></a>
+                      </mat-tab>
+
+                       <!-- Reports Tab -->
+                    <mat-tab label="Report">
+
+                        <div *ngIf="!campaigns">
+                            <div class="alert alert-danger">
+                                You do not have any data accumulated to be reported.
+                            </div>
+                        </div>
+                        <a [routerLink]="['/campaign']"><button type="button" class="btn btn-info" style="width: 200px;">Add a Campaign</button></a>
+                      </mat-tab>
+
+                    <!-- Payment Method Tab -->
+                    <mat-tab label="Payment Method">
+
+                        <div *ngIf="!campaigns">
+                            <div class="alert alert-danger">
+                                You do not have any payment method set up.
+                            </div>
+                        </div>
+                        <a [routerLink]="['/campaign']"><button type="button" class="btn btn-info" style="width: 200px;">Add a Campaign</button></a>
+                      </mat-tab>
+
+                  </mat-tab-group>
+            </mat-card>
 
           </div>
       </div>

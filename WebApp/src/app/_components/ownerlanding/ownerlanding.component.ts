@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OwnerlandingComponent implements OnInit {
 
+  private businesses: string;
+  private campaigns: string;
+  private paymentMethod: string;
+
   constructor() { }
 
   ngOnInit() {
