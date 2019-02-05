@@ -51,7 +51,6 @@ export class LoginComponent implements OnInit {
       this.OwnerLoginService.loginOwner(this.loginCred).subscribe(response => {
         localStorage.setItem('token', response['token']);
         localStorage.setItem('customerType', 'owner');
-        console.log(response);
         this.dataService.setLogin(true);
         this.dataService.setOwner(true);
         this.router.navigate(['/ownerlanding']);

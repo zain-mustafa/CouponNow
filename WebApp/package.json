@@ -27,6 +27,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "bootstrap": "4.0.0",
+    "component": "^1.1.0",
     "copy-webpack-plugin": "4.3.0",
     "core-js": "^2.5.4",
     "express": "^4.16.4",
