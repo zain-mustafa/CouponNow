@@ -32,6 +32,7 @@ import { OwnerlandingComponent } from './_components/ownerlanding/ownerlanding.c
 import { CampaignComponent } from './_components/campaign/campaign.component';
 import { CampaignlistComponent } from './_components/campaignlist/campaignlist.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatNativeDateModule,
     MatMenuModule,
     MatExpansionModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTabsModule
   ],
   providers: [
     OwnerService,
