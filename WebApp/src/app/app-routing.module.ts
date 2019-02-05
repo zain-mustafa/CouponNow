@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'ownerlanding', component: OwnerlandingComponent, canActivate: [AuthGuard]},
   { path: 'campaign', component: CampaignComponent, canActivate: [AuthGuard]},
   { path: 'campaign/list', component: CampaignlistComponent, canActivate: [AuthGuard]},
-  { path: 'chooseinterests', component: ChooseInterestsComponent}
+  { path: 'chooseinterests', component: ChooseInterestsComponent},
   { path: 'campaign/list', component: CampaignlistComponent, canActivate: [AuthGuard]},
   { path: 'ownerprofile', component: OwnerProfileComponent}
 ];
