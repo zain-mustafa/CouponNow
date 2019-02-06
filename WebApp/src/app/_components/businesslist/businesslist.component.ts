@@ -13,7 +13,7 @@ export class BusinesslistComponent implements OnInit {
   businesslist: Business[] = [];
   private businessSubs : Subscription;
 
-  owneremail: string = localStorage.owneremail;
+  owneremail: string = localStorage.ownerEmail;
 
   constructor(public businessService: BusinessService) {}
 
