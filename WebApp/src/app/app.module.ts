@@ -52,7 +52,7 @@ import { CustomerprofileComponent } from './_components/customerprofile/customer
     CampaignComponent,
     CampaignlistComponent,
     BusinessComponent,
-    BusinesslistComponent
+    BusinesslistComponent,
     OwnerProfileComponent,
     ChooseInterestsComponent,
     CustomerprofileComponent
