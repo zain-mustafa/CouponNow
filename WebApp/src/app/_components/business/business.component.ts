@@ -52,6 +52,7 @@ export class BusinessComponent implements OnInit {
     console.log(this.newbusiness);
     //console.log(localStorage.token);
     console.log(localStorage.getItem('ownerEmail'));
+    // Chnage to test pushing
     //bind owner from token??
 
     this.businessService.addBusiness(this.newbusiness);
