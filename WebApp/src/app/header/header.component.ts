@@ -18,25 +18,29 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public showLogout = false;
   private loginSub: Subscription;
   private ownerStatusSub: Subscription;
+  private customerStatusSub: Subscription;
   public ownerStatus = false;
+  public customerStatus = false;
 
   constructor(
     public router: Router,
     private dataService: DataService,
     private element: ElementRef ) {
+
     if (localStorage.getItem('token')) {
       this.showLogout = true;
     }
 
-    if (localStorage.getItem('customerType')) {
-      if (localStorage.getItem('customerType') === 'owner') {
-        this.ownerStatus = true;
-      }
-    }
+    // if (localStorage.getItem('customerType')) {
+    //   if (localStorage.getItem('customerType') === 'owner') {
+    //     this.ownerStatus = true;
+    //   }
+    // }
 
     // subscribe to home component messages
     this.loginSub = this.dataService.getLogin().subscribe(message => { this.showLogout = message; });
     this.ownerStatusSub = this.dataService.getOwnerStatus().subscribe(message => { this.ownerStatus = message; });
+    this.customerStatusSub = this.dataService.getCustomerStatus().subscribe(message => { this.customerStatus = message; });
   }
 
   ngOnInit() {
@@ -49,14 +53,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // unsubscribe to ensure no memory leaks
     this.loginSub.unsubscribe();
     this.ownerStatusSub.unsubscribe();
+    this.customerStatusSub.unsubscribe();
   }
 
   public logout() {
     localStorage.setItem('token', '');
-    localStorage.setItem('customerType', '');
+    localStorage.setItem('email', '');
     this.router.navigate(['/login']);
     this.showLogout = false;
     this.ownerStatus = false;
+    this.customerStatus = false;
   }
 
   // Template Functions - Keep At Bottom of .ts File

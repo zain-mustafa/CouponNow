@@ -46,11 +46,18 @@ export class LoginComponent implements OnInit {
 
     // Checks for account type value recieved from the form and then initiates the correct service function.
     if (form.value.type === 'customer') { // If the account type is customer
-      this.CustomerLoginService.loginCustomer(this.loginCred);
+      this.CustomerLoginService.loginCustomer(this.loginCred).subscribe(response => {
+        localStorage.setItem('customerToken', response['token']);
+        localStorage.setItem('customerEmail', response['email']);
+        this.dataService.setLogin(true);
+        this.dataService.setCustomer(true);
+        this.router.navigate(['/']);
+      });
+
     } else { // If the account type is business owner
       this.OwnerLoginService.loginOwner(this.loginCred).subscribe(response => {
-        localStorage.setItem('token', response['token']);
-        localStorage.setItem('customerType', 'owner');
+        localStorage.setItem('ownerToken', response['token']);
+        localStorage.setItem('ownerEmail', response['email']);
         this.dataService.setLogin(true);
         this.dataService.setOwner(true);
         this.router.navigate(['/ownerlanding']);

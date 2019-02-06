@@ -35,6 +35,7 @@ import { ChooseInterestsComponent } from './_components/chooseinterests/choose-i
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatTabsModule} from '@angular/material/tabs';
 import { OwnerProfileComponent } from './_components/owner-profile/owner-profile.component';
+import { CustomerprofileComponent } from './_components/customerprofile/customerprofile.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { OwnerProfileComponent } from './_components/owner-profile/owner-profile
     CampaignComponent,
     CampaignlistComponent,
     OwnerProfileComponent,
-    ChooseInterestsComponent
+    ChooseInterestsComponent,
+    CustomerprofileComponent
   ],
   imports: [
     BrowserModule,
