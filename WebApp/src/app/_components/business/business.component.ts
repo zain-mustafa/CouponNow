@@ -45,13 +45,13 @@ export class BusinessComponent implements OnInit {
     };
 
     this.newbusiness = {
-      owneremail: localStorage.email,
+      owneremail: localStorage.getItem('ownerEmail'),
       business: this.subdocbusiness,
     }
 
     console.log(this.newbusiness);
     //console.log(localStorage.token);
-    console.log(localStorage.email);
+    console.log(localStorage.getItem('ownerEmail'));
     //bind owner from token??
 
     this.businessService.addBusiness(this.newbusiness);
