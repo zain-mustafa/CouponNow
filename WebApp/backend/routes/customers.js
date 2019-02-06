@@ -89,6 +89,7 @@ router.post('/login', (req, res, next) => {
 
 router.post('/chooseinterests', (req, res, next) => {
   ChooseInterests.chooseInterests(req.body);
+  console.log(req.body);
 });
 
 //Used to export the router so that it can be used externally
