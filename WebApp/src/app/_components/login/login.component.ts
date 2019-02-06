@@ -56,14 +56,6 @@ export class LoginComponent implements OnInit {
 
     } else { // If the account type is business owner
       this.OwnerLoginService.loginOwner(this.loginCred).subscribe(response => {
-<<<<<<< HEAD
-        localStorage.setItem('token', response['token']);
-        localStorage.setItem('customerType', 'owner');
-        console.log(response);
-        localStorage.setItem('email', form.value.email);
-        this.router.navigate(['/ownerlanding']);
-=======
->>>>>>> ae8efc33fddc6b9429bdff2ab7cdc8701b2f74ac
         localStorage.setItem('ownerToken', response['token']);
         localStorage.setItem('ownerEmail', response['email']);
         this.dataService.setLogin(true);
