@@ -45,13 +45,21 @@ export class BusinessComponent implements OnInit {
     };
 
     this.newbusiness = {
+<<<<<<< HEAD
       owneremail: localStorage.ownerEmail,
+=======
+      owneremail: localStorage.getItem('ownerEmail'),
+>>>>>>> 294e4b43cbbb05d26d378f5c51a7058ede211227
       business: this.subdocbusiness,
     }
 
     console.log(this.newbusiness);
     //console.log(localStorage.token);
+<<<<<<< HEAD
     console.log(localStorage.ownerEmail);
+=======
+    console.log(localStorage.getItem('ownerEmail'));
+>>>>>>> 294e4b43cbbb05d26d378f5c51a7058ede211227
     //bind owner from token??
 
     this.businessService.addBusiness(this.newbusiness);
