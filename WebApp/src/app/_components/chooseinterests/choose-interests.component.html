@@ -1,0 +1,23 @@
+<div class="container center">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>What are you interested in hearing about?</mat-card-title>
+    </mat-card-header>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+      <div class="container">
+        <label formArrayName="interests" *ngFor="let order of form.controls.interests.controls; let i = index">
+          <input type="checkbox" [formControlName]="i">
+          {{interests[i].name}}
+        </label>
+      </div>
+
+      <br/>
+      <div class="container center">
+        <div *ngIf="!form.valid">At least one interest must be selected</div>
+        <button mat-stroked-button>submit</button>
+      </div>
+    </form>
+  </mat-card>
+</div>

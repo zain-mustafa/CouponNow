@@ -2,6 +2,8 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+const ChooseInterests = require('./chooseinterests');
+
 const Customer = require('../models/customer');
 
 // Sets up the router coming in from the app.js file
@@ -83,6 +85,11 @@ router.post('/login', (req, res, next) => {
         message: "Account Authentication Failed"
       });
     });
+});
+
+router.post('/chooseinterests', (req, res, next) => {
+  ChooseInterests.chooseInterests(req.body);
+  console.log(req.body);
 });
 
 //Used to export the router so that it can be used externally

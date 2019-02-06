@@ -37,22 +37,25 @@
                   </a>
               </li>
               <li class="nav-item" *ngIf="showLogout && ownerStatus">
-                  <a class="nav-link" >
+                  <a class="nav-link" [routerLink]="['/ownerprofile']">
                     <p>Profile</p>
                   </a>
               </li>
-              <li class="nav-item" *ngIf="showLogout && ownerStatus">
+
+              <!--  <li class="nav-item" *ngIf="showLogout && ownerStatus">
                   <a class="nav-link"  [routerLink]="['/campaign']">
                     <p>Campaigns</p>
-                  </a>
-              </li>
+                  </a> --> <!-- Campaigns link has been routed to the Admin Panel -->
+             <!-- </li>  -->
+
               <li class="nav-item" *ngIf="showLogout && ownerStatus">
-                  <a class="nav-link" >
+                  <a class="nav-link" [routerLink]="['/ownerlanding']">
                     <p>Admin Panel</p>
                   </a>
               </li>
-              <li class="nav-item" *ngIf="(showLogout === true) && (customerType === 'customer')">
-                  <a class="nav-link" >
+
+              <li class="nav-item" *ngIf="showLogout && customerStatus">
+                  <a class="nav-link" [routerLink]="['/customerprofile']">
                     <p>My Preferences</p>
                   </a>
               </li>

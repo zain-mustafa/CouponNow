@@ -31,9 +31,13 @@ import { CustomerService } from './_services/customer.service';
 import { OwnerlandingComponent } from './_components/ownerlanding/ownerlanding.component';
 import { CampaignComponent } from './_components/campaign/campaign.component';
 import { CampaignlistComponent } from './_components/campaignlist/campaignlist.component';
+import { ChooseInterestsComponent } from './_components/chooseinterests/choose-interests.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { BusinessComponent } from './_components/business/business.component';
 import { BusinesslistComponent } from './_components/businesslist/businesslist.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { OwnerProfileComponent } from './_components/owner-profile/owner-profile.component';
+import { CustomerprofileComponent } from './_components/customerprofile/customerprofile.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +53,9 @@ import { BusinesslistComponent } from './_components/businesslist/businesslist.c
     CampaignlistComponent,
     BusinessComponent,
     BusinesslistComponent
+    OwnerProfileComponent,
+    ChooseInterestsComponent,
+    CustomerprofileComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +76,8 @@ import { BusinesslistComponent } from './_components/businesslist/businesslist.c
     MatNativeDateModule,
     MatMenuModule,
     MatExpansionModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTabsModule
   ],
   providers: [
     OwnerService,
