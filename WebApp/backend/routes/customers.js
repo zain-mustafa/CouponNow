@@ -30,8 +30,15 @@ router.post("/signup", (req, res, next) => {
         });
       })
       .catch(err => { // 500 indicates Server Error and returns the error in json format
+        console.log(err.name);
+        if(err.name === 'ValidationError') {
+          res.status(500).json({
+            error: err,
+            message: err.name
+          });
+        }
         res.status(500).json({
-          error: err
+          error: err,
         });
       });
   });

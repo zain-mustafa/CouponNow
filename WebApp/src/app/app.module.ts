@@ -39,6 +39,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { OwnerProfileComponent } from './_components/owner-profile/owner-profile.component';
 import { CustomerprofileComponent } from './_components/customerprofile/customerprofile.component';
 import { SignupComponent } from './_components/signup/signup.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { SignupComponent } from './_components/signup/signup.component';
     MatExpansionModule,
     MatDialogModule,
     MatTabsModule,
+    MatSnackBarModule
   ],
   providers: [
     OwnerService,
