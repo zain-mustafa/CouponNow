@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { BusinessOwner } from '../../_models/businessowner.model';
 import { OwnerService } from '../../_services/owner.service';
+import {MatSnackBar} from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ownersignup',
@@ -20,7 +22,7 @@ export class OwnersignupComponent implements OnInit {
   };
 
   // Adding the owner.service service tp this file
-  constructor( public signupService: OwnerService ) { }
+  constructor( public signupService: OwnerService, public snackBar: MatSnackBar, public router: Router ) { }
 
   ngOnInit() {
   }
@@ -40,6 +42,17 @@ export class OwnersignupComponent implements OnInit {
     };
 
     // Calls the onSignUpOwner functions from the service.
-    this.signupService.onSignUpOwner(this.businessOwner);
+    this.signupService.onSignUpOwner(this.businessOwner).subscribe(response => {
+      this.snackBar.open('Welcome! Your account is created.', 'Dismiss', {
+        duration: 5000,
+      });
+      this.router.navigate(['/']);
+    }, error => {
+      this.snackBar.open('This E-mail is already taken, Please use a different E-mail address', 'Dismiss', {
+        duration: 5000,
+      });
+
+    });
+
   }
 }

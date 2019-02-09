@@ -18,13 +18,14 @@ export class OwnerService {
   // Adds the http module to the service
   constructor(private http: HttpClient) {}
 
-  onSignUpOwner(owner: BusinessOwner) {
+  onSignUpOwner(owner: BusinessOwner): Observable<any> {
      // API call when the owner signs up
-    this.http.post('http://localhost:3000/owner/signup', owner)
-      .subscribe(response => {
+    return this.http.post('http://localhost:3000/owner/signup', owner)
+      .pipe(map(response => {
         // displays the response recieved on the browser console.
         console.log(response);
-      });
+        return response;
+      }));
   }
 
   loginOwner( loginCred: LoginCred ): Observable<any> {

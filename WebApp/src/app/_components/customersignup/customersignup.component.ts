@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { CustomerService } from '../../_services/customer.service';
 import { Customer } from '../../_models/customer.model';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-customersignup',
@@ -19,7 +22,7 @@ export class CustomersignupComponent implements OnInit {
   };
 
   // Constructor to initiate customer.service.ts
-  constructor( public signupService: CustomerService ) { }
+  constructor( public signupService: CustomerService, public router: Router, public snackBar: MatSnackBar ) { }
 
   ngOnInit() {
   }
@@ -39,7 +42,17 @@ export class CustomersignupComponent implements OnInit {
     };
 
     // call the function onSignupCustomer through the service.
-    this.signupService.onSignUpCustomer(this.customer);
+    this.signupService.onSignUpCustomer(this.customer).subscribe(response => {
+      this.snackBar.open('Welcome! Your account is created. Let the savings begin!', 'Dismiss', {
+        duration: 5000,
+      });
+      this.router.navigate(['/']);
+    }, error => {
+      this.snackBar.open('This E-mail is already taken, Please use a different E-mail address', 'Dismiss', {
+        duration: 5000,
+      });
+
+    });
   }
 
 }

@@ -3,7 +3,8 @@ import { Customer } from '../_models/customer.model';
 import { HttpClient } from '@angular/common/http';
 import { LoginCred } from '../_models/logincred.model';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class CustomerService {
@@ -17,13 +18,16 @@ export class CustomerService {
   // Adds the http module to the service
   constructor(private http: HttpClient) {}
 
-  onSignUpCustomer(customer: Customer) {
+  onSignUpCustomer(customer: Customer): Observable<any> {
     // API call when the customer signs up
-    this.http.post('http://localhost:3000/customer/signup', customer)
-      .subscribe(response => {
-        // displays the response recieved on the browser console.
+    return this.http.post('http://localhost:3000/customer/signup', customer)
+      .pipe(
+        map(response => {
+                  // displays the response recieved on the browser console.
         console.log(response);
-      });
+        return response;
+        })
+        );
   }
 
   loginCustomer( loginCred: LoginCred ): Observable<any> {
