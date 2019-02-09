@@ -15,11 +15,13 @@ import { BusinesslistComponent } from './_components/businesslist/businesslist.c
 import { ChooseInterestsComponent } from './_components/chooseinterests/choose-interests.component';
 import { OwnerProfileComponent } from './_components/owner-profile/owner-profile.component';
 import { CustomerprofileComponent } from './_components/customerprofile/customerprofile.component';
+import { SignupComponent } from './_components/signup/signup.component';
 
 // Setting up the routes for difference links
 const routes: Routes = [
   { path: '', component: HomepageComponent },
   { path: 'login', component: LoginComponent  },
+  { path: 'signup', component: SignupComponent  },
   { path: 'customersignup', component: CustomersignupComponent},
   { path: 'ownersignup', component: OwnersignupComponent},
   { path: 'ownerlanding', component: OwnerlandingComponent, canActivate: [OwnerAuthGuard]},

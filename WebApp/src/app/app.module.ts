@@ -38,6 +38,7 @@ import { BusinesslistComponent } from './_components/businesslist/businesslist.c
 import {MatTabsModule} from '@angular/material/tabs';
 import { OwnerProfileComponent } from './_components/owner-profile/owner-profile.component';
 import { CustomerprofileComponent } from './_components/customerprofile/customerprofile.component';
+import { SignupComponent } from './_components/signup/signup.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
@@ -56,7 +57,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     BusinesslistComponent,
     OwnerProfileComponent,
     ChooseInterestsComponent,
-    CustomerprofileComponent
+    CustomerprofileComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
