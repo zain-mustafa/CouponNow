@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class CampaignlistComponent implements OnInit {
 
-  campaigns: Campaign[] = [];
+  public campaigns: Campaign[] = [];
   private campaingSubs: Subscription;
 
   constructor(public campaignService: CampaginService) { }
@@ -19,6 +19,7 @@ export class CampaignlistComponent implements OnInit {
     this.campaignService.getCampaigns();
     this.campaingSubs = this.campaignService.getPostsUpdateListener()
      .subscribe((campaign: Campaign[]) => {
+       console.log(campaign);
        this.campaigns = campaign;
      });
    }

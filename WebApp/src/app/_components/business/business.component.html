@@ -1,38 +1,46 @@
-<mat-card>
-    <mat-card-title >Add a Business</mat-card-title>
-    <form #businessForm="ngForm" (submit)="addBusiness(businessForm)">
-      <mat-form-field>
-        <input #businessNameInput="ngModel" name="businessName" ngModel matInput type="text" placeholder="Business Name" required >
-        <mat-error *ngIf="businessNameInput.invalid"> Please enter a valid name for the Business.</mat-error>
-      </mat-form-field>
+<div class="wrapper">
+  <div class="container" style="text-align: center;">
+      <div class="col-md-8 content-center" style="display: inline-block;">
+          <div>
+            <mat-card>
+                <mat-card-title >Add a Business</mat-card-title>
+                <form #businessForm="ngForm" (submit)="addBusiness(businessForm)">
+                  <mat-form-field>
+                    <input #businessNameInput="ngModel" name="businessName" ngModel matInput type="text" placeholder="Business Name" required >
+                    <mat-error *ngIf="businessNameInput.invalid"> Please enter a valid name for the Business.</mat-error>
+                  </mat-form-field>
 
-      <mat-form-field>
-          <input #licenseNumInput="ngModel" name="licenseNum" ngModel matInput type="text" placeholder="Business License Number" required >
-          <mat-error *ngIf="licenseNumInput.invalid"> Please enter a valid license number.</mat-error>
-      </mat-form-field>
-      
-      <mat-form-field>
-          <input #streetNumInput="ngModel" name="streetNum" ngModel matInput type="text" placeholder="Street Number" required >
-          <mat-error *ngIf="streetNumInput.invalid"> Please enter a valid street number.</mat-error>
-      </mat-form-field>
-      
-      <mat-form-field>
-          <input #streetNameInput="ngModel" name="streetName" ngModel matInput type="text" placeholder="Street Name" required >
-          <mat-error *ngIf="streetNameInput.invalid"> Please enter a valid street name.</mat-error>
-      </mat-form-field>
-      
-      <section>
-      <mat-form-field>
-          <input #cityInput="ngModel" name="city" ngModel matInput type="text" placeholder="City" required >
-          <mat-error *ngIf="cityInput.invalid"> Please enter a valid city name.</mat-error>
-      </mat-form-field>
-      
-      <mat-form-field>
-          <input #postalCodeInput="ngModel" name="postalCode" ngModel matInput type="text" placeholder="Postal Code" required >
-          <mat-error *ngIf="postalCodeInput.invalid"> Please enter a valid postal code.</mat-error>
-      </mat-form-field>
-      </section>
-      <button mat-raised-button color="primary">Add Business</button>
-    </form>
-  </mat-card>
-  
+                  <mat-form-field>
+                      <input #licenseNumInput="ngModel" name="licenseNum" ngModel matInput type="text" placeholder="Business License Number" required >
+                      <mat-error *ngIf="licenseNumInput.invalid"> Please enter a valid license number.</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field>
+                      <input #streetNumInput="ngModel" name="streetNum" ngModel matInput type="text" placeholder="Street Number" required >
+                      <mat-error *ngIf="streetNumInput.invalid"> Please enter a valid street number.</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field>
+                      <input #streetNameInput="ngModel" name="streetName" ngModel matInput type="text" placeholder="Street Name" required >
+                      <mat-error *ngIf="streetNameInput.invalid"> Please enter a valid street name.</mat-error>
+                  </mat-form-field>
+
+                  <section>
+                  <mat-form-field>
+                      <input #cityInput="ngModel" name="city" ngModel matInput type="text" placeholder="City" required >
+                      <mat-error *ngIf="cityInput.invalid"> Please enter a valid city name.</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field>
+                      <input #postalCodeInput="ngModel" name="postalCode" ngModel matInput type="text" placeholder="Postal Code" required >
+                      <mat-error *ngIf="postalCodeInput.invalid"> Please enter a valid postal code.</mat-error>
+                  </mat-form-field>
+                  </section>
+                  <button mat-raised-button color="primary">Add Business</button>
+                </form>
+            </mat-card>
+          </div>
+        </div>
+    </div>
+  </div>
+

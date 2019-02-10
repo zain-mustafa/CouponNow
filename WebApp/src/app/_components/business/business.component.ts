@@ -17,8 +17,8 @@ export class BusinessComponent implements OnInit {
     streetnum: '',
     streetname: '',
     city: '',
-    postalcode: '',
-  }
+    postalcode: ''
+  };
 
   newbusiness: NewBusiness = {
     owneremail: '',
@@ -41,21 +41,21 @@ export class BusinessComponent implements OnInit {
       streetnum: form.value.streetNum,
       streetname: form.value.streetName,
       city: form.value.city,
-      postalcode: form.value.postalCode,      
+      postalcode: form.value.postalCode,
     };
 
     this.newbusiness = {
       owneremail: localStorage.getItem('ownerEmail'),
       business: this.subdocbusiness,
-    }
+    };
 
     console.log(this.newbusiness);
-    //console.log(localStorage.token);
+    // console.log(localStorage.token);
     console.log(localStorage.getItem('ownerEmail'));
-    //bind owner from token??
+    // bind owner from token??
 
     this.businessService.addBusiness(this.newbusiness);
-    
+
 
     form.resetForm('');
 
