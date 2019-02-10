@@ -3,6 +3,8 @@ import {AbstractControl, FormBuilder, FormGroup, Validators, NgForm} from '@angu
 import { SearchedBusiness } from 'src/app/_models/searchedBusiness.model';
 import { Campaign } from 'src/app/_models/campaign.model';
 import { CampaginService } from 'src/app/_services/campagin.service';
+import { Router } from '@angular/router';
+import { DataService } from 'src/app/_services/data.service';
 
 @Component({
   selector: 'app-campaign',
@@ -31,7 +33,8 @@ export class CampaignComponent implements OnInit {
     maxQty: null
   };
 
-  constructor(public campaignService: CampaginService) { }
+  constructor(public campaignService: CampaginService,
+    public router: Router, public dataService: DataService) { }
 
   ngOnInit() {
     console.log(this.minDate);
@@ -68,5 +71,6 @@ export class CampaignComponent implements OnInit {
     this.campaignService.onCreate(this.campaign);
 
     form.resetForm('');
+    this.router.navigate(['/ownerlanding']);
   }
 }
