@@ -14,6 +14,7 @@ export class OwnersignupComponent implements OnInit {
 
   // Set up an object to store business owner information
   businessOwner: BusinessOwner = {
+    type: 'owner',
     firstname: '',
     lastname: '',
     phone: null,
@@ -34,6 +35,7 @@ export class OwnersignupComponent implements OnInit {
     }
     // Setting the values for the business owner
     this.businessOwner = {
+      type: 'owner',
       firstname: form.value.firstname,
       lastname: form.value.lastname,
       phone: form.value.phone,
