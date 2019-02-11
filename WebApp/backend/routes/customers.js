@@ -16,6 +16,7 @@ router.post("/signup", (req, res, next) => {
     // then command used to get the hash value and create customer
     .then(hash => {
       const customer = new Customer({
+        type: req.body.type,
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email: req.body.email,
@@ -80,6 +81,7 @@ router.post('/login', (req, res, next) => {
       //returns the token and user information as a response to frontend
       res.status(200).json({
         token: token,
+        type: fetchedCustomer.type,
         email: fetchedCustomer.email,
         firstname: fetchedCustomer.firstname,
         lastname: fetchedCustomer.lastname,
