@@ -25,6 +25,7 @@ export class CampaignComponent implements OnInit {
     ];
 
   campaign: Campaign = {
+    id: null,
     name: '',
     business: '',
     location: [''],
@@ -33,8 +34,7 @@ export class CampaignComponent implements OnInit {
     maxQty: null
   };
 
-  constructor(public campaignService: CampaginService,
-    public router: Router, public dataService: DataService) { }
+  constructor(public campaignService: CampaginService) { }
 
   ngOnInit() {
     console.log(this.minDate);
@@ -58,6 +58,7 @@ export class CampaignComponent implements OnInit {
     }
 
     this.campaign = {
+      id: '',
       name: form.value.campaignName,
       business: form.value.business,
       location: form.value.locations,
@@ -71,6 +72,5 @@ export class CampaignComponent implements OnInit {
     this.campaignService.onCreate(this.campaign);
 
     form.resetForm('');
-    this.router.navigate(['/ownerlanding']);
   }
 }

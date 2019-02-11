@@ -41,4 +41,11 @@ router.post("/add", (req, res, next) => {
   });
 });
 
+router.delete("/list/:id", (req, res, next) => {
+  Campaign.deleteOne({_id: req.params.id}).then(result => {
+    console.log(result);
+    res.status(200).json({message: 'Campaign Deleted'});
+  });
+});
+
 module.exports = router;

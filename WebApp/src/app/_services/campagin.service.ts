@@ -4,6 +4,7 @@ import { Campaign } from '../_models/campaign.model';
 import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { DataService } from './data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,19 +15,19 @@ export class CampaginService {
   campaign: Campaign;
   private campaignsUpdated = new Subject<Campaign[]>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, public router: Router, public dataService: DataService) {}
 
   onCreate(campaign: Campaign) {
      this.http.post('http://localhost:3000/campaign/add', campaign)
       .subscribe((response) => {
-
         // TO DO: assign model campaignID from reponse._id
-        // const id = response.campaignID;
-
-        // console.log('response' , response);
         this.campaign = response['result'];
         // console.log('onCreate' , this.campaign);
+        this.campaign.id =  response['campaignID'];
+        // console.log('Response ID ', this.campaign.id);
         this.campaigns.push(this.campaign);
+        this.campaignsUpdated.next([...this.campaigns]);
+        this.router.navigate(['/ownerlanding']);
       });
   }
 
@@ -44,15 +45,13 @@ export class CampaginService {
     return this.campaignsUpdated.asObservable();
   }
 
-  // getCampaigns() {
-  //   this.http.get('http://localhost:3000/campaign/list/')
-  //     .subscribe(response => {
-  //       // console.log('response' , response);
-  //       this.campaigns = response['result'];
-  //       // console.log('getCampaigns' , this.campaigns);
-  //     });
-  // }
-
-
+  deleteCampaign(campaignID: string) {
+    this.http.delete('http://localhost:3000/campaign/list/' + campaignID)
+      .subscribe(() => {
+        const updatedCampaign = this.campaigns.filter(post => this.campaign .id !== campaignID);
+        this.campaigns = updatedCampaign;
+        this.campaignsUpdated.next([...this.campaigns]);
+      });
+  }
 
 }
