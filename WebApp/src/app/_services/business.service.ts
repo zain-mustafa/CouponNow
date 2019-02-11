@@ -6,6 +6,9 @@ import { Router } from '@angular/router';
 import { Business } from '../_models/business.model';
 import { NewBusiness } from '../_models/newbusiness.model';
 import {Observable, of} from 'rxjs';
+import { BusinessOwner } from '../_models/businessowner.model';
+import { BusinessQuery } from '../_models/businessquery.model';
+import { BusinessLocation} from '../_models/businesslocation.model'
 
 @Injectable({
   providedIn: 'root'
@@ -25,12 +28,12 @@ export class BusinessService {
       });
   }
 
-  getBusinesses() {
-    this.http.get('http://localhost:3000/owner/listbusiness')
+  getBusinesses(businessquery: BusinessQuery) {
+    this.http.post('http://localhost:3000/owner/listbusiness', businessquery)
       .subscribe((response) => {
         console.log('businesslist' , response);
         this.businesslist = response['businesslist'];
-        console.log('getCampaigns' , this.businesslist);
+        console.log('getBusinesses' , this.businesslist);
        this.businessesUpdated.next([...this.businesslist]);
       });
     }
@@ -38,27 +41,12 @@ export class BusinessService {
     getPostsUpdateListener() {
       return this.businessesUpdated.asObservable();
     }
-  /*
-  getBusinesses() : Observable<Business[]>{
-   return this.http.get<Business[]>('http://localhost:3000/owner/listbusiness')
-   .pipe(
-    tap(_ => console.log('fetched businesses')),
-    catchError(this.handleError('getBusinesses', []))
-  );
-}
 
-  private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      console.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
+  addLocation(businessquery: BusinessQuery){
+    this.http.post('http://localhost:3000/owner/addlocation', businessquery)
+    .subscribe((response) => {
+        console.log('response', response);
+      });
   }
-  */
+
 }

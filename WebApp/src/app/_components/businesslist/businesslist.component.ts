@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Business } from 'src/app/_models/business.model';
+import { BusinessQuery } from 'src/app/_models/businessquery.model';
 import { BusinessService } from 'src/app/_services/business.service';
 import { Subscription } from 'rxjs';
+import { BusinessOwner } from 'src/app/_models/businessowner.model';
 
 @Component({
   selector: 'app-businesslist',
@@ -14,11 +16,16 @@ export class BusinesslistComponent implements OnInit {
   private businessSubs : Subscription;
 
   owneremail: string = localStorage.ownerEmail;
+  businessquery: BusinessQuery = {
+  owneremail: this.owneremail,
+  businessindex: null,
+  location: null
+  }
 
   constructor(public businessService: BusinessService) {}
 
   ngOnInit() {
-    this.businessService.getBusinesses();
+    this.businessService.getBusinesses(this.businessquery);
     this.businessSubs = this.businessService.getPostsUpdateListener()
     .subscribe((business: Business[]) => {
       this.businesslist = business;

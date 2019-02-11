@@ -40,6 +40,7 @@ import { OwnerProfileComponent } from './_components/owner-profile/owner-profile
 import { CustomerprofileComponent } from './_components/customerprofile/customerprofile.component';
 import { SignupComponent } from './_components/signup/signup.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { AddLocationComponent } from './_components/addlocation/addlocation.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     OwnerProfileComponent,
     ChooseInterestsComponent,
     CustomerprofileComponent,
-    SignupComponent
+    SignupComponent,
+    AddLocationComponent
   ],
   imports: [
     BrowserModule,
