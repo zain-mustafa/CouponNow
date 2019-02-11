@@ -3,6 +3,7 @@ const uniqueValidator = require('mongoose-unique-validator');
 
 // Model created for the schema to use with mongoose
 const customerSchema = mongoose.Schema({
+  type: { type: String, required: true },
   firstname: { type: String, required: true },
   lastname: { type: String, required: true },
   email: { type: String, required: true, unique: true },
@@ -12,4 +13,4 @@ const customerSchema = mongoose.Schema({
 // For validation checks with the unique attribute
 customerSchema.plugin(uniqueValidator);
 
-module.exports = mongoose.model("Customer", customerSchema);
+module.exports = mongoose.model("Customer", customerSchema, 'users');
