@@ -28,14 +28,16 @@ export class OwnerService {
       }));
   }
 
-  loginOwner( loginCred: LoginCred ): Observable<any> {
-    // API call when the customer logs in
-    return this.http.post('http://localhost:3000/owner/login', loginCred)
-      .pipe(map((response: Response) => {
-        this.setOwnerInfo(response);
-        return response;
-      }));
-  }
+  // Login has been merged and the request is sent through the customer.service.ts
+
+  // loginOwner( loginCred: LoginCred ): Observable<any> {
+  //   // API call when the customer logs in
+  //   return this.http.post('http://localhost:3000/owner/login', loginCred)
+  //     .pipe(map((response: Response) => {
+  //       this.setOwnerInfo(response);
+  //       return response;
+  //     }));
+  // }
 
   getOwnerInfo() {
     return this.ownerInfo;

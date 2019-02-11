@@ -15,6 +15,7 @@ export class CustomersignupComponent implements OnInit {
 
   // Creating a customer object using the model to be able to send data to the signup Service
   customer: Customer = {
+    type: '',
     firstname: '',
     lastname: '',
     email: '',
@@ -35,6 +36,7 @@ export class CustomersignupComponent implements OnInit {
     }
     // If valid edite the customer object with the submitted values.
     this.customer = {
+      type: 'customer',
       firstname: form.value.firstname,
       lastname: form.value.lastname,
       email: form.value.email,
