@@ -137,6 +137,14 @@ router.post('/listbusiness', (req,res,next) => {
 
 router.post('/addlocation', (req, res, next) => {
 
+  newlocation = req.body.location;
+  //call gecode api
+  var geoCode = await getGeocode(req.body.location);
+  newlocation.lat = geoCode.lat;
+  newlocation.lon = geoCode.lon;
+
+  //update location obj
+
   BusinessOwner.findOne({email: req.body.owneremail})
   .then(owner => {
     // If the email is not found
@@ -151,6 +159,8 @@ router.post('/addlocation', (req, res, next) => {
         .then(result => {
           res.status(201).json({ // 201 indicates creation and responds the result in json format
             message: 'Location Added!',
+            lat: newlocation.lat,
+            lon: newlocation.lon
           });
          })
         .catch(err => { // 500 indicates Server Error and returns the error in json format
@@ -161,6 +171,33 @@ router.post('/addlocation', (req, res, next) => {
         });
   });
 });
+
+async function getGeocode(location){
+
+  //location iq us server url GET https://us1.locationiq.com/v1/search.php?key=YOUR_PRIVATE_TOKEN&q=SEARCH_STRING&format=json
+  //API token a9ecf37e7b3555
+  const baseUrl = 'https://us1.locationiq.com/v1/search.php?key=';
+  queryString = '';
+  const apiToken = 'a9ecf37e7b3555';
+  const format = '&format=json';
+  completeUrl = '';
+  //%20 = space, %2C = ,
+  queryString = '&q=SEARCH_' + location.streetnum +'%20'+ location.streetname + '%2C' + location.city + '%2C '+ location.postalcode;
+  
+  completeUrl = baseUrl + apiToken + queryString + format;
+  
+  this.http.get(completeUrl)
+      .subscribe((response) => {
+        console.log('Server responded to location api call');
+        reply = JSON.parse(response);
+        var geoLocation = {
+        lat = reply.lat,
+        lon = reply.lon
+        }
+        console.log(geoLocation);
+        return geoLocation;
+      });
+}
 
 //Used to export the router so that it can be used externally
 module.exports = router;
