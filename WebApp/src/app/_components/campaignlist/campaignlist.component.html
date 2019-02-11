@@ -6,6 +6,7 @@
       <mat-expansion-panel-header>
         {{ campaign.name }}
       </mat-expansion-panel-header>
+      <p>{{ campaign._id }}</p>
       <p>{{ campaign.business }}</p>
       <p>{{ campaign.location }}</p>
       <p>{{ campaign.startDate }}</p>
@@ -13,7 +14,7 @@
       <p>{{ campaign.maxQty }}</p>
       <mat-action-row>
         <button mat-button color="primary">EDIT</button>
-        <button mat-button color="warn" (click)="onDelete(campaign.id)">DELETE</button>
+        <button mat-button color="warn" (click)="onDelete(campaign._id)">DELETE</button>
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>

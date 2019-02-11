@@ -23,8 +23,8 @@ export class CampaginService {
         // TO DO: assign model campaignID from reponse._id
         this.campaign = response['result'];
         // console.log('onCreate' , this.campaign);
-        this.campaign.id =  response['campaignID'];
-        // console.log('Response ID ', this.campaign.id);
+        this.campaign._id =  response['campaignID'];
+        console.log('Response ID ', this.campaign._id);
         this.campaigns.push(this.campaign);
         this.campaignsUpdated.next([...this.campaigns]);
         this.router.navigate(['/ownerlanding']);
@@ -48,7 +48,7 @@ export class CampaginService {
   deleteCampaign(campaignID: string) {
     this.http.delete('http://localhost:3000/campaign/list/' + campaignID)
       .subscribe(() => {
-        const updatedCampaign = this.campaigns.filter(post => this.campaign .id !== campaignID);
+        const updatedCampaign = this.campaigns.filter(post => this.campaign._id !== campaignID);
         this.campaigns = updatedCampaign;
         this.campaignsUpdated.next([...this.campaigns]);
       });

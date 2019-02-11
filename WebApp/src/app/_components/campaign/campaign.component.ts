@@ -25,7 +25,7 @@ export class CampaignComponent implements OnInit {
     ];
 
   campaign: Campaign = {
-    id: null,
+    _id: null,
     name: '',
     business: '',
     location: [''],
@@ -58,7 +58,7 @@ export class CampaignComponent implements OnInit {
     }
 
     this.campaign = {
-      id: '',
+      _id: '',
       name: form.value.campaignName,
       business: form.value.business,
       location: form.value.locations,

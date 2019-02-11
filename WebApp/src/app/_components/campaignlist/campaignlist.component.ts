@@ -19,14 +19,13 @@ export class CampaignlistComponent implements OnInit, OnDestroy {
     this.campaignService.getCampaigns();
     this.campaingSubs = this.campaignService.getPostsUpdateListener()
      .subscribe((campaign: Campaign[]) => {
-       console.log(campaign);
        this.campaigns = campaign;
      });
    }
 
-  onDelete(id: string) {
-    console.log(id);
-    this.campaignService.deleteCampaign(id);
+  onDelete(event: string) {
+    console.log(event);
+    this.campaignService.deleteCampaign(event);
   }
 
 

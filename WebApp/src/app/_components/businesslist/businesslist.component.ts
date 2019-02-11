@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 export class BusinesslistComponent implements OnInit {
   business: Business;
   businesslist: Business[] = [];
-  private businessSubs : Subscription;
+  private businessSubs: Subscription;
 
   owneremail: string = localStorage.ownerEmail;
 
@@ -25,7 +25,7 @@ export class BusinesslistComponent implements OnInit {
     });
   }
 
-  //this.owneremail
+  // this.owneremail
   /*
   getBusinesses(): void {
    this.businessService.getBusinesses()
