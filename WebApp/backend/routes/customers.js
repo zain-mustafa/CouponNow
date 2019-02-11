@@ -90,7 +90,8 @@ router.post('/login', (req, res, next) => {
     })
         // Catch any errors
     .catch(err => {
-        return res.status(401),json({
+        console.log(err);
+        return res.status(401).json({
         message: "Account Authentication Failed"
       });
     });
