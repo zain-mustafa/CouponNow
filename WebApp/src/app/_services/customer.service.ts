@@ -5,6 +5,8 @@ import { LoginCred } from '../_models/logincred.model';
 import { map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { DataService } from 'src/app/_services/data.service';
+
 
 @Injectable({providedIn: 'root'})
 export class CustomerService {
@@ -16,7 +18,7 @@ export class CustomerService {
   };
 
   // Adds the http module to the service
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,  public dataService: DataService) {}
 
   onSignUpCustomer(customer: Customer): Observable<any> {
     // API call when the customer signs up
@@ -47,5 +49,12 @@ export class CustomerService {
     this.customerInfo.email = response['email'];
     this.customerInfo.firstname = response['firstname'];
     this.customerInfo.lastname = response['lastname'];
+  }
+
+  setLoginSessionVariables(response: Response) {
+    localStorage.setItem('customerToken', response['token']);
+    localStorage.setItem('customerEmail', response['email']);
+    this.dataService.setLogin(true);
+    this.dataService.setCustomer(true);
   }
 }
