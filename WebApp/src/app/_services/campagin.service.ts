@@ -54,17 +54,10 @@ export class CampaginService {
       });
   }
 
-  // getCampaign(_id: string) {
-  //   return this.http.get<{
-  //     _id: string,
-  //     name: string,
-  //     business: string,
-  //     location: [ string ],
-  //     startDate: string,
-  //     endDate: string,
-  //     maxQty: number
-  //   }>('http://localhost:3000/campaign/edit/' + _id);
-  // }
+  getCampaign(_id: string) {
+    return this.campaigns.find(campaign => campaign._id === _id);
+
+  }
 
   updateCampaign(campaign: Campaign) {
     this.http.put('http://localhost:3000/ownerlanding/campaign/edit/' , campaign._id)
