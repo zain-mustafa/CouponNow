@@ -44,3 +44,35 @@
     </div>
   </div>
 
+      <mat-form-field>
+          <input #licenseNumInput="ngModel" name="licenseNum" ngModel matInput type="text" placeholder="Business License Number" required >
+          <mat-error *ngIf="licenseNumInput.invalid"> Please enter a valid license number.</mat-error>
+      </mat-form-field>
+
+     <!--
+        <mat-form-field>
+          <input #streetNumInput="ngModel" name="streetNum" ngModel matInput type="text" placeholder="Street Number" required >
+          <mat-error *ngIf="streetNumInput.invalid"> Please enter a valid street number.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+          <input #streetNameInput="ngModel" name="streetName" ngModel matInput type="text" placeholder="Street Name" required >
+          <mat-error *ngIf="streetNameInput.invalid"> Please enter a valid street name.</mat-error>
+      </mat-form-field>
+
+      <section>
+      <mat-form-field>
+          <input #cityInput="ngModel" name="city" ngModel matInput type="text" placeholder="City" required >
+          <mat-error *ngIf="cityInput.invalid"> Please enter a valid city name.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+          <input #postalCodeInput="ngModel" name="postalCode" ngModel matInput type="text" placeholder="Postal Code" required >
+          <mat-error *ngIf="postalCodeInput.invalid"> Please enter a valid postal code.</mat-error>
+      </mat-form-field>
+      </section>
+    -->
+      <button mat-raised-button color="primary">Add Business</button>
+    <!-- </form>
+  </mat-card> -->
+

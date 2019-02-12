@@ -12,10 +12,14 @@ const customerSchema = mongoose.Schema({
   business:[{
      businessname: { type: String},
       licensenum: { type: String},
-      streetnum: { type: String},
-      streetname: { type: String},
-      city: { type: String},
-      postalcode: { type: String},
+      locations: [{
+        streetnum: { type: String},
+        streetname: { type: String},
+        city: { type: String},
+        postalcode: { type: String},
+        lon: { type: Number},
+        lat: { type: Number}
+      }]
   }]
 });
 
