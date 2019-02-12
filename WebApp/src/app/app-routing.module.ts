@@ -17,6 +17,7 @@ import { OwnerProfileComponent } from './_components/owner-profile/owner-profile
 import { CustomerprofileComponent } from './_components/customerprofile/customerprofile.component';
 import { SignupComponent } from './_components/signup/signup.component';
 import { CustomersetupComponent } from './_components/customersetup/customersetup.component';
+import { AddLocationComponent } from './_components/addlocation/addlocation.component';
 
 // Setting up the routes for difference links
 const routes: Routes = [
@@ -34,7 +35,8 @@ const routes: Routes = [
   { path: 'campaign/list', component: CampaignlistComponent, canActivate: [OwnerAuthGuard]},
   { path: 'ownerprofile', component: OwnerProfileComponent, canActivate: [OwnerAuthGuard]},
   { path: 'customerprofile', component: CustomerprofileComponent, canActivate: [CustomerAuthGaurd] },
-  { path: 'firsttime', component: CustomersetupComponent, canActivate: [CustomerAuthGaurd] }
+  { path: 'firsttime', component: CustomersetupComponent, canActivate: [CustomerAuthGaurd] },
+  { path: 'addlocation', component: AddLocationComponent, canActivate: [OwnerAuthGuard]}
 ];
 
 @NgModule({

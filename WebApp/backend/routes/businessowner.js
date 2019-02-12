@@ -7,6 +7,8 @@ const BusinessOwner = require('../models/businessowner');
 // Sets up the router coming in from the app.js file
 const router = express.Router();
 
+const https = require('https');
+
 // Business Owner Signup Post request
 router.post("/signup", (req, res, next) => {
   // Hash function used to secure password
@@ -117,10 +119,10 @@ router.post('/addbusiness', (req, res, next) => {
   });
 });
 
-router.get('/listbusiness', (req,res,next) => {
-
+router.post('/listbusiness', (req,res,next) => {
+  
   //identify business owner
-  BusinessOwner.findOne({email: 'bilbo@mail.com'})//req.body.owneremail
+  BusinessOwner.findOne({email: req.body.owneremail})
   .then(owner =>{
     res.status(200).json({
         businesslist: owner.business,
@@ -133,6 +135,33 @@ router.get('/listbusiness', (req,res,next) => {
    });
   });
 
+});
+
+router.post('/addlocation', (req, res, next) => {
+
+    BusinessOwner.findOne({email: req.body.owneremail})
+    .then(owner => {
+      // If the email is not found
+      if (!owner) {
+        return res.status(401).json({
+          message: "Account Authentication Failed"
+         });
+       }
+     
+      owner.business[req.body.businessindex].locations.push(req.body.location);
+      owner.save()
+         .then(result => {
+           res.status(201).json({ // 201 indicates creation and responds the result in json format
+            message: 'Location Added!'
+            });
+          })
+          .catch(err => { // 500 indicates Server Error and returns the error in json format
+          res.status(500).json({
+            message: 'Whoops',
+            error: err
+          });
+          });
+      });
 });
 
 //Used to export the router so that it can be used externally

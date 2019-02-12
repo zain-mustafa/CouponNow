@@ -14,10 +14,7 @@ export class BusinessComponent implements OnInit {
   subdocbusiness: Business = {
     businessname: '',
     licensenum: '',
-    streetnum: '',
-    streetname: '',
-    city: '',
-    postalcode: '',
+    locations: [],
   }
 
   newbusiness: NewBusiness = {
@@ -38,10 +35,13 @@ export class BusinessComponent implements OnInit {
     this.subdocbusiness = {
       businessname: form.value.businessName,
       licensenum: form.value.licenseNum,
+      locations: []
+      /*
       streetnum: form.value.streetNum,
       streetname: form.value.streetName,
       city: form.value.city,
-      postalcode: form.value.postalCode,      
+      postalcode: form.value.postalCode,
+      */   
     };
 
     this.newbusiness = {
@@ -51,8 +51,7 @@ export class BusinessComponent implements OnInit {
 
     console.log(this.newbusiness);
     //console.log(localStorage.token);
-    console.log(localStorage.getItem('ownerEmail'));
-    //bind owner from token??
+    //console.log(localStorage.getItem('ownerEmail'));
 
     this.businessService.addBusiness(this.newbusiness);
     
