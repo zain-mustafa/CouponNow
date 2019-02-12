@@ -49,8 +49,6 @@ export class BusinessComponent implements OnInit {
       business: this.subdocbusiness,
     }
 
-    console.log('?');
-
     console.log(this.newbusiness);
     //console.log(localStorage.token);
     console.log(localStorage.getItem('ownerEmail'));

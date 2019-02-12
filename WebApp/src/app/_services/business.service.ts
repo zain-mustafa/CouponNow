@@ -43,10 +43,31 @@ export class BusinessService {
     }
 
   addLocation(businessquery: BusinessQuery){
-    this.http.post('http://localhost:3000/owner/addlocation', businessquery)
-    .subscribe((response) => {
+    let newlocation = businessquery.location;
+    //location iq us server url GET https://us1.locationiq.com/v1/search.php?key=YOUR_PRIVATE_TOKEN&q=SEARCH_STRING&format=json
+    //API token a9ecf37e7b3555
+    const baseUrl = 'https://us1.locationiq.com/v1/search.php?key=';
+    let queryString = '';
+    const apiToken = 'a9ecf37e7b3555';
+    const format = '&format=json&limit=1';
+    let completeUrl = '';
+    //%20 = space, %2C = ,
+    queryString = '&q=SEARCH_' + newlocation.streetnum +'%20'+ newlocation.streetname + '%2C' + newlocation.city + '%2C '+ newlocation.postalcode;
+    
+    completeUrl = baseUrl + apiToken + queryString + format;
+    
+    this.http.get(completeUrl)
+      .subscribe((response) => {
         console.log('response', response);
-      });
-  }
+        businessquery.location.lat = response[0].lat;
+        businessquery.location.lon = response[0].lon;
+        console.log('lat' + newlocation.lat);
+        console.log('lon' + newlocation.lon);
+        this.http.post('http://localhost:3000/owner/addlocation', businessquery)
+        .subscribe((response) => {
+            console.log('response', response);
+          });
+        });
+    }
 
 }
