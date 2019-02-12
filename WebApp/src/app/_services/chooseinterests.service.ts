@@ -9,8 +9,8 @@ export class ChooseinterestsService {
 
   constructor(private http: HttpClient) {}
 
-  onSubmitInterests(customerId: string, interests: string[]) {
-    this.http.post('http://localhost:3000/customer/chooseinterests', {customerId, interests})
+  onSubmitInterests(customerToken: string, interests: string[]) {
+    this.http.post('http://localhost:3000/customer/chooseinterests', {customerToken, interests})
       .subscribe(response => {
         console.log(response);
       });

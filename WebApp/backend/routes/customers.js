@@ -106,7 +106,7 @@ router.post('/login', (req, res, next) => {
 });
 
 router.post('/chooseinterests', (req, res, next) => {
-  ChooseInterests.chooseInterests(req.body);
+  ChooseInterests.chooseInterests(req.body, res);
   console.log(req.body);
 });
 

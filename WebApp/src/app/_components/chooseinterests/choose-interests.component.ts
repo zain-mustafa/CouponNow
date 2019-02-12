@@ -37,7 +37,7 @@ export class ChooseInterestsComponent implements OnInit {
     console.log(selectedInterests);
 
     // TODO: get the actually customerId instead of hard coded value
-    this.submitInterestsService.onSubmitInterests('075bcd1586d3dd1d20e9a94e', selectedInterests);
+    this.submitInterestsService.onSubmitInterests(localStorage.getItem('customerToken'), selectedInterests);
   }
 
   ngOnInit() {
