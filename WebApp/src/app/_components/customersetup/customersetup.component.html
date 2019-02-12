@@ -4,41 +4,52 @@
       <mat-card-title>Tell us more about yourself</mat-card-title>
     </mat-card-header>
 
-    <form class="form" #customerForm="ngForm" (submit)="onSubmit(customerForm)">
+    <form [formGroup]="customerSetupForm" (ngSubmit)="onSubmit()" appValidDay>
       <div class="flex-container flex-col">
+
         <!-- BIRTHDATE INPUT -->
         <p style="margin-bottom: 0">Birth date</p>
         <div class="flex-container flex-row">
           <mat-form-field appearance="fill">
-            <mat-select #monthInput="ngModel" ngModel placeholder="Month" name="month" required>
+            <mat-select disableOptionCentering placeholder="Month" name="month" required formControlName="birthMonth">
               <mat-option *ngFor="let month of months" [value]="month.value">
                 {{month.viewValue}}
               </mat-option>
             </mat-select>
           </mat-form-field>
+
           <mat-form-field class="example-full-width" appearance="fill">
-            <input #dayInput="ngModel" ngModel matInput name="day" placeholder="Day" required>
+            <input matInput name="day" placeholder="Day" required formControlName="birthDay">
+            <div *ngIf="customerSetupForm.invalid && (customerSetupForm.dirty || customerSetupForm.touched)">
+              <mat-error>Please enter a valid day.</mat-error>
+            </div>
           </mat-form-field>
+
           <mat-form-field class="example-full-width" appearance="fill">
-            <input #yearInput="ngModel" ngModel matInput name="year" placeholder="Year" required>
+            <input name="birthYear" matInput placeholder="Year" required formControlName="birthYear">
+            <div *ngIf="birthYear.invalid && (birthYear.dirty || birthYear.touched)">
+              <mat-error>Please enter a valid year.</mat-error>
+            </div>
           </mat-form-field>
         </div>
         <!-- END BIRTHDATE INPUT -->
 
+        <p style="margin-bottom: 0">Gender</p>
         <mat-form-field appearance="fill">
-          <mat-select #genderInput="ngModel" ngModel placeholder="Gender" name="gender" required>
+          <mat-select placeholder="Gender" name="gender" required formControlName="gender">
             <mat-option *ngFor="let gender of genders" [value]="gender.value">
               {{gender.viewValue}}
             </mat-option>
           </mat-select>
         </mat-form-field>
 
+        <p style="margin-bottom: 0">Occupation</p>
         <mat-form-field class="example-full-width" appearance="fill">
-          <input #occupationInput="ngModel" ngModel matInput name="occupation" placeholder="Occupation" required>
+          <input matInput name="occupation" placeholder="Occupation" required formControlName="occupation">
         </mat-form-field>
       </div>
+
       <button mat-flat-button color="primary">Submit</button>
     </form>
-
   </mat-card>
 </div>

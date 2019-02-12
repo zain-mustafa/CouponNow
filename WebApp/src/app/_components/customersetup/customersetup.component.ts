@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {NgForm} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomerService} from '../../_services/customer.service';
 import {CustomerFirstTimeSetup} from '../../_models/customerfirsttimesetup.model';
+import {birthDayValidator} from './day-of-month.directive';
 
 export interface Gender {
   value: string;
@@ -20,7 +21,29 @@ export interface Month {
 })
 export class CustomersetupComponent implements OnInit {
 
-  customerSetupInfo: CustomerFirstTimeSetup;
+  minYear = 1901;
+  maxYear: number = new Date().getFullYear();
+
+  customerSetupForm = new FormGroup({
+    birthMonth: new FormControl('', [
+      Validators.required,
+    ]),
+    birthDay: new FormControl('', [
+      Validators.required,
+      Validators.min(1),
+      Validators.pattern('^[0-9]*$')
+    ]),
+    birthYear: new FormControl('', [
+      Validators.required,
+      Validators.min(this.minYear),
+      Validators.max(this.maxYear),
+      Validators.pattern('^[0-9]*$')
+    ]),
+    gender: new FormControl('', [Validators.required]),
+    occupation: new FormControl('', [Validators.required])
+  }, {validators: birthDayValidator, updateOn: 'submit'});
+
+  customerSetupFormData: CustomerFirstTimeSetup;
 
   genders: Gender[] = [
     {value: 'man', viewValue: 'Man'},
@@ -48,21 +71,23 @@ export class CustomersetupComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit(form: NgForm) {
-    if (form.invalid) {
+  onSubmit() {
+    if (this.customerSetupForm.invalid) {
       return;
     }
 
-    this.customerSetupInfo = {
+    this.customerSetupFormData = {
       email: localStorage.customerEmail,
-      birthMonth: form.value.month,
-      birthDay: form.value.day,
-      birthYear: form.value.year,
-      gender: form.value.gender,
-      occupation: form.value.occupation
+      birthMonth: this.customerSetupForm.get('birthMonth').value,
+      birthDay: this.customerSetupForm.get('birthDay').value,
+      birthYear: this.customerSetupForm.get('birthYear').value,
+      gender: this.customerSetupForm.get('gender').value,
+      occupation: this.customerSetupForm.get('occupation').value
     };
 
-    this.customerService.saveFirstTimeSetup(this.customerSetupInfo);
+    this.customerService.saveFirstTimeSetup(this.customerSetupFormData);
   }
 
+  get birthYear() { return this.customerSetupForm.get('birthYear'); }
+  get birthDay() { return this.customerSetupForm.get('birthDay'); }
 }
