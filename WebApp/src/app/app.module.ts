@@ -40,11 +40,8 @@ import { OwnerProfileComponent } from './_components/owner-profile/owner-profile
 import { CustomerprofileComponent } from './_components/customerprofile/customerprofile.component';
 import { SignupComponent } from './_components/signup/signup.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-<<<<<<< HEAD
-import { AddLocationComponent } from './_components/addlocation/addlocation.component';
-=======
 import { CustomersetupComponent } from './_components/customersetup/customersetup.component';
->>>>>>> master
+import { AddLocationComponent } from './_components/addlocation/addlocation.component';
 
 @NgModule({
   declarations: [
@@ -64,11 +61,8 @@ import { CustomersetupComponent } from './_components/customersetup/customersetu
     ChooseInterestsComponent,
     CustomerprofileComponent,
     SignupComponent,
-<<<<<<< HEAD
+    CustomersetupComponent,
     AddLocationComponent
-=======
-    CustomersetupComponent
->>>>>>> master
   ],
   imports: [
     BrowserModule,
