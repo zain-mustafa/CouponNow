@@ -48,10 +48,7 @@ export class LoginComponent implements OnInit {
     this.CustomerLoginService.loginCustomer(this.loginCred).subscribe(response => {
       console.log(response);
       if (response.type === 'customer') {
-            localStorage.setItem('customerToken', response['token']);
-        localStorage.setItem('customerEmail', response['email']);
-        this.dataService.setLogin(true);
-        this.dataService.setCustomer(true);
+        this.CustomerLoginService.setLoginSessionVariables(response);
         this.router.navigate(['/']);
       } else {
         localStorage.setItem('ownerToken', response['token']);
@@ -87,4 +84,4 @@ export class LoginComponent implements OnInit {
     //
       this.authStatusListenenr.next(true);
     }
-  }
+}
