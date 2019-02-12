@@ -3,6 +3,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomerService} from '../../_services/customer.service';
 import {CustomerFirstTimeSetup} from '../../_models/customerfirsttimesetup.model';
 import {birthDayValidator} from './day-of-month.directive';
+import {MatSnackBar} from '@angular/material';
+import {Router} from '@angular/router';
 
 export interface Gender {
   value: string;
@@ -66,7 +68,7 @@ export class CustomersetupComponent implements OnInit {
     {value: 12, viewValue: 'December'},
   ];
 
-  constructor(public customerService: CustomerService) { }
+  constructor(private customerService: CustomerService, private snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit() {
   }
@@ -85,7 +87,19 @@ export class CustomersetupComponent implements OnInit {
       occupation: this.customerSetupForm.get('occupation').value
     };
 
-    this.customerService.saveFirstTimeSetup(this.customerSetupFormData);
+    this.customerService.saveFirstTimeSetup(this.customerSetupFormData).subscribe(response => {
+      this.snackBar.open('Your personal information has been saved.', 'Dismiss', {
+        duration: 5000,
+      });
+
+      console.log('Going to customer profile...');
+      this.router.navigate(['/customerprofile']);
+    }, error => {
+      this.snackBar.open('Something went wrong while trying to save...', 'Dismiss', {
+        duration: 5000,
+      });
+      console.log(error);
+    });
   }
 
   get birthYear() { return this.customerSetupForm.get('birthYear'); }
