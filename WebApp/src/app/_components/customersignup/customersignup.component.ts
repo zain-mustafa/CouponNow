@@ -5,6 +5,8 @@ import { Customer } from '../../_models/customer.model';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { catchError } from 'rxjs/operators';
+import {LoginCred} from '../../_models/logincred.model';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-customersignup',
@@ -21,6 +23,12 @@ export class CustomersignupComponent implements OnInit {
     email: '',
     password: ''
   };
+
+  private authStatusListener = new Subject<boolean>();
+
+  getAuthStatusListener() {
+    return this.authStatusListener.asObservable();
+  }
 
   // Constructor to initiate customer.service.ts
   constructor( public signupService: CustomerService, public router: Router, public snackBar: MatSnackBar ) { }
@@ -48,13 +56,29 @@ export class CustomersignupComponent implements OnInit {
       this.snackBar.open('Welcome! Your account is created. Let the savings begin!', 'Dismiss', {
         duration: 5000,
       });
-      this.router.navigate(['/']);
     }, error => {
       this.snackBar.open('This E-mail is already taken, Please use a different E-mail address', 'Dismiss', {
         duration: 5000,
       });
 
+    }, () => {
+      console.log('logging in as: ' + this.customer.email);
+
+      const loginCred: LoginCred = {
+        email: this.customer.email,
+        password: this.customer.password
+      };
+
+      this.signupService.loginCustomer(loginCred).subscribe(response => {
+        console.log(response);
+
+        this.signupService.setLoginSessionVariables(response);
+
+        this.router.navigate(['/firsttime']);
+      });
     });
+
+    this.authStatusListener.next(true);
   }
 
 }

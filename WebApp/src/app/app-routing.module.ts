@@ -16,6 +16,7 @@ import { ChooseInterestsComponent } from './_components/chooseinterests/choose-i
 import { OwnerProfileComponent } from './_components/owner-profile/owner-profile.component';
 import { CustomerprofileComponent } from './_components/customerprofile/customerprofile.component';
 import { SignupComponent } from './_components/signup/signup.component';
+import { CustomersetupComponent } from './_components/customersetup/customersetup.component';
 
 // Setting up the routes for difference links
 const routes: Routes = [
@@ -33,7 +34,8 @@ const routes: Routes = [
   { path: 'chooseinterests', component: ChooseInterestsComponent, canActivate: [CustomerAuthGaurd]},
   { path: 'campaign/list', component: CampaignlistComponent, canActivate: [OwnerAuthGuard]},
   { path: 'ownerprofile', component: OwnerProfileComponent, canActivate: [OwnerAuthGuard]},
-  { path: 'customerprofile', component: CustomerprofileComponent, canActivate: [CustomerAuthGaurd] }
+  { path: 'customerprofile', component: CustomerprofileComponent, canActivate: [CustomerAuthGaurd] },
+  { path: 'firsttime', component: CustomersetupComponent, canActivate: [CustomerAuthGaurd] }
 ];
 
 @NgModule({
