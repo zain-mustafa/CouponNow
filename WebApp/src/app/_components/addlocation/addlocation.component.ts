@@ -5,6 +5,7 @@ import { BusinessLocation } from 'src/app/_models/businesslocation.model';
 import { BusinessService } from 'src/app/_services/business.service';
 import { BusinessQuery } from 'src/app/_models/businessquery.model';
 import { Subscription } from 'rxjs';
+import { MatSnackBar } from '@angular/material';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class AddLocationComponent implements OnInit {
   private businessSubs : Subscription;
   index: Number;
 
-  constructor(public businessService: BusinessService) { }
+  constructor(public businessService: BusinessService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     console.log(this.owneremail);
@@ -75,7 +76,16 @@ export class AddLocationComponent implements OnInit {
     console.log(this.businessquery);
     //console.log(localStorage.token);
 
-    this.businessService.addLocation(this.businessquery);    
+    this.businessService.addLocation(this.businessquery).subscribe(response => {
+      console.log("Addlocatiom component response" + response);
+      this.snackBar.open(response.message, 'Dismiss', {
+        duration: 5000,
+      });
+    }, error => {
+      this.snackBar.open('Error. Add location failed', 'Dismiss', {
+        duration: 5000,
+      });
+    });
 
     form.resetForm('');
   };

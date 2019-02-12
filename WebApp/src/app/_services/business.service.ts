@@ -42,7 +42,7 @@ export class BusinessService {
       return this.businessesUpdated.asObservable();
     }
 
-  addLocation(businessquery: BusinessQuery){
+  addLocation(businessquery: BusinessQuery): Observable<any>{
     let newlocation = businessquery.location;
     //location iq us server url GET https://us1.locationiq.com/v1/search.php?key=YOUR_PRIVATE_TOKEN&q=SEARCH_STRING&format=json
     //API token a9ecf37e7b3555
@@ -56,18 +56,25 @@ export class BusinessService {
     
     completeUrl = baseUrl + apiToken + queryString + format;
     
-    this.http.get(completeUrl)
-      .subscribe((response) => {
+    return this.http.get(completeUrl)
+    .pipe(map((response: Response) => {
+        if (response[0].lat < 20 || response[0].lat > 80){
+          return {message: 'Geocode Error. Could not get accurate location from address.'};
+        } else if (response[0].lon < -150 || response[0].lon > -50){
+          return {message: 'Geocode Error. Could not get accurate location from address.'};
+        }
         console.log('response', response);
         businessquery.location.lat = response[0].lat;
         businessquery.location.lon = response[0].lon;
-        console.log('lat' + newlocation.lat);
-        console.log('lon' + newlocation.lon);
-        this.http.post('http://localhost:3000/owner/addlocation', businessquery)
+        //console.log('lat' + newlocation.lat);
+        //console.log('lon' + newlocation.lon);
+        
+       this.http.post('http://localhost:3000/owner/addlocation', businessquery)
         .subscribe((response) => {
             console.log('response', response);
-          });
-        });
-    }
+            return response;
+          })
+    }))
+  }
 
 }
