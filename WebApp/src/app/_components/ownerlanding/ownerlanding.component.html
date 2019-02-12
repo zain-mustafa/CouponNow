@@ -10,8 +10,8 @@
                     <!-- Business Tab -->
                     <mat-tab label="Businesses">
                       <div *ngIf="!businesses">
-                          <div class="alert alert-danger">
-                              You do not have any businesses added.
+                          <div class="alert alert-secondary">
+                              <app-businesslist></app-businesslist>
                           </div>
                       </div>
                       <a [routerLink]="['/business']"><button type="button" class="btn btn-info" style="width: 200px;">Add a Business</button></a>
@@ -21,7 +21,7 @@
                     <!-- Campaigns Tab -->
                     <mat-tab label="Campaigns">
                         <div *ngIf="!campaigns">
-                            <div class=" ">
+                            <div class="alert alert-secondary">
                                 <app-campaignlist></app-campaignlist>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                     <mat-tab label="Report">
 
                         <div *ngIf="!campaigns">
-                            <div class="alert alert-danger">
+                            <div class="alert alert-secondary">
                                 You do not have any data accumulated to be reported.
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                     <mat-tab label="Payment Method">
 
                         <div *ngIf="!campaigns">
-                            <div class="alert alert-danger">
+                            <div class="alert alert-secondary">
                                 You do not have any payment method set up.
                             </div>
                         </div>
