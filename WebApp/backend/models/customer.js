@@ -7,7 +7,10 @@ const customerSchema = mongoose.Schema({
   firstname: { type: String, required: true },
   lastname: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true}
+  password: { type: String, required: true},
+  dateofbirth: { type: Date },
+  gender: { type: String },
+  occupation: { type: String }
 });
 
 // For validation checks with the unique attribute

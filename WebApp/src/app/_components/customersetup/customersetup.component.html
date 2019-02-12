@@ -1,23 +1,44 @@
 <div class="container center">
   <mat-card>
     <mat-card-header>
-      <mat-card-title>What are you interested in hearing about?</mat-card-title>
+      <mat-card-title>Tell us more about yourself</mat-card-title>
     </mat-card-header>
 
-    <form [formGroup]="form" (ngSubmit)="submit()">
+    <form class="form" #customerForm="ngForm" (submit)="onSubmit(customerForm)">
+      <div class="flex-container flex-col">
+        <!-- BIRTHDATE INPUT -->
+        <p style="margin-bottom: 0">Birth date</p>
+        <div class="flex-container flex-row">
+          <mat-form-field appearance="fill">
+            <mat-select #monthInput="ngModel" ngModel placeholder="Month" name="month" required>
+              <mat-option *ngFor="let month of months" [value]="month.value">
+                {{month.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <input #dayInput="ngModel" ngModel matInput name="day" placeholder="Day" required>
+          </mat-form-field>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <input #yearInput="ngModel" ngModel matInput name="year" placeholder="Year" required>
+          </mat-form-field>
+        </div>
+        <!-- END BIRTHDATE INPUT -->
 
-      <div class="container">
-        <label formArrayName="interests" *ngFor="let order of form.controls.interests.controls; let i = index">
-          <input type="checkbox" [formControlName]="i">
-          {{interests[i].name}}
-        </label>
-      </div>
+        <mat-form-field appearance="fill">
+          <mat-select #genderInput="ngModel" ngModel placeholder="Gender" name="gender" required>
+            <mat-option *ngFor="let gender of genders" [value]="gender.value">
+              {{gender.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <br/>
-      <div class="container center">
-        <div *ngIf="!form.valid">At least one interest must be selected</div>
-        <button mat-stroked-button>submit</button>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <input #occupationInput="ngModel" ngModel matInput name="occupation" placeholder="Occupation" required>
+        </mat-form-field>
       </div>
+      <button mat-flat-button color="primary">Submit</button>
     </form>
+
   </mat-card>
 </div>

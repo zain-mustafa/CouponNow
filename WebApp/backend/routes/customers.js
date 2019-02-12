@@ -97,7 +97,6 @@ router.post('/login', (req, res, next) => {
     })
     // Catch any errors
     .catch(err => {
-        console.log(err);
       console.log(err);
 
       return res.status(401).json({
@@ -109,6 +108,32 @@ router.post('/login', (req, res, next) => {
 router.post('/chooseinterests', (req, res, next) => {
   ChooseInterests.chooseInterests(req.body);
   console.log(req.body);
+});
+
+// save personal information received from the first time setup form
+router.post('/savecustomersetupinfo', (req, res, next) => {
+  console.log("Received request to save:")
+  console.log(req.body);
+
+  Customer.findOne({email: req.body.email})
+    .then(customer => {
+      if (!customer) {
+        throw new Error('Customer ' + req.body.email + " was not found");
+      }
+      console.log("Customer found");
+
+      customer.dateofbirth = new Date(req.body.birthYear, req.body.birthMonth, req.body.birthDay);
+      customer.gender = req.body.gender;
+      customer.occupation = req.body.occupation;
+
+      customer.save();
+
+      console.log('Updated customer with new personal info');
+    })
+    .catch(err => {
+      console.log(err);
+      return res.status(400).json('Unable to save customer personal information');
+    })
 });
 
 //Used to export the router so that it can be used externally

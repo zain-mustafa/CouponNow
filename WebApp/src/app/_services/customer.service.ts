@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { DataService } from 'src/app/_services/data.service';
+import {CustomerFirstTimeSetup} from '../_models/customerfirsttimesetup.model';
 
 
 @Injectable({providedIn: 'root'})
@@ -56,5 +57,13 @@ export class CustomerService {
     localStorage.setItem('customerEmail', response['email']);
     this.dataService.setLogin(true);
     this.dataService.setCustomer(true);
+  }
+
+  saveFirstTimeSetup(customerInfo: CustomerFirstTimeSetup) {
+    console.log(customerInfo);
+    return this.http.post('http://localhost:3000/customer/savecustomersetupinfo', customerInfo)
+      .subscribe(response => {
+        console.log(response);
+      });
   }
 }
