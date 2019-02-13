@@ -8,6 +8,9 @@ import { Router } from '@angular/router';
 import { DataService } from 'src/app/_services/data.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { Subscription } from 'rxjs';
+import { BusinessService } from 'src/app/_services/business.service';
+import { Business } from 'src/app/_models/business.model';
 
 
 @Component({
@@ -26,12 +29,14 @@ export class CampaignComponent implements OnInit {
   editCampaign: any;
   selectedFile: null;
   form: FormGroup;
+  businessList: Business[] = [];
+  image: string;
 
-  business: Array<SearchedBusiness> = [
-    { name: 'business-0', locations: ['Mumbai', 'Lahore', 'Location']},
-    { name: 'business-1', locations: ['location-1', 'location-11', 'location-12']},
-    { name: 'business-2', locations: ['location-2', 'location-21', 'location-22']}
-    ];
+  // business: Array<SearchedBusiness> = [
+  //   { name: 'business-0', locations: ['Mumbai', 'Lahore', 'Location']},
+  //   { name: 'business-1', locations: ['location-1', 'location-11', 'location-12']},
+  //   { name: 'business-2', locations: ['location-2', 'location-21', 'location-22']}
+  //   ];
 
   campaign: Campaign = {
     _id: null,
@@ -43,17 +48,22 @@ export class CampaignComponent implements OnInit {
     maxQty: null
   };
 
-  constructor(public campaignService: CampaginService, public route: ActivatedRoute) { }
+  constructor(public campaignService: CampaginService, public route: ActivatedRoute, public businessService: BusinessService) { }
 
   ngOnInit() {
     this.form = new FormGroup({
       'name': new FormControl(null, {validators: [Validators.required]}),
       'business': new FormControl(null, {validators: [Validators.required]}),
-      'location': new FormControl(null, {validators: [Validators.required]}),
+      // 'location': new FormControl(null, {validators: [Validators.required]}),
+      'location': new FormControl(null, null),
       'maxQty': new FormControl(null, {validators: [Validators.required]}),
       'startDate': new FormControl(null, {validators: [Validators.required]}),
       'endDate': new FormControl(null, {validators: [Validators.required]}),
+      'image': new FormControl(null, {validators: [Validators.required]})
     });
+
+    this.businessList = this.businessService.getBusinesslist();
+    // console.log('businessList', this.businessList);
 
     // console.log(this.minDate);
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -89,20 +99,30 @@ export class CampaignComponent implements OnInit {
     });
   }
 
-  onChangeBusiness(businessName) {
+  public onChangeBusiness(event): void {
+    const businessName = event.target.value;
+    console.log('businessName' + businessName);
     this.gottemlocations = [];
-    this.business.forEach(business => {
-      if ( businessName === business.name ) {
+    console.log(businessName);
+    this.businessList.forEach(business => {
+      if ( businessName === business.businessname ) {
         business.locations.forEach(locations => {
-          this.gottemlocations.push({'name': locations});
+          this.gottemlocations.push({'name': locations.streetname});
         });
         console.log(this.gottemlocations);
       }
     });
   }
 
-  onFileSelected(event) {
-    this.selectedFile = event.target.files[0];
+  ImagePicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.form.patchValue({image: file});
+    this.form.get('image').updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.image = <string>reader.result;
+    };
+    reader.readAsDataURL(file);
   }
 
   onCreateCampaign() {
