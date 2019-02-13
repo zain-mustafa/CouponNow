@@ -23,3 +23,20 @@ mat-form-field {
 .z-depth-5 {
   box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.3);
 }
+
+input[type="file"] {
+  visibility: hidden;
+}
+
+.image-preview {
+  height: 1 rem;
+  margin: 1 rem 0;
+}
+
+.image-preview img {
+  height: 100%;
+}
+
+.image-button {
+  margin-top: 1 rem;
+}

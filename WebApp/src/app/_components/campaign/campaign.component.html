@@ -1,95 +1,91 @@
-<!-- <mat-card>
-  <mat-card-title >Create Campaign</mat-card-title>
-  <form #campaignForm="ngForm" (submit)="onCreateCampaign(campaignForm)">
-    <mat-form-field>
-      <input #campaignNameInput="ngModel" name="campaignName" ngModel matInput type="text" placeholder="Campaign Name" required >
-      <mat-error *ngIf="campaignNameInput.invalid"> Please enter a valid name for the Campaign.</mat-error>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-select name="business" placeholder="Select Business" (ngModelChange)="onChangeBusiness($event)" ngModel #businessName="ngModel" required>
-        <mat-option *ngFor="let business of business" [value]="business.name">{{ business.name }}</mat-option>
-      </mat-select>
-      <mat-error *ngIf="businessName.invalid"> Please select a valid Business from the drop down.</mat-error>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-select name="locations" placeholder="Select Location" ngModel #locationName="ngModel" required multiple>
-        <mat-option *ngFor="let location of gottemlocations" [value]="location.name">{{ location.name }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field>
-      <input #maxQtyInput="ngModel" name="maxQty" ngModel matInput type="number" placeholder="Max Coupons" required >
-      <mat-error *ngIf="maxQtyInput.invalid"> Please enter amount.</mat-error>
-    </mat-form-field>
-
-    <section>
-      <mat-form-field class="date">
-        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="Choose a start date" name="startDate" ngModel #startDate="ngModel" required>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-        <mat-error *ngIf="startDate.invalid"> Please select a valid Start Date.</mat-error>
-      </mat-form-field>
-
-      <mat-form-field class="date">
-        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="maxpicker" placeholder="Choose an end date" name="endDate" ngModel #endDate="ngModel" required>
-        <mat-datepicker-toggle matSuffix [for]="maxpicker"></mat-datepicker-toggle>
-        <mat-datepicker #maxpicker></mat-datepicker>
-        <mat-error *ngIf="endDate.invalid"> Please select a valid End Date.</mat-error>
-      </mat-form-field>
-    </section>
-
-    <button mat-raised-button color="primary">Create Campaign</button>
-  </form>
-</mat-card> -->
-
 <div class="wrapper">
     <div class="container" style="text-align: center;">
         <div class="col-md-8 content-center" style="display: inline-block;">
             <div>
                 <mat-card class="z-depth-5" style="margin-top: 100px;">
-                  <form class="form" #campaignForm="ngForm" (submit)="onCreateCampaign(campaignForm)">
+                  <form class="form" [formGroup]="form" (submit)="onCreateCampaign()">
                     <h2 class="title"> Your Campaign Details</h2>
                     <div>
                         <mat-form-field appearance="fill">
-                            <input #campaignNameInput="ngModel" name="campaignName" ngModel matInput type="text" placeholder="Campaign Name" required >
-                            <mat-error *ngIf="campaignNameInput.invalid"> Please enter a valid name for the Campaign.</mat-error>
+                            <input
+                            formControlName="name"
+                            matInput type="text"
+                            placeholder="Campaign Name">
+                            <mat-error *ngIf="form.get('name').invalid"> Please enter a valid name for the Campaign.</mat-error>
                           </mat-form-field>
 
                           <mat-form-field appearance="fill">
-                            <mat-select name="business" placeholder="Select Business" (ngModelChange)="onChangeBusiness($event)" ngModel #businessName="ngModel" required>
-                              <mat-option *ngFor="let business of business" [value]="business.name">{{ business.name }}</mat-option>
+                            <mat-select
+                              formControlName="business"
+                              placeholder="Select Business"
+                              (change)="onChangeBusiness($event)">
+                              <mat-option
+                                *ngFor="let business of businessList"
+                                [value]="business.businessname">
+                                {{ business.businessname }}
+                              </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="businessName.invalid"> Please select a valid Business from the drop down.</mat-error>
+                            <mat-error *ngIf="form.get('business').invalid"> Please select a valid Business from the drop down.</mat-error>
                           </mat-form-field>
 
                           <mat-form-field appearance="fill">
-                            <mat-select name="locations" placeholder="Select Location" ngModel #locationName="ngModel" required multiple>
-                              <mat-option *ngFor="let location of gottemlocations" [value]="location.name">{{ location.name }}</mat-option>
+                            <mat-select
+                            formControlName="location"
+                            placeholder="Select Location"
+                            multiple>
+                              <mat-option
+                                *ngFor="let location of gottemlocations"
+                                [value]="location.name">
+                                {{ location.name }}
+                              </mat-option>
                             </mat-select>
                           </mat-form-field>
 
                           <mat-form-field appearance="fill">
-                            <input #maxQtyInput="ngModel" name="maxQty" ngModel matInput type="number" placeholder="Max Coupons" required >
-                            <mat-error *ngIf="maxQtyInput.invalid"> Please enter amount.</mat-error>
+                            <input
+                            formControlName="maxQty"
+                            matInput type="number"
+                            placeholder="Max Coupons">
+                            <mat-error
+                            *ngIf="form.get('maxQty').invalid">
+                            Please enter amount.
+                          </mat-error>
                           </mat-form-field>
 
                           <section>
                             <mat-form-field class="date" appearance="fill">
-                              <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="Choose a start date" name="startDate" ngModel #startDate="ngModel" required>
+                              <input
+                              matInput [min]="minDate"
+                              [max]="maxDate"
+                              [matDatepicker]="picker"
+                              placeholder="Choose a start date"
+                              formControlName="startDate">
                               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                               <mat-datepicker #picker></mat-datepicker>
-                              <mat-error *ngIf="startDate.invalid"> Please select a valid Start Date.</mat-error>
+                              <mat-error *ngIf="form.get('startDate').invalid"> Please select a valid Start Date.</mat-error>
                             </mat-form-field>
 
                             <mat-form-field class="date" appearance="fill">
-                              <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="maxpicker" placeholder="Choose an end date" name="endDate" ngModel #endDate="ngModel" required>
+                              <input
+                              matInput [min]="minDate"
+                              [max]="maxDate"
+                              [matDatepicker]="maxpicker"
+                              placeholder="Choose an end date"
+                              formControlName="endDate">
                               <mat-datepicker-toggle matSuffix [for]="maxpicker"></mat-datepicker-toggle>
                               <mat-datepicker #maxpicker></mat-datepicker>
-                              <mat-error *ngIf="endDate.invalid"> Please select a valid End Date.</mat-error>
+                              <mat-error *ngIf="form.get('endDate').invalid"> Please select a valid End Date.</mat-error>
                             </mat-form-field>
                           </section>
+                      </div>
+                      <div class="image-preview" *ngIf="image !== '' && image">
+                        <img [src]="image" [alt]="form.value.name">
+                      </div>
+                      <div class="image-button">
+                        <button mat-stroked-button type="button" (click)="filePicker.click()">Pick Image</button>
+                      </div>
+                      <div>
+                        <input type="file" #filePicker (change)="ImagePicked($event)">
                       </div>
                       <div class="footer text-center">
                           <button class="btn btn-primary btn-round btn-lg btn-block">Create Campaign</button>

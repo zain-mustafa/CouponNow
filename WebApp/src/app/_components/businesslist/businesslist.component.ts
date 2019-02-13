@@ -13,7 +13,7 @@ import { BusinessOwner } from 'src/app/_models/businessowner.model';
 export class BusinesslistComponent implements OnInit {
   business: Business;
   businesslist: Business[] = [];
-  private businessSubs : Subscription;
+  private businessSubs: Subscription;
 
   owneremail: string = localStorage.ownerEmail;
   businessquery: BusinessQuery = {
@@ -32,7 +32,7 @@ export class BusinesslistComponent implements OnInit {
     });
   }
 
-  //this.owneremail
+  // this.owneremail
   /*
   getBusinesses(): void {
    this.businessService.getBusinesses()

@@ -1,4 +1,5 @@
 export interface Campaign {
+  _id: string;
   name: string;
   business: string;
   location: [ string ];

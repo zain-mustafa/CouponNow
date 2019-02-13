@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CampaginService } from 'src/app/_services/campagin.service';
 import { Campaign } from 'src/app/_models/campaign.model';
 import { Subscription } from 'rxjs';
@@ -8,9 +8,9 @@ import { Subscription } from 'rxjs';
   templateUrl: './campaignlist.component.html',
   styleUrls: ['./campaignlist.component.css']
 })
-export class CampaignlistComponent implements OnInit {
+export class CampaignlistComponent implements OnInit, OnDestroy {
 
-  campaigns: Campaign[] = [];
+  public campaigns: Campaign[] = [];
   private campaingSubs: Subscription;
 
   constructor(public campaignService: CampaginService) { }
@@ -23,8 +23,14 @@ export class CampaignlistComponent implements OnInit {
      });
    }
 
-  onDelete(postId: string) {
-    // this.campaignService.deletePost();
+  onDelete(event: string) {
+    console.log(event);
+    this.campaignService.deleteCampaign(event);
+  }
+
+
+  ngOnDestroy() {
+    this.campaingSubs.unsubscribe();
   }
 
 }
