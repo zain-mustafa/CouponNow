@@ -18,7 +18,7 @@
                             <mat-select
                               formControlName="business"
                               placeholder="Select Business"
-                              (change)="onChangeBusiness($event)">
+                              (selectionchange)="onChangeBusiness($event)">
                               <mat-option
                                 *ngFor="let business of businessList"
                                 [value]="business.businessname">

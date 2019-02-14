@@ -32,6 +32,15 @@ export class CampaignComponent implements OnInit {
   businessList: Business[] = [];
   image: string;
 
+  locations: any = [
+    {
+    streetnum: '',
+    streetname: '',
+    city: '',
+    postalcode: '',
+    }
+  ];
+
   // business: Array<SearchedBusiness> = [
   //   { name: 'business-0', locations: ['Mumbai', 'Lahore', 'Location']},
   //   { name: 'business-1', locations: ['location-1', 'location-11', 'location-12']},
@@ -62,8 +71,23 @@ export class CampaignComponent implements OnInit {
       'image': new FormControl(null, {validators: [Validators.required]})
     });
 
+    this.form.get('business').valueChanges.subscribe(value => { // On Business Change factor
+      const businessName = value;
+      console.log('businessName: ' + businessName);
+      this.gottemlocations = [];
+      console.log(businessName);
+      this.businessList.forEach(business => {
+      if ( businessName === business.businessname ) {
+        business.locations.forEach(locations => {
+          this.gottemlocations.push({'name': locations.streetname});
+        });
+        console.log(this.gottemlocations);
+      }
+    });
+    });
+
     this.businessList = this.businessService.getBusinesslist();
-    // console.log('businessList', this.businessList);
+    console.log('businessList', this.businessList);
 
     // console.log(this.minDate);
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -100,18 +124,8 @@ export class CampaignComponent implements OnInit {
   }
 
   public onChangeBusiness(event): void {
-    const businessName = event.target.value;
-    console.log('businessName' + businessName);
-    this.gottemlocations = [];
-    console.log(businessName);
-    this.businessList.forEach(business => {
-      if ( businessName === business.businessname ) {
-        business.locations.forEach(locations => {
-          this.gottemlocations.push({'name': locations.streetname});
-        });
-        console.log(this.gottemlocations);
-      }
-    });
+    console.log('in event of');
+
   }
 
   ImagePicked(event: Event) {
