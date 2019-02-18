@@ -62,8 +62,12 @@ export class CustomerService {
   saveFirstTimeSetup(customerInfo: CustomerFirstTimeSetup) {
     console.log(customerInfo);
     return this.http.post('http://localhost:3000/customer/savecustomersetupinfo', customerInfo)
-      .subscribe(response => {
+      .pipe(map(response => {
         console.log(response);
-      });
+        return response;
+      }));
+      /*.subscribe(response => {
+        console.log(response);
+      });*/
   }
 }

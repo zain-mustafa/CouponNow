@@ -129,6 +129,7 @@ router.post('/savecustomersetupinfo', (req, res, next) => {
       customer.save();
 
       console.log('Updated customer with new personal info');
+      res.status(200).json({message: 'Updated customer with new personal info'});
     })
     .catch(err => {
       console.log(err);

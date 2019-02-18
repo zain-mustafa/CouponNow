@@ -9,22 +9,20 @@
 
                     <!-- Business Tab -->
                     <mat-tab label="Businesses">
-                     <!-- <div *ngIf="!businesses">
-                          <div class="alert alert-danger">
-                              You do not have any businesses added.
+                      <div *ngIf="!businesses">
+                          <div class="alert alert-secondary">
+                              <app-businesslist></app-businesslist>
                           </div>
                       </div>
-                      <a [routerLink]="['/business']"><button type="button" class="btn btn-info" style="width: 200px;">Add a Business</button></a>
-                    -->
-                    <app-businesslist></app-businesslist>
+                      <!-- <a [routerLink]="['/business']"><button type="button" class="btn btn-info" style="width: 200px;">Add a Business</button></a> -->
+
                     </mat-tab>
 
                     <!-- Campaigns Tab -->
                     <mat-tab label="Campaigns">
-
                         <div *ngIf="!campaigns">
-                            <div class="alert alert-danger">
-                                You do not have any campaigns created.
+                            <div class="alert alert-secondary">
+                                <app-campaignlist></app-campaignlist>
                             </div>
                         </div>
                         <a [routerLink]="['/campaign']"><button type="button" class="btn btn-info" style="width: 200px;">Add a Campaign</button></a>
@@ -34,18 +32,18 @@
                     <mat-tab label="Report">
 
                         <div *ngIf="!campaigns">
-                            <div class="alert alert-danger">
+                            <div class="alert alert-secondary">
                                 You do not have any data accumulated to be reported.
                             </div>
                         </div>
-                        <a [routerLink]="['/campaign']"><button type="button" class="btn btn-info" style="width: 200px;">Add a Campaign</button></a>
+                        <!-- <a [routerLink]="['/campaign']"><button type="button" class=."btn btn-info" style="width: 200px;">Add a Campaign</button></a> -->
                       </mat-tab>
 
                     <!-- Payment Method Tab -->
                     <mat-tab label="Payment Method">
 
                         <div *ngIf="!campaigns">
-                            <div class="alert alert-danger">
+                            <div class="alert alert-secondary">
                                 You do not have any payment method set up.
                             </div>
                         </div>
