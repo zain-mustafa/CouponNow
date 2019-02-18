@@ -1,4 +1,3 @@
-const express = require('express');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
@@ -6,12 +5,18 @@ const CustomerInterest = require('../models/customerinterest');
 const Tag = require('../models/tag');
 const Customer = require('../models/customer');
 
-const router = express.Router();
-
 function chooseInterests (req, res) {
+
+  if (req.customerToken == null) {
+    res.status(400);
+    return;
+  }
+
   const customerToken = jwt.decode(req.customerToken);
   const customerId = mongoose.Types.ObjectId(customerToken.userId);
   let selectedInterests = req.interests;
+
+  console.log('New request to save interests for customerId ' + customerToken.userId);
 
   Customer.findById(customerId)
     // first check to see if the customer exists
@@ -20,27 +25,44 @@ function chooseInterests (req, res) {
         throw new Error('Customer with id ' + customerId + 'was not found!');
       }
     })
+    // remove previous interests
+    .then(() => {
+      console.log('Removing previous interests with customerId ' + customerId);
+      return CustomerInterest.deleteMany({customer_id: customerId})
+    })
     // find existing tags
     .then(() => {
+      console.log('Finding existing tags');
       return findTags(selectedInterests)
     })
-    // save tags
+    // save new tags if they do not exist
     .then(tags => {
-      let customerInterests = [];
+      let newTags = [];
 
-      tags.forEach(tag => {
-        let tagId = tag._id;
-        let customerInterest = new CustomerInterest({customer_id: customerId, tag_id: tagId});
+      if (tags.length < selectedInterests.length) {
+        console.log('Need to create ' + (selectedInterests.length - tags.length) + ' new tags');
 
-        customerInterest.save(err => {
-          if (err) {
-            console.log(err);
-            throw new Error('Error saving customer interest: ' + tag.text);
-          }
-        });
+        const tagTexts = tags.map(tag => {return tag.text});
+        const newInterests = selectedInterests.filter(interest => !tagTexts.includes(interest));
 
-        customerInterests += customerInterest;
-      })
+        newTags = newInterests.map(interest => {return new Tag({text: interest}).save()});
+      }
+
+      return Promise.all(newTags).then(newlySaved => {return tags.concat(newlySaved)});
+    })
+    // save customer interests
+    .then(tags => {
+      console.log('Saving ' + tags.length + ' interests for customerId ' + customerId);
+
+      const customerInterests = tags.map(tag => {
+        return new CustomerInterest({customer_id: customerId, tag_id: tag._id});
+      });
+
+      return CustomerInterest.insertMany(customerInterests);
+    })
+    // send response
+    .then(() => {
+      res.status(200).json({message: 'Interests successfully saved for customerId ' + customerId});
     })
     .catch(err => {
       console.log(err);
@@ -52,7 +74,7 @@ function chooseInterests (req, res) {
 function findTags(selectedInterests) {
   return Tag.find({
     'text': { $in: selectedInterests}
-  })
+  });
 }
 
 module.exports = {chooseInterests};
