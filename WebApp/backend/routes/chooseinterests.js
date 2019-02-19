@@ -16,7 +16,7 @@ function chooseInterests (req, res) {
   const customerId = mongoose.Types.ObjectId(customerToken.userId);
   let selectedInterests = req.interests;
 
-  console.log('New request to save interests for customerId ' + customerToken.userId);
+  console.log('New request to save ' + selectedInterests.length + ' interests for customerId ' + customerToken.userId);
 
   Customer.findById(customerId)
   // first check to see if the customer exists
@@ -24,11 +24,6 @@ function chooseInterests (req, res) {
       if (!customer) {
         throw new Error('Customer with id ' + customerId + 'was not found!');
       }
-    })
-    // remove previous interests
-    .then(() => {
-      console.log('Removing previous interests with customerId ' + customerId);
-      return CustomerInterest.deleteMany({customer_id: customerId})
     })
     // find existing tags
     .then(() => {
