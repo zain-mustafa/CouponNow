@@ -109,6 +109,10 @@ router.post('/chooseinterests', (req, res, next) => {
   ChooseInterests.chooseInterests(req.body, res);
 });
 
+router.post('/getcustomerinterests', (req, res) => {
+  ChooseInterests.findCustomerInterests(req.body, res);
+});
+
 // save personal information received from the first time setup form
 router.post('/savecustomersetupinfo', (req, res, next) => {
   console.log("Received request to save:");

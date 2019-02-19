@@ -8,7 +8,7 @@
 
       <div class="container">
         <label formArrayName="interests" *ngFor="let order of form.controls.interests.controls; let i = index">
-          <input type="checkbox" [formControlName]="i">
+          <input type="checkbox" [formControlName]="i" [(checked)]="interests[i].checked">
           {{interests[i].name}}
         </label>
       </div>

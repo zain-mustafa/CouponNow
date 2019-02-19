@@ -14,13 +14,17 @@ export class ChooseInterestsComponent implements OnInit {
 
   form: FormGroup;
   interests = [
-    { name: 'Music' },
-    { name: 'Art' },
-    { name: 'Restaurants' },
-    { name: 'Clothes' },
-    { name: 'Bars'},
-    { name: 'Books'}
+    { name: 'Music', checked: false },
+    { name: 'Art', checked: false },
+    { name: 'Restaurants', checked: false },
+    { name: 'Clothes', checked: false },
+    { name: 'Bars', checked: false },
+    { name: 'Books', checked: false }
   ];
+
+  prevInterests;
+
+  customerToken: string;
 
   constructor(private submitInterestsService: ChooseinterestsService, private formBuilder: FormBuilder,
               private router: Router, private snackBar: MatSnackBar) {
@@ -39,9 +43,8 @@ export class ChooseInterestsComponent implements OnInit {
 
     console.log(selectedInterests);
 
-    const customerToken = localStorage.getItem('customerToken');
-    if (customerToken != null) {
-      this.submitInterestsService.onSubmitInterests(customerToken, selectedInterests);
+    if (this.customerToken != null) {
+      this.submitInterestsService.onSubmitInterests(this.customerToken, selectedInterests);
 
       this.snackBar.open('Your interests have been saved!', 'Dismiss', {
         duration: 5000,
@@ -58,6 +61,21 @@ export class ChooseInterestsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.customerToken = localStorage.getItem('customerToken');
+
+    if (localStorage.getItem('customerToken') != null) {
+      this.submitInterestsService.getCustomerInterests(this.customerToken)
+        .subscribe(response => {
+          this.prevInterests = response['interests'];
+          this.interests.forEach(interest => {
+            interest.checked = this.prevInterests.includes(interest.name);
+          });
+
+          console.log(this.interests);
+        }, error => {
+          console.log(error);
+        });
+    }
   }
 
 }

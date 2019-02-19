@@ -19,7 +19,7 @@ function chooseInterests (req, res) {
   console.log('New request to save interests for customerId ' + customerToken.userId);
 
   Customer.findById(customerId)
-    // first check to see if the customer exists
+  // first check to see if the customer exists
     .then(customer => {
       if (!customer) {
         throw new Error('Customer with id ' + customerId + 'was not found!');
@@ -77,4 +77,39 @@ function findTags(selectedInterests) {
   });
 }
 
-module.exports = {chooseInterests};
+function findCustomerInterests(req, res) {
+
+  if (req.customerToken == null) {
+    console.log('Request to find customer interests was missing token');
+    res.status(400);
+    return;
+  }
+
+  const customerToken = jwt.decode(req.customerToken);
+  const customerId = mongoose.Types.ObjectId(customerToken.userId);
+
+  console.log('Finding interests for customerId ' + customerId);
+
+  CustomerInterest.findOne({customer_id: customerId})
+    // find existing CustomerInterest document
+    .then(customerInterest => {
+      if (!customerInterest) {
+        console.log('Error finding customer interests for customer_id: ' + customerId);
+        throw new Error('Error finding customer interests');
+      }
+
+      console.log('Found CustomerInterest for customerId: ' + customerId);
+
+      // turn Tag objects into just text
+      return customerInterest.tags.map(tag => { return tag.text; });
+    })
+    // send response
+    .then(tags => {
+      res.status(200).json({interests: tags});
+    })
+    .catch(err => {
+      res.status(400).json({error: err});
+    })
+}
+
+module.exports = {chooseInterests, findCustomerInterests};
