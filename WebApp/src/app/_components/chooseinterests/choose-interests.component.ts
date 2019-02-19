@@ -14,15 +14,13 @@ export class ChooseInterestsComponent implements OnInit {
 
   form: FormGroup;
   interests = [
-    { name: 'Music', checked: false },
-    { name: 'Art', checked: false },
-    { name: 'Restaurants', checked: false },
-    { name: 'Clothes', checked: false },
-    { name: 'Bars', checked: false },
-    { name: 'Books', checked: false }
+    { name: 'Music' },
+    { name: 'Art' },
+    { name: 'Restaurants' },
+    { name: 'Clothes' },
+    { name: 'Bars' },
+    { name: 'Books' }
   ];
-
-  prevInterests;
 
   customerToken: string;
 
@@ -66,12 +64,13 @@ export class ChooseInterestsComponent implements OnInit {
     if (localStorage.getItem('customerToken') != null) {
       this.submitInterestsService.getCustomerInterests(this.customerToken)
         .subscribe(response => {
-          this.prevInterests = response['interests'];
-          this.interests.forEach(interest => {
-            interest.checked = this.prevInterests.includes(interest.name);
+          const prevInterests = response['interests'];
+
+          this.interests.forEach((interest, index) => {
+            this.form.controls.interests['controls'][index]
+              .setValue(prevInterests.includes(interest.name));
           });
 
-          console.log(this.interests);
         }, error => {
           console.log(error);
         });
