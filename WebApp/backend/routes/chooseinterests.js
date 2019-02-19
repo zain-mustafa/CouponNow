@@ -42,7 +42,9 @@ function chooseInterests (req, res) {
       if (tags.length < selectedInterests.length) {
         console.log('Need to create ' + (selectedInterests.length - tags.length) + ' new tags');
 
+        // convert Tag object array to array of tag texts
         const tagTexts = tags.map(tag => {return tag.text});
+        // create new array of interests that contains tags not in existing tags
         const newInterests = selectedInterests.filter(interest => !tagTexts.includes(interest));
 
         newTags = newInterests.map(interest => {return new Tag({text: interest}).save()});
@@ -54,11 +56,9 @@ function chooseInterests (req, res) {
     .then(tags => {
       console.log('Saving ' + tags.length + ' interests for customerId ' + customerId);
 
-      const customerInterests = tags.map(tag => {
-        return new CustomerInterest({customer_id: customerId, tag_id: tag._id});
-      });
-
-      return CustomerInterest.insertMany(customerInterests);
+      return CustomerInterest.where({customer_id: customerId})
+        .setOptions({ upsert: true })
+        .updateOne({ $set: { tags: tags }}).exec();
     })
     // send response
     .then(() => {
