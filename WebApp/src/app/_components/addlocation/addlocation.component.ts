@@ -15,18 +15,19 @@ import { MatSnackBar } from '@angular/material';
 })
 export class AddLocationComponent implements OnInit {
 
-  bname: string;
+  businessID: string;
   newlocation: BusinessLocation;
   owneremail = localStorage.ownerEmail;
   businessquery: BusinessQuery = {
     owneremail: this.owneremail,
     businessindex: null,
+    business: null,
+    locationindex: null,
     location: null
   }
   business: Business;
   businesslist: Business[] = [];
   private businessSubs : Subscription;
-  index: Number;
 
   constructor(public businessService: BusinessService, public snackBar: MatSnackBar) { }
 
@@ -57,16 +58,18 @@ export class AddLocationComponent implements OnInit {
     lon: null,
     lat: null,
     }
-    this.bname = form.value.business;
+    this.businessID = form.value.business._id;
     //console.log(this.bname)
 
-    this.index = this.businesslist.findIndex( business => business.businessname === form.value.business );
+    //this.index = this.businesslist.findIndex( business => business.businessname === form.value.business );
 
-    console.log(this.index);
+    console.log(this.businessID);
     
     this.businessquery = {
       owneremail: this.owneremail,
-      businessindex: this.index,
+      businessindex: this.businessID,
+      business: null,
+      locationindex: null,
       location: this.newlocation
     }
     //this.businessquery.businessname = form.value.businessName;
@@ -77,7 +80,7 @@ export class AddLocationComponent implements OnInit {
     //console.log(localStorage.token);
 
     this.businessService.addLocation(this.businessquery).subscribe(response => {
-      console.log("Addlocatiom component response" + response);
+      console.log("Addlocatiom component response" + response.message);
       this.snackBar.open(response.message, 'Dismiss', {
         duration: 5000,
       });

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, concat } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { Business } from '../_models/business.model';
-import { NewBusiness } from '../_models/newbusiness.model';
 import {Observable, of} from 'rxjs';
 import { BusinessOwner } from '../_models/businessowner.model';
 import { BusinessQuery } from '../_models/businessquery.model';
 import { BusinessLocation} from '../_models/businesslocation.model'
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class BusinessService {
   private businesslist: Business [] = [];
   business: Business;
 
-  addBusiness(newbusiness: NewBusiness) {
+  addBusiness(newbusiness: BusinessQuery) {
      this.http.post('http://localhost:3000/owner/addbusiness', newbusiness)
       .subscribe((response) => {
         console.log('response', response);
@@ -38,6 +38,11 @@ export class BusinessService {
       });
     }
 
+    getBusiness(_id: string) {
+      return this.businesslist.find(business => business._id === _id);
+  
+    }
+
     getPostsUpdateListener() {
       return this.businessesUpdated.asObservable();
     }
@@ -48,6 +53,7 @@ export class BusinessService {
     }
 
   addLocation(businessquery: BusinessQuery): Observable<any>{
+    //console.log('addLocation called ' + businessquery)
     let newlocation = businessquery.location;
     //location iq us server url GET https://us1.locationiq.com/v1/search.php?key=YOUR_PRIVATE_TOKEN&q=SEARCH_STRING&format=json
     //API token a9ecf37e7b3555
@@ -74,12 +80,44 @@ export class BusinessService {
         //console.log('lat' + newlocation.lat);
         //console.log('lon' + newlocation.lon);
 
-       this.http.post('http://localhost:3000/owner/addlocation', businessquery)
-        .subscribe((response) => {
-            console.log('response', response);
-            return response;
-          })
+        this.http.post('http://localhost:3000/owner/addlocation', businessquery)
+    .subscribe((response) => {
+        console.log('response', response);
+        return response;
+      })
     }))
+    
+  }
+
+  deleteLocation(businessquery: BusinessQuery): Observable<any>{
+    //console.log('deleteLocation called' + businessquery);
+
+    return this.http.post('http://localhost:3000/owner/deletelocation', businessquery)
+    .pipe(map((response: Response) =>{
+      console.log(response);
+      return response;
+    }))
+
+  }
+
+  deleteBusiness(businessquery: BusinessQuery): Observable<any>{
+
+    return this.http.post('http://localhost:3000/owner/deletebusiness', businessquery)
+    .pipe(map((response: Response) =>{
+      return response;
+    }))
+
+  }
+
+  updateBusiness(businessquery: BusinessQuery): Observable<any>{
+    console.log(businessquery.business);
+    return null;
+    /*
+    return this.http.post('http://localhost:3000/owner/deletebusiness', businessquery)
+    .pipe(map((response: Response) =>{
+      return response;
+    }))
+    */
   }
 
 }

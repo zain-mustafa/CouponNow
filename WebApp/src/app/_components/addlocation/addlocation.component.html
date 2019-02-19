@@ -8,7 +8,7 @@
                     <div>
                     <mat-form-field>
                         <mat-select name="business" placeholder="Select Business" (ngModelChange)="onChangeBusiness($event)" ngModel #businessName="ngModel" required>
-                          <mat-option *ngFor="let business of businesslist" [value]="business.businessname">{{ business.businessname }}</mat-option>
+                          <mat-option *ngFor="let business of businesslist" [value]="business">{{ business.businessname }}</mat-option>
                         </mat-select>
                         <mat-error *ngIf="businessName.invalid"> Please select a valid Business from the drop down.</mat-error>
                     </mat-form-field>

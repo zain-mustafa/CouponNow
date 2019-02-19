@@ -10,19 +10,25 @@
                 {{ business.businessname }} <br />
                 License: 
                 {{ business.licensenum }}
+                <p hidden>{{ business._id }}</p>
               </mat-expansion-panel-header>
-              Locations:<br />
-              <ul style="list-style-type:none;" *ngFor="let location of business.locations">
-                <li>{{ location.streetnum }} {{ location.streetname }}</li>
-                <li>{{ location.city }}</li>
-                <li>{{ location.postalcode}}</li>
-              </ul>
-            <!--
+              <mat-list>
+                <h3 mat-subheader>Locations</h3>
+                <mat-list-item *ngFor="let location of business.locations">
+                  <h4 hidden>{{ location._id }}</h4>
+                  <h4 mat-line>{{ location.streetnum }} {{ location.streetname }}</h4>
+                  <h4 mat-line>{{ location.city }}</h4>
+                  <h4 mat-line>{{ location.postalcode}}</h4>
+                  <mat-action-row>
+                    <button mat-button color="primary">EDIT</button>
+                    <button mat-button color="warn" (click)="deleteLocation(business._id +' '+ location._id)" >DELETE</button>
+                  </mat-action-row>
+                </mat-list-item>
+              </mat-list>
               <mat-action-row>
-                <button mat-button color="primary">EDIT</button>
-                <button mat-button color="warn" >DELETE</button>
-              </mat-action-row>
-            -->
+                  <button mat-button color="primary" [routerLink]="['business/edit', business._id]">EDIT</button>
+                  <button mat-button color="warn" (click)="deleteBusiness(business._id)" >DELETE BUSINESS</button>
+                </mat-action-row>
             </mat-expansion-panel>
           </mat-accordion>
         </mat-card>

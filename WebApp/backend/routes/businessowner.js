@@ -148,7 +148,9 @@ router.post('/addlocation', (req, res, next) => {
          });
        }
      
-      owner.business[req.body.businessindex].locations.push(req.body.location);
+      //owner.business[req.body.businessindex].locations.push(req.body.location);
+      let business = owner.business.id(req.body.businessindex);
+      business.locations.push(req.body.location);
       owner.save()
          .then(result => {
            res.status(201).json({ // 201 indicates creation and responds the result in json format
@@ -162,6 +164,64 @@ router.post('/addlocation', (req, res, next) => {
           });
           });
       });
+});
+
+router.post('/deletebusiness', (req, res, next) => {
+
+   BusinessOwner.findOne({email: req.body.owneremail})
+    .then(owner => {
+      // If the email is not found
+      if (!owner) {
+        return res.status(401).json({
+          message: "Account Authentication Failed"
+         });
+       }
+       owner.business.id(req.body.businessindex).remove();
+
+       owner.save()
+         .then(result => {
+           res.status(201).json({ // 201 indicates creation and responds the result in json format
+            message: 'Business Deleted!'
+            });
+          })
+          .catch(err => { // 500 indicates Server Error and returns the error in json format
+          res.status(500).json({
+            message: 'Whoops',
+            error: err
+          });
+          });
+      });
+
+});
+
+router.post('/deletelocation', (req, res, next) => {
+
+  BusinessOwner.findOne({email: req.body.owneremail})
+    .then(owner => {
+      // If the email is not found
+      if (!owner) {
+        return res.status(401).json({
+          message: "Account Authentication Failed"
+         });
+       }
+       let business = owner.business.id(req.body.businessindex);
+
+       business.locations.id(req.body.locationindex).remove();
+
+       owner.save()
+         .then(result => {
+           res.status(201).json({ // 201 indicates creation and responds the result in json format
+            message: 'Location Deleted!'
+            });
+          })
+          .catch(err => { // 500 indicates Server Error and returns the error in json format
+          res.status(500).json({
+            message: 'Whoops',
+            error: err
+          });
+          });
+      });
+
 });
 
 //Used to export the router so that it can be used externally

@@ -37,7 +37,8 @@ const routes: Routes = [
   { path: 'ownerprofile', component: OwnerProfileComponent, canActivate: [OwnerAuthGuard]},
   { path: 'customerprofile', component: CustomerprofileComponent, canActivate: [CustomerAuthGaurd] },
   { path: 'firsttime', component: CustomersetupComponent, canActivate: [CustomerAuthGaurd] },
-  { path: 'addlocation', component: AddLocationComponent, canActivate: [OwnerAuthGuard]}
+  { path: 'addlocation', component: AddLocationComponent, canActivate: [OwnerAuthGuard]},
+  { path: 'businesslist/business/edit/:_id', component: CampaignComponent },
 ];
 
 @NgModule({
