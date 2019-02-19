@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';
 import { ChooseinterestsService } from '../../_services/chooseinterests.service';
+import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material';
 
 
 @Component({
@@ -16,13 +18,16 @@ export class ChooseInterestsComponent implements OnInit {
     { name: 'Art' },
     { name: 'Restaurants' },
     { name: 'Clothes' },
-    { name: 'Bars'},
-    { name: 'Books'}
+    { name: 'Bars' },
+    { name: 'Books' }
   ];
 
-  constructor(private submitInterestsService: ChooseinterestsService, private formBuilder: FormBuilder) {
+  customerToken: string;
+
+  constructor(private submitInterestsService: ChooseinterestsService, private formBuilder: FormBuilder,
+              private router: Router, private snackBar: MatSnackBar) {
     // Create a new array with a form control for each interest
-    const controls = this.interests.map(c => new FormControl(false));
+    const controls = this.interests.map(() => new FormControl(false));
 
     this.form = this.formBuilder.group({
       interests: new FormArray(controls, minSelectedCheckboxes(1))
@@ -36,11 +41,40 @@ export class ChooseInterestsComponent implements OnInit {
 
     console.log(selectedInterests);
 
-    // TODO: get the actually customerId instead of hard coded value
-    this.submitInterestsService.onSubmitInterests('075bcd1586d3dd1d20e9a94e', selectedInterests);
+    if (this.customerToken != null) {
+      this.submitInterestsService.onSubmitInterests(this.customerToken, selectedInterests);
+
+      this.snackBar.open('Your interests have been saved!', 'Dismiss', {
+        duration: 5000,
+      });
+
+      this.router.navigate(['/customerprofile']);
+    } else {
+      console.log('Unauthorized request to save customer interests');
+
+      this.snackBar.open('An error occurred while saving your interests.', 'Dismiss', {
+        duration: 5000,
+      });
+    }
   }
 
   ngOnInit() {
+    this.customerToken = localStorage.getItem('customerToken');
+
+    if (localStorage.getItem('customerToken') != null) {
+      this.submitInterestsService.getCustomerInterests(this.customerToken)
+        .subscribe(response => {
+          const prevInterests = response['interests'];
+
+          this.interests.forEach((interest, index) => {
+            this.form.controls.interests['controls'][index]
+              .setValue(prevInterests.includes(interest.name));
+          });
+
+        }, error => {
+          console.log(error);
+        });
+    }
   }
 
 }

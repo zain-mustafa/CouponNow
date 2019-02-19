@@ -7,7 +7,7 @@
     <form [formGroup]="form" (ngSubmit)="submit()">
 
       <div class="container">
-        <label formArrayName="interests" *ngFor="let order of form.controls.interests.controls; let i = index">
+        <label formArrayName="interests" *ngFor="let interest of form.controls.interests.controls; let i = index">
           <input type="checkbox" [formControlName]="i">
           {{interests[i].name}}
         </label>
