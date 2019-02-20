@@ -92,7 +92,11 @@ router.post('/login', (req, res, next) => {
         email: fetchedCustomer.email,
         firstname: fetchedCustomer.firstname,
         lastname: fetchedCustomer.lastname,
-        userId: fetchedCustomer._id
+        userId: fetchedCustomer._id,
+        dateOfBirth: fetchedCustomer.dateofbirth,
+        gender: fetchedCustomer.gender,
+        occupation: fetchedCustomer.occupation,
+        couponRadius: fetchedCustomer.couponradius
       });
     })
     // Catch any errors
@@ -125,14 +129,23 @@ router.post('/savecustomersetupinfo', (req, res, next) => {
       }
       console.log("Customer found");
 
-      customer.dateofbirth = new Date(req.body.birthYear, req.body.birthMonth, req.body.birthDay);
+      customer.dateofbirth = new Date(req.body.birthYear, req.body.birthMonth - 1, req.body.birthDay);
       customer.gender = req.body.gender;
       customer.occupation = req.body.occupation;
 
       customer.save();
 
       console.log('Updated customer with new personal info');
-      res.status(200).json({message: 'Updated customer with new personal info'});
+      res.status(200)
+        .json(
+          {
+            message: 'Updated customer with new personal info',
+            customerInfo: {
+              dateOfBirth: customer.dateofbirth,
+              gender: customer.gender,
+              occupation: customer.occupation
+            }
+          });
     })
     .catch(err => {
       console.log(err);
