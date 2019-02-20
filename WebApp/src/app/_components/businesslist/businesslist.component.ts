@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { BusinessOwner } from 'src/app/_models/businessowner.model';
 import {MatListModule} from '@angular/material/list';
 import { MatSnackBar } from '@angular/material';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-businesslist',
@@ -26,7 +27,7 @@ export class BusinesslistComponent implements OnInit {
   location: null
   }
 
-  constructor(public businessService: BusinessService, public snackBar: MatSnackBar) {}
+  constructor(public businessService: BusinessService, public snackBar: MatSnackBar, public router: Router) {}
 
   ngOnInit() {
     this.businessService.getBusinesses(this.businessquery);
@@ -49,11 +50,11 @@ export class BusinesslistComponent implements OnInit {
       location: null,
 
     }
-    console.log(deletequery);
+    //console.log(deletequery);
 
     this.businessService.deleteLocation(deletequery)
     .subscribe(response => {
-      console.log('Response ' + response);
+      //console.log('Response ' + response);
       this.snackBar.open(response.message, 'Dismiss', {
         duration: 5000,
       });
@@ -73,11 +74,11 @@ export class BusinesslistComponent implements OnInit {
       location: null,
 
     }
-    console.log(deletequery);
+    //console.log(deletequery);
 
     this.businessService.deleteBusiness(deletequery)
     .subscribe(response => {
-      console.log('Response ' + response);
+      //console.log('Response ' + response);
       this.snackBar.open(response.message, 'Dismiss', {
         duration: 5000,
       });
@@ -86,6 +87,19 @@ export class BusinesslistComponent implements OnInit {
         duration: 5000,
       });
     });;
+  }
+
+  editBusiness(event: string){
+    console.log(event);
+    this.router.navigate(['ownerlanding/business/edit/', event]);
+  }
+
+  editLocation(event: string){
+    //console.log(event);
+    let string = event.split(' ');
+    //console.log(string[0]);
+    //console.log(string[1]);
+    this.router.navigate(['ownerlanding/addlocation/edit/', string[0], string[1]]);
   }
   ngOnDestroy() {
     this.businessSubs.unsubscribe();

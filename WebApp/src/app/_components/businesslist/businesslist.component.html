@@ -1,8 +1,4 @@
-<div class="wrapper">
-  <div class="container" style="text-align: center;">
-      <div class="col-md-8 content-center" style="display: inline-block;">
-          <div>
-              <mat-card class="z-depth-5" style="margin-top: 100px;">
+         <mat-card >
           <mat-card-title>Businesses</mat-card-title>
           <mat-accordion multi="true" *ngIf="businesslist.length > 0">
             <mat-expansion-panel *ngFor="let business of businesslist">
@@ -12,21 +8,36 @@
                 {{ business.licensenum }}
                 <p hidden>{{ business._id }}</p>
               </mat-expansion-panel-header>
-              <mat-list>
-                <h3 mat-subheader>Locations</h3>
-                <mat-list-item *ngFor="let location of business.locations">
-                  <h4 hidden>{{ location._id }}</h4>
-                  <h4 mat-line>{{ location.streetnum }} {{ location.streetname }}</h4>
-                  <h4 mat-line>{{ location.city }}</h4>
-                  <h4 mat-line>{{ location.postalcode}}</h4>
-                  <mat-action-row>
-                    <button mat-button color="primary">EDIT</button>
-                    <button mat-button color="warn" (click)="deleteLocation(business._id +' '+ location._id)" >DELETE</button>
-                  </mat-action-row>
-                </mat-list-item>
-              </mat-list>
+              <ng-template [ngIf]="business.locations.length>0" [ngIfElse]="nolocations">
+                <div>
+                <mat-list>
+                  <h2 mat-subheader>Locations</h2>
+                  <mat-list-item *ngFor="let location of business.locations">
+                    <h4 hidden>{{ location._id }}</h4>
+                    <h4 mat-line>{{ location.streetnum }} {{ location.streetname }}</h4>
+                    <h4 mat-line>{{ location.city }}</h4>
+                    <h4 mat-line>{{ location.postalcode}}</h4>
+                    <mat-action-row>
+                      <!--
+                      <button mat-button color="primary" [routerLink]="['addlocation/edit', business._id, location._id]">EDIT</button>
+                      -->
+                      <button mat-button color="primary" (click)="editLocation(business._id +' '+ location._id)" >Update</button>
+                      <button mat-button color="warn" (click)="deleteLocation(business._id +' '+ location._id)" >Delete</button>
+                    </mat-action-row>
+                  </mat-list-item>
+                </mat-list>
+                </div>
+             </ng-template>
+             <ng-template #nolocations>
+                <div>
+                  No locations added yet.
+                </div>
+              </ng-template>
               <mat-action-row>
+                  <!--
                   <button mat-button color="primary" [routerLink]="['business/edit', business._id]">EDIT</button>
+                  -->
+                  <button mat-button color="primary" (click)="editBusiness(business._id)">UPDATE BUSINESS</button>
                   <button mat-button color="warn" (click)="deleteBusiness(business._id)" >DELETE BUSINESS</button>
                 </mat-action-row>
             </mat-expansion-panel>
@@ -37,6 +48,3 @@
         No businesses added yet!</p>
         <a [routerLink]="['/business']"><button type="button" class="btn btn-info" style="width: 200px;">Add a Business</button></a>
         <a [routerLink]="['/addlocation']"><button type="button" class="btn btn-info" style="width: 200px;">Add Location</button></a>
-      </div>
-    </div>
-  </div>

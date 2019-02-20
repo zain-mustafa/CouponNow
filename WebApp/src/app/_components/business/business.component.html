@@ -3,7 +3,7 @@
       <div class="col-md-8 content-center" style="display: inline-block;">
           <div>
             <mat-card>
-                <form class="form" [formGroup]="form" (submit)="addBusiness()">
+                <form class="form" [formGroup]="form" (ngSubmit)="addBusiness()">
                   <h2 class="title"> Business Details</h2>
                   <div>
                     <mat-form-field>
@@ -47,7 +47,7 @@
                   <button mat-raised-button color="primary">Add Business</button>
                 -->
                   <div class="footer text-center">
-                      <button class="btn btn-primary btn-round btn-lg btn-block">Create Business</button>
+                      <button type="submit" class="btn btn-primary btn-round btn-lg btn-block">{{this.mode}} Business</button>
                   </div>
                 </form>
             </mat-card>
