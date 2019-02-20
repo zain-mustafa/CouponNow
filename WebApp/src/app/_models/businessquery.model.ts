@@ -3,6 +3,8 @@ import { BusinessLocation } from './businesslocation.model';
 
 export interface BusinessQuery {
     owneremail: string;
-    businessindex: Number;
+    businessindex: string;
+    business: Business;
+    locationindex: string;
     location: BusinessLocation;
 }

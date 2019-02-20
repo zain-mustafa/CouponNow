@@ -3,38 +3,54 @@
         <div class="col-md-8 content-center" style="display: inline-block;">
             <div>
                 <mat-card class="z-depth-5" style="margin-top: 100px;">
-                  <form #locationForm="ngForm" (submit)="addLocation(locationForm)">
-                      <h2 class="title"> Add Location</h2>
+                  <form class="form" [formGroup]="form" (ngSubmit)="addLocation()">
+                      <h2 class="title">Location Details</h2>
                     <div>
+
                     <mat-form-field>
-                        <mat-select name="business" placeholder="Select Business" (ngModelChange)="onChangeBusiness($event)" ngModel #businessName="ngModel" required>
-                          <mat-option *ngFor="let business of businesslist" [value]="business.businessname">{{ business.businessname }}</mat-option>
+                        <mat-select
+                        formControlName="business"
+                        placeholder="Select Business"
+                        (selectionchange)="onChangeBusiness($event)">
+                          <mat-option *ngFor="let business of businesslist" [value]="business">{{ business.businessname }}</mat-option>
                         </mat-select>
-                        <mat-error *ngIf="businessName.invalid"> Please select a valid Business from the drop down.</mat-error>
+                        <mat-error *ngIf="form.get('business').invalid"> Please select a valid Business from the drop down.</mat-error>
                     </mat-form-field>
 
                     <mat-form-field>
-                        <input #streetNumInput="ngModel" name="streetNum" ngModel matInput type="text" placeholder="Street Number" required >
-                        <mat-error *ngIf="streetNumInput.invalid"> Please enter a valid street number.</mat-error>
+                        <input
+                        formControlName="streetnum"
+                        matInput type="text"
+                        placeholder="Street Number">
+                        <mat-error *ngIf="form.get('streetnum').invalid"> Please enter a valid street number.</mat-error>
                     </mat-form-field>
                     
                     <mat-form-field>
-                        <input #streetNameInput="ngModel" name="streetName" ngModel matInput type="text" placeholder="Street Name" required >
-                        <mat-error *ngIf="streetNameInput.invalid"> Please enter a valid street name.</mat-error>
+                        <input
+                        formControlName="streetname"
+                        matInput type="text"
+                        placeholder="Street Name">
+                        <mat-error *ngIf="form.get('streetname').invalid"> Please enter a valid street name.</mat-error>
                     </mat-form-field>
                     
                     <mat-form-field>
-                        <input #cityInput="ngModel" name="city" ngModel matInput type="text" placeholder="City" required >
-                        <mat-error *ngIf="cityInput.invalid"> Please enter a valid city name.</mat-error>
+                        <input 
+                        formControlName="city"
+                        matInput type="text"
+                        placeholder="City">
+                        <mat-error *ngIf="form.get('city').invalid"> Please enter a valid city name.</mat-error>
                     </mat-form-field>
                     
                     <mat-form-field>
-                        <input #postalCodeInput="ngModel" name="postalCode" ngModel matInput type="text" placeholder="Postal Code" required >
-                        <mat-error *ngIf="postalCodeInput.invalid"> Please enter a valid postal code.</mat-error>
+                        <input
+                        formControlName="postalcode"
+                        matInput type="text"
+                        placeholder="Postal Code">
+                        <mat-error *ngIf="form.get('postalcode').invalid"> Please enter a valid postal code.</mat-error>
                     </mat-form-field>
                     </div>
                     <div class="footer text-center">
-                        <button class="btn btn-primary btn-round btn-lg btn-block">Add Location</button>
+                        <button type="submit" class="btn btn-primary btn-round btn-lg btn-block">{{this.mode}} Location</button>
                     </div>
                     </form>
                   </mat-card>

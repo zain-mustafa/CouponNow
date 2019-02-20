@@ -94,7 +94,10 @@ router.post("/signup", (req, res, next) => {
 // });
 
 router.post('/addbusiness', (req, res, next) => {
-
+  let business = {
+    businessname: req.body.business.businessname,
+    licensenum: req.body.business.licensenum,
+  }
   BusinessOwner.findOne({email: req.body.owneremail})
   .then(owner => {
     // If the email is not found
@@ -103,7 +106,7 @@ router.post('/addbusiness', (req, res, next) => {
         message: "Account Authentication Failed"
       });
     }
-    owner.business.push(req.body.business);
+    owner.business.push(business);
 
     owner.save()
     .then(result => {
@@ -128,17 +131,24 @@ router.post('/listbusiness', (req,res,next) => {
         businesslist: owner.business,
         message: 'Businesses fetched'
     })
-  .catch(err => {
+  /*.catch(err => {
     return res.status(401),json({
     message: "Business Retrival Failed"
     });
-   });
+   });*/
   });
-
 });
 
 router.post('/addlocation', (req, res, next) => {
 
+  let location = {
+    streetnum: req.body.location.streetnum,
+    streetname: req.body.location.streetname,
+    city: req.body.location.city,
+    postalcode: req.body.location.postalcode,
+    lat: req.body.location.lat,
+    lon: req.body.location.lon
+  }
     BusinessOwner.findOne({email: req.body.owneremail})
     .then(owner => {
       // If the email is not found
@@ -148,7 +158,9 @@ router.post('/addlocation', (req, res, next) => {
          });
        }
      
-      owner.business[req.body.businessindex].locations.push(req.body.location);
+      //owner.business[req.body.businessindex].locations.push(req.body.location);
+      let business = owner.business.id(req.body.businessindex);
+      business.locations.push(location);
       owner.save()
          .then(result => {
            res.status(201).json({ // 201 indicates creation and responds the result in json format
@@ -162,6 +174,152 @@ router.post('/addlocation', (req, res, next) => {
           });
           });
       });
+});
+
+router.post('/deletebusiness', (req, res, next) => {
+
+   BusinessOwner.findOne({email: req.body.owneremail})
+    .then(owner => {
+      // If the email is not found
+      if (!owner) {
+        return res.status(401).json({
+          message: "Account Authentication Failed"
+         });
+       }
+       owner.business.id(req.body.businessindex).remove();
+
+       owner.save()
+         .then(result => {
+           res.status(201).json({ // 201 indicates creation and responds the result in json format
+            message: 'Business Deleted!'
+            });
+          })
+          .catch(err => { // 500 indicates Server Error and returns the error in json format
+          res.status(500).json({
+            message: 'Whoops',
+            error: err
+          });
+          });
+      });
+
+});
+
+router.post('/deletelocation', (req, res, next) => {
+
+  BusinessOwner.findOne({email: req.body.owneremail})
+    .then(owner => {
+      // If the email is not found
+      if (!owner) {
+        return res.status(401).json({
+          message: "Account Authentication Failed"
+         });
+       }
+       let business = owner.business.id(req.body.businessindex);
+
+       business.locations.id(req.body.locationindex).remove();
+
+       owner.save()
+         .then(result => {
+           res.status(201).json({ // 201 indicates creation and responds the result in json format
+            message: 'Location Deleted!'
+            });
+          })
+          .catch(err => { // 500 indicates Server Error and returns the error in json format
+          res.status(500).json({
+            message: 'Whoops',
+            error: err
+          });
+          });
+      });
+
+});
+
+router.post('/updatelocation', (req, res, next) => {
+
+  BusinessOwner.findOne({email: req.body.owneremail})
+   .then(owner => {
+     // If the email is not found
+     if (!owner) {
+       return res.status(401).json({
+         message: "Account Authentication Failed"
+        });
+      }
+      
+      let business = owner.business.id(req.body.businessindex);
+      /*
+      business.locations.updateOne({ _id: req.body.locationindex }, { $set: { 
+        streetnum: req.body.location.streetnum,
+        streetname : req.body.location.streetname,
+        city : req.body.location.city,
+        postalcode : req.body.location.postalcode,
+        lon : req.body.location.lon,
+        lat : req.body.location.lat,
+      } })
+     */
+
+     let location = business.locations.id(req.body.locationindex);
+     location.streetnum = req.body.location.streetnum;
+     location.streetname = req.body.location.streetname;
+     location.city = req.body.location.city;
+     location.postalcode = req.body.location.postalcode;
+     location.lon = req.body.location.lon;
+     location.lat = req.body.location.lat;
+      
+      owner.save()
+        .then(result => {
+          res.status(201).json({ // 201 indicates creation and responds the result in json format
+           message: 'Location Updated!'
+           });
+         })
+         .catch(err => { // 500 indicates Server Error and returns the error in json format
+         res.status(500).json({
+           message: 'Whoops',
+           error: err
+         });
+         });
+     });
+
+});
+
+router.post('/updatebusiness', (req, res, next) => {
+  /*
+  return res.status(201).json({
+    message: 'Backend Update Business called'
+   });
+   */
+  
+  BusinessOwner.findOne({email: req.body.owneremail})
+   .then(owner => {
+     // If the email is not found
+     if (!owner) {
+       return res.status(401).json({
+         message: "Account Authentication Failed"
+        });
+      }
+      /*
+      return res.status(201).json({
+         message: 'Owner Found!'
+         });
+      */
+      //owner.business.updateOne({ _id: req.body.businessindex }, { $set: { businessname: req.body.business.businessname, licensenum : req.body.business.licensenum} })
+      let business = owner.business.id(req.body.businessindex);
+      business.businessname = req.body.business.businessname;
+      business.licensenum = req.body.business.licensenum;
+      
+      owner.save()
+        .then(result => {
+          res.status(201).json({
+           message: 'Business Updated!'
+           });
+         })
+         .catch(err => { // 500 indicates Server Error and returns the error in json format
+         res.status(500).json({
+           message: 'Whoops',
+           error: err
+         });
+         });
+     });
+
 });
 
 //Used to export the router so that it can be used externally
