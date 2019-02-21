@@ -56,7 +56,6 @@ export class CampaginService {
 
   getCampaign(_id: string) {
     return this.campaigns.find(campaign => campaign._id === _id);
-
   }
 
   updateCampaign(campaign: Campaign) {

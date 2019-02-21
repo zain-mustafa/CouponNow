@@ -23,7 +23,8 @@ router.post("/add", (req, res, next) => {
     locations: req.body.locations,
     startDate: req.body.startDate,
     endDate: req.body.endDate,
-    maxQty: req.body.maxQty
+    maxQty: req.body.maxQty,
+    image: req.body.image
   });
 
   cCampaign.save()

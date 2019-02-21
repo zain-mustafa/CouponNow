@@ -120,22 +120,22 @@ router.post('/addbusiness', (req, res, next) => {
 });
 
 router.post('/listbusiness', (req,res,next) => {
-  
+
   //identify business owner
   BusinessOwner.findOne({email: req.body.owneremail})
   .then(owner =>{
     res.status(200).json({
         businesslist: owner.business,
         message: 'Businesses fetched'
-    })
-  .catch(err => {
-    return res.status(401),json({
-    message: "Business Retrival Failed"
     });
-   });
+  })
+    .catch(err => { // 500 indicates Server Error and returns the error in json format
+      res.status(500).json({
+        message: 'Business Retrieval Failed',
+        error: err
+      });
+    });
   });
-
-});
 
 router.post('/addlocation', (req, res, next) => {
 
@@ -147,7 +147,7 @@ router.post('/addlocation', (req, res, next) => {
           message: "Account Authentication Failed"
          });
        }
-     
+
       owner.business[req.body.businessindex].locations.push(req.body.location);
       owner.save()
          .then(result => {

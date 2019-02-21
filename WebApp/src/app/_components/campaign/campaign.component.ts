@@ -54,7 +54,8 @@ export class CampaignComponent implements OnInit {
     location: [''],
     startDate:  '',
     endDate: '',
-    maxQty: null
+    maxQty: null,
+    image: ''
   };
 
   constructor(public campaignService: CampaginService, public route: ActivatedRoute, public businessService: BusinessService) { }
@@ -63,12 +64,11 @@ export class CampaignComponent implements OnInit {
     this.form = new FormGroup({
       'name': new FormControl(null, {validators: [Validators.required]}),
       'business': new FormControl(null, {validators: [Validators.required]}),
-      // 'location': new FormControl(null, {validators: [Validators.required]}),
-      'location': new FormControl(null, null),
+      'location': new FormControl(null, {validators: [Validators.required]}),
       'maxQty': new FormControl(null, {validators: [Validators.required]}),
       'startDate': new FormControl(null, {validators: [Validators.required]}),
       'endDate': new FormControl(null, {validators: [Validators.required]}),
-      'image': new FormControl(null, {validators: [Validators.required]})
+      'image': new FormControl(null, null)
     });
 
     this.form.get('business').valueChanges.subscribe(value => { // On Business Change factor
@@ -106,15 +106,18 @@ export class CampaignComponent implements OnInit {
           location: [this.editCampaign.location],
           startDate: this.editCampaign.startDate,
           endDate: this.editCampaign.endDate,
-          maxQty: this.editCampaign.maxQty };
+          maxQty: this.editCampaign.maxQty,
+          image: ''
+        };
 
           this.form.setValue({
             'name': this.campaign.name,
             'business':  this.campaign.business,
-            'location': this.campaign.location,
+            'location': [this.campaign.location],
             'maxQty': this.campaign.maxQty,
             'startDate': this.campaign.startDate,
-            'endDate': this.campaign.endDate
+            'endDate': this.campaign.endDate,
+            'image': ''
           });
       } else {
         this.mode = 'create';
@@ -146,12 +149,13 @@ export class CampaignComponent implements OnInit {
     if (this.mode === 'create') {
       this.campaign = {
         _id: '',
-        name: this.form.value.campaignName,
+        name: this.form.value.name,
         business: this.form.value.business,
-        location: this.form.value.locations,
+        location: [this.form.value.locations],
         startDate: this.form.value.startDate,
         endDate: this.form.value.endDate,
-        maxQty: this.form.value.maxQty
+        maxQty: this.form.value.maxQty,
+        image: ''
       };
       console.log(this.campaign);
       this.campaignService.onCreate(this.campaign);
