@@ -3,18 +3,26 @@
       <div class="col-md-8 content-center" style="display: inline-block;">
           <div>
             <mat-card>
-                <mat-card-title >Add a Business</mat-card-title>
-                <form #businessForm="ngForm" (submit)="addBusiness(businessForm)">
-                  <mat-form-field>
-                    <input #businessNameInput="ngModel" name="businessName" ngModel matInput type="text" placeholder="Business Name" required >
-                    <mat-error *ngIf="businessNameInput.invalid"> Please enter a valid name for the Business.</mat-error>
-                  </mat-form-field>
+                <form class="form" [formGroup]="form" (ngSubmit)="addBusiness()">
+                  <h2 class="title"> Business Details</h2>
+                  <div>
+                    <mat-form-field>
+                      <input  
+                      formControlName="businessname" 
+                      matInput type="text" 
+                      placeholder="Business Name">
+                      <mat-error *ngIf="form.get('businessName')invalid"> Please enter a valid name for the Business.</mat-error>
+                    </mat-form-field>
 
-                  <mat-form-field>
-                      <input #licenseNumInput="ngModel" name="licenseNum" ngModel matInput type="text" placeholder="Business License Number" required >
-                      <mat-error *ngIf="licenseNumInput.invalid"> Please enter a valid license number.</mat-error>
-                  </mat-form-field>
-
+                    <mat-form-field>
+                        <input 
+                        formControlName="licensenum" 
+                        matInput type="text" 
+                        placeholder="Business License Number">
+                        <mat-error *ngIf="form.get('licensenum').invalid"> Please enter a valid license number.</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <!--
                   <mat-form-field>
                       <input #streetNumInput="ngModel" name="streetNum" ngModel matInput type="text" placeholder="Street Number" required >
                       <mat-error *ngIf="streetNumInput.invalid"> Please enter a valid street number.</mat-error>
@@ -37,6 +45,10 @@
                   </mat-form-field>
                   </section>
                   <button mat-raised-button color="primary">Add Business</button>
+                -->
+                  <div class="footer text-center">
+                      <button type="submit" class="btn btn-primary btn-round btn-lg btn-block">{{this.mode}} Business</button>
+                  </div>
                 </form>
             </mat-card>
           </div>

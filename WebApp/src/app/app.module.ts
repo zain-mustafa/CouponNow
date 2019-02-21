@@ -17,6 +17,7 @@ import {
   MatMenuModule,
   MatExpansionModule
  } from '@angular/material';
+ import {MatListModule} from '@angular/material/list'; 
 
 
 import { AppComponent } from './app.component';
@@ -85,7 +86,8 @@ import { CustomersetupComponent } from './_components/customersetup/customersetu
     MatExpansionModule,
     MatDialogModule,
     MatTabsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatListModule
   ],
   providers: [
     OwnerService,
