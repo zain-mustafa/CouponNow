@@ -26,21 +26,23 @@
                             </mat-form-field>
 
                             <mat-form-field>
-                                <input #emailInput="ngModel" name="email" ngModel matInput type="email" placeholder="E-mail" required email>
+                                <input #emailInput="ngModel" name="email" ngModel matInput type="email" placeholder="E-mail" required email pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
                                 <mat-label class="color-placeholder">E-mail</mat-label>
                                 <mat-error *ngIf="emailInput.invalid"> Please enter a valid E-mail.</mat-error>
                               </mat-form-field>
 
                          <mat-form-field>
-                                <input matInput type="password" name="password" ngModel  placeholder="Password" #passwordInput="ngModel" required minlength="6" maxlength="10">
+                                <input matInput type="password" name="password" ngModel  placeholder="Password" #passwordInput="ngModel" required minlength="6" maxlength="10" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$">
                                 <mat-label class="color-placeholder">Password</mat-label>
                                 <mat-error *ngIf="passwordInput.invalid"> Please enter a valid Password.</mat-error>
-                                <mat-error *ngIf="passwordInput.invalid"> The password must be between 6 to 10 characters long.</mat-error>
+                                <mat-error *ngIf="passwordInput.invalid">
+                                    The password must be between 6 to 10 characters long and contain an uppercase, a lowercase and a number.
+                                </mat-error>
                         </mat-form-field>
 
                         <mat-form-field>
-                          <input #phoneInput="ngModel" name="phone" ngModel matInput type="number" placeholder="Phone Number" required minlength="10" maxlength="10">
-                          <mat-label class="color-placeholder">Number</mat-label>
+                          <input #phoneInput="ngModel" name="phone" ngModel matInput type="number" placeholder="Phone Number" required minlength="10">
+                          <mat-label class="color-placeholder">Phone Number:</mat-label>
                           <mat-error *ngIf="phoneInput.invalid"> Please enter a valid Phone Number.</mat-error>
                         </mat-form-field>
 
