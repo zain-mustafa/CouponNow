@@ -15,7 +15,7 @@
 
                       <mat-form-field>
                           <input #firstnameInput name="firstname" [(ngModel)]="ownerInfo.firstname" matInput type="text" required>
-                          <!-- <mat-label class="color-placeholder">Firstname</mat-label> -->
+                          <mat-label class="color-placeholder">Firstname</mat-label>
                           <mat-error *ngIf="firstnameInput.invalid"> Please enter your Firstname.</mat-error>
                       </mat-form-field>
 
@@ -30,19 +30,19 @@
                             <mat-label class="color-placeholder">E-mail</mat-label>
                             <mat-error *ngIf="emailInput.invalid"> Please enter a valid E-mail.</mat-error>
                           </mat-form-field>
-
+<!--
                     <mat-form-field>
                       <input #phoneInput="ngModel" name="phone" ngModel matInput type="number" placeholder="Phone Number" required minlength="10" maxlength="10" [(ngModel)]="ownerInfo.phone">
                       <mat-label class="color-placeholder">Number</mat-label>
                       <mat-error *ngIf="phoneInput.invalid"> Please enter a valid Phone Number.</mat-error>
-                    </mat-form-field>
+                    </mat-form-field> -->
 
 
 
                   </div>
                   <div class="footer text-center">
-                      <button class="btn btn-primary btn-round btn-lg btn-block">Save Changes</button>
-                      <button class="btn btn-danger btn-round btn-lg btn-block">Cancel</button>
+                      <!-- <button class="btn btn-primary btn-round btn-lg btn-block">Save Changes</button> -->
+                      <button [routerLink]="['/']" class="btn btn-danger btn-round btn-lg btn-block">Cancel</button>
                   </div>
               </form>
               </mat-card>
