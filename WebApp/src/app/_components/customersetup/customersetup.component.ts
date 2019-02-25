@@ -92,6 +92,8 @@ export class CustomersetupComponent implements OnInit {
         duration: 5000,
       });
 
+      this.customerService.updateCustomerInfo(response['customerInfo']);
+
       console.log('Going to customer profile...');
       this.router.navigate(['/customerprofile']);
     }, error => {

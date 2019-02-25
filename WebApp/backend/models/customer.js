@@ -10,7 +10,8 @@ const customerSchema = mongoose.Schema({
   password: { type: String, required: true},
   dateofbirth: { type: Date },
   gender: { type: String },
-  occupation: { type: String }
+  occupation: { type: String },
+  couponradius: { type: Number, default: 10 }
 });
 
 // For validation checks with the unique attribute
