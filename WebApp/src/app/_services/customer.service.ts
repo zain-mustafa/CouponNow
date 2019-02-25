@@ -15,7 +15,11 @@ export class CustomerService {
   private customerInfo: any = {
     email: '',
     firstname: '',
-    lastname: ''
+    lastname: '',
+    dateOfBirth: '',
+    gender: '',
+    occupation: '',
+    couponRadius: ''
   };
 
   // Adds the http module to the service
@@ -46,10 +50,22 @@ export class CustomerService {
     return this.customerInfo;
   }
 
+  updateCustomerInfo(info) {
+    for (const key in info) {
+      if (this.customerInfo.hasOwnProperty(key)) {
+        this.customerInfo[key] = info[key];
+      }
+    }
+  }
+
   setCustomerInfo(response: Response) {
     this.customerInfo.email = response['email'];
     this.customerInfo.firstname = response['firstname'];
     this.customerInfo.lastname = response['lastname'];
+    this.customerInfo.dateOfBirth = response['dateOfBirth'];
+    this.customerInfo.gender = response['gender'];
+    this.customerInfo.occupation = response['occupation'];
+    this.customerInfo.couponRadius = response['couponRadius'];
   }
 
   setLoginSessionVariables(response: Response) {
@@ -66,8 +82,5 @@ export class CustomerService {
         console.log(response);
         return response;
       }));
-      /*.subscribe(response => {
-        console.log(response);
-      });*/
   }
 }
