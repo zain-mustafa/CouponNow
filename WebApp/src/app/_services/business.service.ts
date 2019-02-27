@@ -33,7 +33,7 @@ export class BusinessService {
       .subscribe((response) => {
         //console.log('businesslist' , response);
         this.businesslist = response['businesslist'];
-        console.log('getBusinesses' , this.businesslist);
+        // console.log('getBusinesses' , this.businesslist);
        this.businessesUpdated.next([...this.businesslist]);
       });
     }
@@ -91,7 +91,7 @@ export class BusinessService {
   }
 
   updateLocation(businessquery: BusinessQuery): Observable<any>{
-    
+
         return this.http.post('http://localhost:3000/owner/updatelocation', businessquery)
          .pipe(map((response) => {
          console.log('response', response);
@@ -112,9 +112,9 @@ export class BusinessService {
      let completeUrl = '';
      // %20 = space, %2C = ,
      queryString = '&q=SEARCH_' + location.streetnum +'%20'+ location.streetname + '%2C' + location.city + '%2C '+ location.postalcode;
- 
+
      completeUrl = baseUrl + apiToken + queryString + format;
-     
+
      return this.http.get(completeUrl)
      .pipe(map((response: Response) => {
          if (response[0].lat < 20 || response[0].lat > 80){
@@ -130,7 +130,7 @@ export class BusinessService {
          //console.log('lon' + newlocation.lon);
          return location;
      }))
-  
+
   }
 
 }

@@ -74,7 +74,7 @@ export class CampaignComponent implements OnInit {
 
     this.form.get('business').valueChanges.subscribe(value => { // On Business Change factor
       const businessName = value;
-      console.log('businessName: ' + businessName);
+      // console.log('businessName: ' + businessName);
       this.gottemlocations = [];
       console.log(businessName);
       this.businessList.forEach(business => {
@@ -82,13 +82,13 @@ export class CampaignComponent implements OnInit {
         business.locations.forEach(locations => {
           this.gottemlocations.push({'name': locations.streetname});
         });
-        console.log(this.gottemlocations);
+        // console.log(this.gottemlocations);
       }
     });
     });
 
     this.businessList = this.businessService.getBusinesslist();
-    console.log('businessList', this.businessList);
+    // console.log('businessList', this.businessList);
 
     // console.log(this.minDate);
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -98,7 +98,7 @@ export class CampaignComponent implements OnInit {
         this.campaignID = paramMap.get('_id');
         // console.log("getCampaign", this.campaignService.getCampaign(this.campaignID));
         this.editCampaign = this.campaignService.getCampaign(this.campaignID);
-        console.log(this.editCampaign);
+        // console.log(this.editCampaign);
 
         this.campaign = {
           _id: this.editCampaign._id,
@@ -128,7 +128,7 @@ export class CampaignComponent implements OnInit {
   }
 
   public onChangeBusiness(event): void {
-    console.log('in event of');
+    // console.log('in event of');
 
   }
 
