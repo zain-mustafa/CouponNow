@@ -130,7 +130,6 @@ router.post('/listbusiness', (req,res,next) => {
     res.status(200).json({
         businesslist: owner.business,
         message: 'Businesses fetched'
-<<<<<<< HEAD
     });
   })
     .catch(err => { // 500 indicates Server Error and returns the error in json format
@@ -140,16 +139,6 @@ router.post('/listbusiness', (req,res,next) => {
       });
     });
   });
-=======
-    })
-  /*.catch(err => {
-    return res.status(401),json({
-    message: "Business Retrival Failed"
-    });
-   });*/
-  });
-});
->>>>>>> master
 
 router.post('/addlocation', (req, res, next) => {
 
@@ -169,15 +158,10 @@ router.post('/addlocation', (req, res, next) => {
           message: "Account Authentication Failed"
          });
        }
-<<<<<<< HEAD
 
-      owner.business[req.body.businessindex].locations.push(req.body.location);
-=======
-     
       //owner.business[req.body.businessindex].locations.push(req.body.location);
       let business = owner.business.id(req.body.businessindex);
       business.locations.push(location);
->>>>>>> master
       owner.save()
          .then(result => {
            res.status(201).json({ // 201 indicates creation and responds the result in json format
@@ -261,10 +245,10 @@ router.post('/updatelocation', (req, res, next) => {
          message: "Account Authentication Failed"
         });
       }
-      
+
       let business = owner.business.id(req.body.businessindex);
       /*
-      business.locations.updateOne({ _id: req.body.locationindex }, { $set: { 
+      business.locations.updateOne({ _id: req.body.locationindex }, { $set: {
         streetnum: req.body.location.streetnum,
         streetname : req.body.location.streetname,
         city : req.body.location.city,
@@ -281,7 +265,7 @@ router.post('/updatelocation', (req, res, next) => {
      location.postalcode = req.body.location.postalcode;
      location.lon = req.body.location.lon;
      location.lat = req.body.location.lat;
-      
+
       owner.save()
         .then(result => {
           res.status(201).json({ // 201 indicates creation and responds the result in json format
@@ -304,7 +288,7 @@ router.post('/updatebusiness', (req, res, next) => {
     message: 'Backend Update Business called'
    });
    */
-  
+
   BusinessOwner.findOne({email: req.body.owneremail})
    .then(owner => {
      // If the email is not found
@@ -322,7 +306,7 @@ router.post('/updatebusiness', (req, res, next) => {
       let business = owner.business.id(req.body.businessindex);
       business.businessname = req.body.business.businessname;
       business.licensenum = req.body.business.licensenum;
-      
+
       owner.save()
         .then(result => {
           res.status(201).json({

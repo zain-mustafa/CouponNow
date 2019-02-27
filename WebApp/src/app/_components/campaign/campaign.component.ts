@@ -30,7 +30,7 @@ export class CampaignComponent implements OnInit {
   selectedFile: null;
   form: FormGroup;
   businessList: Business[] = [];
-  image: string;
+  image;
 
   locations: any = [
     {
@@ -58,7 +58,8 @@ export class CampaignComponent implements OnInit {
     image: ''
   };
 
-  constructor(public campaignService: CampaginService, public route: ActivatedRoute, public businessService: BusinessService) { }
+  constructor(public campaignService: CampaginService, public route: ActivatedRoute,
+    public businessService: BusinessService, public router: Router) { }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -131,15 +132,19 @@ export class CampaignComponent implements OnInit {
 
   }
 
-  ImagePicked(event: Event) {
-    const file = (event.target as HTMLInputElement).files[0];
-    this.form.patchValue({image: file});
-    this.form.get('image').updateValueAndValidity();
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.image = <string>reader.result;
+  changeListener($event): void {
+    this.readThis($event.target);
+  }
+
+  readThis(inputValue: any): void {
+    const file: File = inputValue.files[0];
+    const myReader: FileReader = new FileReader();
+
+    myReader.onloadend = (e) => {
+      this.image = myReader.result;
+      console.log(myReader.result);
     };
-    reader.readAsDataURL(file);
+    myReader.readAsDataURL(file);
   }
 
   onCreateCampaign() {
@@ -151,17 +156,18 @@ export class CampaignComponent implements OnInit {
         _id: '',
         name: this.form.value.name,
         business: this.form.value.business,
-        location: [this.form.value.locations],
+        location: [this.form.value.location],
         startDate: this.form.value.startDate,
         endDate: this.form.value.endDate,
         maxQty: this.form.value.maxQty,
-        image: ''
+        image: this.image
       };
-      console.log(this.campaign);
+      console.log('Oncreate', this.campaign);
       this.campaignService.onCreate(this.campaign);
     } else {
         this.campaignService.updateCampaign(this.campaign);
     }
     this.form.reset();
+    this.router.navigate(['/ownerlanding']);
   }
 }
