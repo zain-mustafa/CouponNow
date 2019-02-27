@@ -56,11 +56,10 @@ export class CampaginService {
 
   getCampaign(_id: string) {
     return this.campaigns.find(campaign => campaign._id === _id);
-
   }
 
   updateCampaign(campaign: Campaign) {
-    this.http.put('http://localhost:3000/ownerlanding/campaign/edit/' , campaign._id)
+    this.http.put('http://localhost:3000/campaign/edit/' + campaign._id, campaign)
       .subscribe(response => {
         const campaignsUpdated = [...this.campaigns];
         const oldCampaigntIndex = campaignsUpdated.findIndex(p => p._id === campaign._id);

@@ -6,4 +6,5 @@ export interface Campaign {
   startDate: string;
   endDate: string;
   maxQty: number;
+  image: any;
 }

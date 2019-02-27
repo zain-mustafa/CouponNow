@@ -30,7 +30,7 @@ export class CampaignComponent implements OnInit {
   selectedFile: null;
   form: FormGroup;
   businessList: Business[] = [];
-  image: string;
+  image;
 
   locations: any = [
     {
@@ -54,26 +54,27 @@ export class CampaignComponent implements OnInit {
     location: [''],
     startDate:  '',
     endDate: '',
-    maxQty: null
+    maxQty: null,
+    image: ''
   };
 
-  constructor(public campaignService: CampaginService, public route: ActivatedRoute, public businessService: BusinessService) { }
+  constructor(public campaignService: CampaginService, public route: ActivatedRoute,
+    public businessService: BusinessService, public router: Router) { }
 
   ngOnInit() {
     this.form = new FormGroup({
       'name': new FormControl(null, {validators: [Validators.required]}),
       'business': new FormControl(null, {validators: [Validators.required]}),
-      // 'location': new FormControl(null, {validators: [Validators.required]}),
-      'location': new FormControl(null, null),
+      'location': new FormControl(null, {validators: [Validators.required]}),
       'maxQty': new FormControl(null, {validators: [Validators.required]}),
       'startDate': new FormControl(null, {validators: [Validators.required]}),
       'endDate': new FormControl(null, {validators: [Validators.required]}),
-      'image': new FormControl(null, {validators: [Validators.required]})
+      'image': new FormControl(null, null)
     });
 
     this.form.get('business').valueChanges.subscribe(value => { // On Business Change factor
       const businessName = value;
-      console.log('businessName: ' + businessName);
+      // console.log('businessName: ' + businessName);
       this.gottemlocations = [];
       console.log(businessName);
       this.businessList.forEach(business => {
@@ -81,13 +82,13 @@ export class CampaignComponent implements OnInit {
         business.locations.forEach(locations => {
           this.gottemlocations.push({'name': locations.streetname});
         });
-        console.log(this.gottemlocations);
+        // console.log(this.gottemlocations);
       }
     });
     });
 
     this.businessList = this.businessService.getBusinesslist();
-    console.log('businessList', this.businessList);
+    // console.log('businessList', this.businessList);
 
     // console.log(this.minDate);
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -97,7 +98,7 @@ export class CampaignComponent implements OnInit {
         this.campaignID = paramMap.get('_id');
         // console.log("getCampaign", this.campaignService.getCampaign(this.campaignID));
         this.editCampaign = this.campaignService.getCampaign(this.campaignID);
-        console.log(this.editCampaign);
+        // console.log(this.editCampaign);
 
         this.campaign = {
           _id: this.editCampaign._id,
@@ -106,15 +107,18 @@ export class CampaignComponent implements OnInit {
           location: [this.editCampaign.location],
           startDate: this.editCampaign.startDate,
           endDate: this.editCampaign.endDate,
-          maxQty: this.editCampaign.maxQty };
+          maxQty: this.editCampaign.maxQty,
+          image: ''
+        };
 
           this.form.setValue({
             'name': this.campaign.name,
             'business':  this.campaign.business,
-            'location': this.campaign.location,
+            'location': [this.campaign.location],
             'maxQty': this.campaign.maxQty,
             'startDate': this.campaign.startDate,
-            'endDate': this.campaign.endDate
+            'endDate': this.campaign.endDate,
+            'image': ''
           });
       } else {
         this.mode = 'create';
@@ -124,19 +128,23 @@ export class CampaignComponent implements OnInit {
   }
 
   public onChangeBusiness(event): void {
-    console.log('in event of');
+    // console.log('in event of');
 
   }
 
-  ImagePicked(event: Event) {
-    const file = (event.target as HTMLInputElement).files[0];
-    this.form.patchValue({image: file});
-    this.form.get('image').updateValueAndValidity();
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.image = <string>reader.result;
+  changeListener($event): void {
+    this.readThis($event.target);
+  }
+
+  readThis(inputValue: any): void {
+    const file: File = inputValue.files[0];
+    const myReader: FileReader = new FileReader();
+
+    myReader.onloadend = (e) => {
+      this.image = myReader.result;
+      console.log(myReader.result);
     };
-    reader.readAsDataURL(file);
+    myReader.readAsDataURL(file);
   }
 
   onCreateCampaign() {
@@ -146,18 +154,20 @@ export class CampaignComponent implements OnInit {
     if (this.mode === 'create') {
       this.campaign = {
         _id: '',
-        name: this.form.value.campaignName,
+        name: this.form.value.name,
         business: this.form.value.business,
-        location: this.form.value.locations,
+        location: [this.form.value.location],
         startDate: this.form.value.startDate,
         endDate: this.form.value.endDate,
-        maxQty: this.form.value.maxQty
+        maxQty: this.form.value.maxQty,
+        image: this.image
       };
-      console.log(this.campaign);
+      console.log('Oncreate', this.campaign);
       this.campaignService.onCreate(this.campaign);
     } else {
         this.campaignService.updateCampaign(this.campaign);
     }
     this.form.reset();
+    this.router.navigate(['/ownerlanding']);
   }
 }

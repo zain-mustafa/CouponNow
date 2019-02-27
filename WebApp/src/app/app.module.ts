@@ -17,7 +17,7 @@ import {
   MatMenuModule,
   MatExpansionModule
  } from '@angular/material';
- import {MatListModule} from '@angular/material/list'; 
+ import {MatListModule} from '@angular/material/list';
 
 
 import { AppComponent } from './app.component';

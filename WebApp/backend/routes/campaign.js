@@ -20,10 +20,11 @@ router.post("/add", (req, res, next) => {
   const cCampaign = new Campaign ({
     name: req.body.name,
     business: req.body.business,
-    locations: req.body.locations,
+    locations: req.body.location,
     startDate: req.body.startDate,
     endDate: req.body.endDate,
-    maxQty: req.body.maxQty
+    maxQty: req.body.maxQty,
+    image: req.body.image
   });
 
   cCampaign.save()
@@ -43,23 +44,23 @@ router.post("/add", (req, res, next) => {
 
 router.delete("/list/:id", (req, res, next) => {
   Campaign.deleteOne({_id: req.params.id}).then(result => {
-    console.log(result);
+    console.log("Successfully deleted backend", result);
     res.status(200).json({message: 'Campaign Deleted'});
   });
 });
 
 router.put("/edit/:id", (req, res, next) => {
+  console.log(req.body);
   const post = new Campaign({
-    _id: req.body.id,
-    name: req.body.name,
-    business: req.body.business,
-    location: [ req.body.location ],
-    startDate: req.body.startDate,
-    endDate: req.body.endDate,
-    maxQty: req.body.maxQty
+    name: req.body.campaign.name,
+    business: req.body.campaign.business,
+    location: [ req.body.campaign.location ],
+    startDate: req.body.campaign.startDate,
+    endDate: req.body.campaign.endDate,
+    maxQty: req.body.campaign.maxQty
   })
-  Campaign.updateOne({_id: req.params.id}, post).then(result => {
-    console.log(result);
+  Campaign.updateOne({_id: req.params.campaign.id}, post).then(result => {
+    console.log("Update Campaign", result);
     res.status(200).json({message: "Update Successful"});
   })
 });
