@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OwnerService } from 'src/app/_services/owner.service';
+import { CustomerService } from 'src/app/_services/customer.service';
 
 @Component({
   selector: 'app-owner-profile',
@@ -15,11 +15,12 @@ export class OwnerProfileComponent implements OnInit {
     lastname: ''
   };
 
-  constructor(public OwnerLoginService: OwnerService) { }
+  constructor(public OwnerLoginService: CustomerService) { }
 
   ngOnInit() {
 
-    this.ownerInfo = this.OwnerLoginService.getOwnerInfo();
+    this.ownerInfo = this.OwnerLoginService.getCustomerInfo();
+    console.log(this.ownerInfo);
 
   }
 

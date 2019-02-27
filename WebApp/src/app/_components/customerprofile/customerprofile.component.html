@@ -1,45 +1,68 @@
 <div class="wrapper">
   <div class="container" style="text-align: center;">
-      <div class="col-md-8 content-center" style="display: inline-block;">
-          <div>
-              <mat-card class="z-depth-5" style="margin-top: 100px;">
-                <form class="form" #ownerForm="ngForm">
+    <div class="col-md-8 content-center" style="display: inline-block;">
+      <div>
+        <mat-card class="z-depth-5" style="margin-top: 100px;">
+          <form class="form" #ownerForm="ngForm">
 
-                  <div class="header header-primary text-center">
-                      <div class="logo-container">
-                          <img class="logo-image-signup" src="assets/couponnow/logo-transparent.png" >
-                      </div>
-                  </div>
+            <div class="header header-primary text-center">
+              <div class="logo-container">
+                <img class="logo-image-signup" src="assets/couponnow/logo-transparent.png" >
+              </div>
+            </div>
 
-                  <div>
+            <div>
 
-                      <mat-form-field>
-                          <input #firstnameInput name="firstname" [(ngModel)]="customerInfo.firstname" matInput type="text" required>
-                          <!-- <mat-label class="color-placeholder">Firstname</mat-label> -->
-                          <mat-error *ngIf="firstnameInput.invalid"> Please enter your Firstname.</mat-error>
-                      </mat-form-field>
+              <mat-form-field>
+                <input #firstnameInput name="firstname" [(ngModel)]="customerInfo.firstname" matInput type="text" required>
+                <mat-label class="color-placeholder">Firstname</mat-label>
+                <mat-error *ngIf="firstnameInput.invalid"> Please enter your Firstname.</mat-error>
+              </mat-form-field>
 
-                      <mat-form-field>
-                          <input #lastnameInput="ngModel" name="lastname" ngModel matInput type="text" placeholder="Lastname" [(ngModel)]="customerInfo.lastname" required>
-                          <mat-label class="color-placeholder">Lastname</mat-label>
-                          <mat-error *ngIf="lastnameInput.invalid"> Please enter your Lastname.</mat-error>
-                        </mat-form-field>
+              <mat-form-field>
+                <input #lastnameInput="ngModel" name="lastname" ngModel matInput type="text" placeholder="Lastname" [(ngModel)]="customerInfo.lastname" required>
+                <mat-label class="color-placeholder">Lastname</mat-label>
+                <mat-error *ngIf="lastnameInput.invalid"> Please enter your Lastname.</mat-error>
+              </mat-form-field>
 
-                        <mat-form-field>
-                            <input #emailInput="ngModel" name="email" ngModel matInput type="email" placeholder="E-mail" [(ngModel)]="customerInfo.email" required email>
-                            <mat-label class="color-placeholder">E-mail</mat-label>
-                            <mat-error *ngIf="emailInput.invalid"> Please enter a valid E-mail.</mat-error>
-                          </mat-form-field>
+              <mat-form-field>
+                <input #emailInput="ngModel" name="email" ngModel matInput type="email" placeholder="E-mail" [(ngModel)]="customerInfo.email" required email>
+                <mat-label class="color-placeholder">E-mail</mat-label>
+                <mat-error *ngIf="emailInput.invalid"> Please enter a valid E-mail.</mat-error>
+              </mat-form-field>
 
-                  </div>
-                  <div class="footer text-center">
-                      <button class="btn btn-primary btn-round btn-lg btn-block">Save Changes</button>
-                      <a [routerLink]="['/chooseinterests']"> <button class="btn btn-primary btn-round btn-lg btn-block">Change Interests</button> </a>
-                      <button class="btn btn-danger btn-round btn-lg btn-block">Cancel</button>
-                  </div>
-              </form>
-              </mat-card>
-          </div>
+              <mat-form-field>
+                <input #genderInput="ngModel" name="gender" ngModel matInput type="text" placeholder="Gender" [(ngModel)]="customerInfo.gender" required>
+                <mat-label class="color-placeholder">Gender</mat-label>
+                <mat-error *ngIf="genderInput.invalid"> Please enter your gender.</mat-error>
+              </mat-form-field>
+
+              <mat-form-field>
+                <input #occupationInput="ngModel" name="occupation" ngModel matInput type="text" placeholder="Occupation" [(ngModel)]="customerInfo.occupation" required>
+                <mat-label class="color-placeholder">Occupation</mat-label>
+                <mat-error *ngIf="occupationInput.invalid"> Please enter your occupation.</mat-error>
+              </mat-form-field>
+
+              <mat-form-field>
+                <input #couponRadiusInput="ngModel" name="coupon-radius" ngModel matInput type="number" placeholder="Coupon radius" [(ngModel)]="customerInfo.couponRadius" required>
+                <mat-label class="color-placeholder">Coupon radius (km)</mat-label>
+                <mat-error *ngIf="couponRadiusInput.invalid"> Please enter a valid number.</mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="no-underline" appearance="fill">
+                <input name="dateOfBirth" ngModel matInput type="text" [(ngModel)]="customerInfo.dateOfBirth" readonly>
+                <mat-label class="color-placeholder">Date of Birth</mat-label>
+              </mat-form-field>
+
+            </div>
+            <div class="footer text-center">
+              <!-- <button class="btn btn-primary btn-round btn-lg btn-block">Save Changes</button> -->
+              <a [routerLink]="['/chooseinterests']"> <button class="btn btn-primary btn-round btn-lg btn-block">Change Interests</button> </a>
+              <button [routerLink]="['/']" class="btn btn-danger btn-round btn-lg btn-block">Cancel</button>
+            </div>
+          </form>
+        </mat-card>
       </div>
+    </div>
   </div>
 </div>

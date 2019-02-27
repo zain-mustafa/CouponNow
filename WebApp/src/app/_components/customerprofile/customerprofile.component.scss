@@ -21,3 +21,7 @@ mat-form-field {
 a {
   text-decoration: none;
 }
+
+::ng-deep .no-underline .mat-form-field-underline {
+  display: none;
+}

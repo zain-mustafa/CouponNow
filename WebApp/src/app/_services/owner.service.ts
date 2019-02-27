@@ -39,14 +39,14 @@ export class OwnerService {
   //     }));
   // }
 
-  getOwnerInfo() {
-    return this.ownerInfo;
-  }
+  // getOwnerInfo() {
+  //   return this.ownerInfo;
+  // }
 
-  setOwnerInfo(response: Response) {
-    this.ownerInfo.email = response['email'];
-    this.ownerInfo.phone = response['phone'];
-    this.ownerInfo.firstname = response['firstname'];
-    this.ownerInfo.lastname = response['lastname'];
-  }
+  // setOwnerInfo(response: any) {
+  //   this.ownerInfo.email = response['email'];
+  //   this.ownerInfo.phone = response['phone'];
+  //   this.ownerInfo.firstname = response['firstname'];
+  //   this.ownerInfo.lastname = response['lastname'];
+  // }
 }
