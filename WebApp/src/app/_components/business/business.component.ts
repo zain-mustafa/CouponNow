@@ -29,7 +29,7 @@ export class BusinessComponent implements OnInit {
     location: null,
   };
   form: FormGroup;
-  private mode = 'Add';
+  public mode = 'Add';
   private businessID: string;
   editBusiness: any;
   businesslist: Business[] = [];

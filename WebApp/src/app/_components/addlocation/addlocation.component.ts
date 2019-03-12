@@ -30,7 +30,7 @@ export class AddLocationComponent implements OnInit {
   businesslist: Business[] = [];
   private businessSubs : Subscription;
   form: FormGroup;
-  private mode = 'Add';
+  public mode = 'Add';
   locationID: string;
   editLocation: any;
 
@@ -49,15 +49,15 @@ export class AddLocationComponent implements OnInit {
         console.log(params.get('id1'));
         console.log(params.get('id2'));
         */
-        
+
         if (params.has('id1') && params.has('id2')) {
-  
+
           this.mode = 'Update';
           this.businessID = params.get('id1');
           this.locationID = params.get('id2');
           console.log('Business ID ' + this.businessID);
           console.log('Location ID ' + this.locationID);
-          
+
           //this.business = this.businessService.getBusiness(this.businessID);
           this.business = this.businesslist.find(business => business._id === this.businessID);
           //console.log('Business ' + this.business.businessname);
@@ -66,7 +66,7 @@ export class AddLocationComponent implements OnInit {
           //console.log('Location' + this.editLocation);
 
           this.location = {
-            
+
             _id: this.editLocation._id,
             streetnum: this.editLocation.streetnum,
             streetname: this.editLocation.streetname,
@@ -102,15 +102,15 @@ export class AddLocationComponent implements OnInit {
       console.log('subscribe');
       console.log(params.get('id1'));
       console.log(params.get('id2'));
-      
-      
+
+
       if (params.has('id1') && params.has('id2')) {
 
         this.mode = 'edit';
         this.businessID = params.get('id1');
         this.locationID = params.get('id2');
         console.log('Business ID ' + this.businessID);
-        
+
         //this.business = this.businessService.getBusiness(this.businessID);
         this.business = this.businesslist.find(business => business._id === this.businessID);
         console.log('Business ' + this.business);
@@ -118,7 +118,7 @@ export class AddLocationComponent implements OnInit {
         console.log('Location' + this.editLocation);
 
         this.location = {
-          
+
           _id: this.editLocation._id,
           streetnum: this.editLocation.streetnum,
           streetname: this.editLocation.streetname,
@@ -141,7 +141,7 @@ export class AddLocationComponent implements OnInit {
       }
     });
     */
-    
+
   }
 
   onChangeBusiness(businessname) {
@@ -158,7 +158,7 @@ export class AddLocationComponent implements OnInit {
       */
       return;
     }
-    
+
     if (this.mode === 'Add') {
       //console.log('Create mode');
       //console.log(this.form.value);
