@@ -32,8 +32,10 @@ export class BusinessComponent implements OnInit {
   private mode = 'Add';
   private businessID: string;
   editBusiness: any;
+  businesslist: Business[] = [];
 
-  constructor(public businessService: BusinessService, public route: ActivatedRoute, public snackBar: MatSnackBar, public router: Router) { }
+  constructor(public businessService: BusinessService, public route: ActivatedRoute,
+    public snackBar: MatSnackBar, public router: Router) { }
 
   ngOnInit() {
     this.form = new FormGroup({

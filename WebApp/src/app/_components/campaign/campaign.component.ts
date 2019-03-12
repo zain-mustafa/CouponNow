@@ -11,6 +11,8 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Subscription } from 'rxjs';
 import { BusinessService } from 'src/app/_services/business.service';
 import { Business } from 'src/app/_models/business.model';
+import { CustomerService } from 'src/app/_services/customer.service';
+import { MatSnackBar } from '@angular/material';
 
 
 @Component({
@@ -31,6 +33,7 @@ export class CampaignComponent implements OnInit {
   form: FormGroup;
   businessList: Business[] = [];
   image;
+  selectedBusinessId: String = '';
 
   locations: any = [
     {
@@ -51,6 +54,8 @@ export class CampaignComponent implements OnInit {
     _id: null,
     name: '',
     business: '',
+    busId: '',
+    ownerEmail: '',
     location: [''],
     startDate:  '',
     endDate: '',
@@ -59,7 +64,8 @@ export class CampaignComponent implements OnInit {
   };
 
   constructor(public campaignService: CampaginService, public route: ActivatedRoute,
-    public businessService: BusinessService, public router: Router) { }
+    public businessService: BusinessService, public router: Router, public customerInfo: CustomerService,
+    public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -69,16 +75,18 @@ export class CampaignComponent implements OnInit {
       'maxQty': new FormControl(null, {validators: [Validators.required]}),
       'startDate': new FormControl(null, {validators: [Validators.required]}),
       'endDate': new FormControl(null, {validators: [Validators.required]}),
-      'image': new FormControl(null, null)
+      'image': new FormControl(null, {validators: [Validators.required]})
     });
 
     this.form.get('business').valueChanges.subscribe(value => { // On Business Change factor
       const businessName = value;
+      const businessId = '';
       // console.log('businessName: ' + businessName);
       this.gottemlocations = [];
       console.log(businessName);
       this.businessList.forEach(business => {
       if ( businessName === business.businessname ) {
+        this.selectedBusinessId = business._id;
         business.locations.forEach(locations => {
           this.gottemlocations.push({'name': locations.streetname});
         });
@@ -104,6 +112,8 @@ export class CampaignComponent implements OnInit {
           _id: this.editCampaign._id,
           name: this.editCampaign.name,
           business: this.editCampaign.business,
+          busId: this.editCampaign.busId,
+          ownerEmail: this.customerInfo.customerInfo.email,
           location: [this.editCampaign.location],
           startDate: this.editCampaign.startDate,
           endDate: this.editCampaign.endDate,
@@ -139,15 +149,26 @@ export class CampaignComponent implements OnInit {
   readThis(inputValue: any): void {
     const file: File = inputValue.files[0];
     const myReader: FileReader = new FileReader();
-
-    myReader.onloadend = (e) => {
-      this.image = myReader.result;
-      console.log(myReader.result);
-    };
-    myReader.readAsDataURL(file);
+    if( file.size < 1000000) {
+      myReader.onloadend = (e) => {
+        this.image = myReader.result;
+        console.log('IMage Reader', myReader.result);
+      };
+      myReader.readAsDataURL(file);
+    } else {
+      this.snackBar.open('Image Too Big!!', 'Dismiss', {
+        duration: 5000,
+      });
+    }
   }
 
   onCreateCampaign() {
+    if (this.image == null) {
+      this.snackBar.open('Please Select a Coupon Image!!', 'Dismiss', {
+        duration: 5000,
+      });
+      return;
+    }
     if (this.form.invalid) {
       return;
     }
@@ -156,6 +177,8 @@ export class CampaignComponent implements OnInit {
         _id: '',
         name: this.form.value.name,
         business: this.form.value.business,
+        busId: this.selectedBusinessId,
+        ownerEmail: this.customerInfo.customerInfo.email,
         location: [this.form.value.location],
         startDate: this.form.value.startDate,
         endDate: this.form.value.endDate,

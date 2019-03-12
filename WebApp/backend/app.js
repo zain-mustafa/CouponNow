@@ -20,8 +20,9 @@ mongoose.connect("mongodb://localhost:27017/499ProjectManagement", { useNewUrlPa
     console.log('Connection failed');
   });
 
-// Using bodyParser Module so that we can read and response in JSON data format.
-app.use(bodyParser.json());
+  app.use(bodyParser.json({limit: "2mb"}));
+  app.use(bodyParser.urlencoded({limit: "2mb", extended: true, parameterLimit:50000}));// Using bodyParser Module so that we can read and response in JSON data format.
+  app.use(bodyParser.json());
 
 // Setting Header Permissions since our servers are on different ports, this allows you to make specific API requests
 app.use((req, res, next) => {

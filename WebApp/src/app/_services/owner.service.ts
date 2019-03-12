@@ -4,9 +4,12 @@ import { BusinessOwner } from '../_models/businessowner.model';
 import { LoginCred } from '../_models/logincred.model';
 import {Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({providedIn: 'root'})
 export class OwnerService {
+
+  baseURL = environment.baseUrl;
 
   private ownerInfo: any = {
     email: '',
@@ -20,7 +23,7 @@ export class OwnerService {
 
   onSignUpOwner(owner: BusinessOwner): Observable<any> {
      // API call when the owner signs up
-    return this.http.post('http://localhost:3000/owner/signup', owner)
+    return this.http.post(this.baseURL + '/owner/signup', owner)
       .pipe(map(response => {
         // displays the response recieved on the browser console.
         console.log(response);
@@ -32,7 +35,7 @@ export class OwnerService {
 
   // loginOwner( loginCred: LoginCred ): Observable<any> {
   //   // API call when the customer logs in
-  //   return this.http.post('http://localhost:3000/owner/login', loginCred)
+  //   return this.http.post(this.baseURL + '/owner/login', loginCred)
   //     .pipe(map((response: Response) => {
   //       this.setOwnerInfo(response);
   //       return response;
