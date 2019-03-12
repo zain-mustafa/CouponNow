@@ -7,8 +7,8 @@ const Campaign = require('../models/campaign');
 // Sets up the router coming in from the app.js file
 const router = express.Router();
 
-router.get("/list/", (req,res,next) => {
-  Campaign.find().then(documents => {
+router.get("/list/:email", (req,res,next) => {
+  Campaign.find({ownerEmail: req.params.email}).then(documents => {
     res.status(200).json({
       message: 'Campaigns sent successfully',
       result: documents
@@ -20,6 +20,8 @@ router.post("/add", (req, res, next) => {
   const cCampaign = new Campaign ({
     name: req.body.name,
     business: req.body.business,
+    busId: req.body.busId,
+    ownerEmail: req.body.ownerEmail,
     locations: req.body.location,
     startDate: req.body.startDate,
     endDate: req.body.endDate,
@@ -34,6 +36,7 @@ router.post("/add", (req, res, next) => {
       campaignID: result._id,
       result: result
     });
+    console.log("Campaign Created");
   })
   .catch(err => { // 500 indicates Server Error and returns the error in json format
     res.status(500).json({

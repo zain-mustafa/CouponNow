@@ -7,12 +7,15 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { DataService } from 'src/app/_services/data.service';
 import {CustomerFirstTimeSetup} from '../_models/customerfirsttimesetup.model';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({providedIn: 'root'})
 export class CustomerService {
 
-  private customerInfo: any = {
+  baseURL = environment.baseUrl;
+
+  public customerInfo: any = {
     email: '',
     firstname: '',
     lastname: '',
@@ -27,7 +30,7 @@ export class CustomerService {
 
   onSignUpCustomer(customer: Customer): Observable<any> {
     // API call when the customer signs up
-    return this.http.post('http://localhost:3000/customer/signup', customer)
+    return this.http.post(this.baseURL + '/customer/signup', customer)
       .pipe(
         map(response => {
                   // displays the response recieved on the browser console.
@@ -39,7 +42,7 @@ export class CustomerService {
 
   loginCustomer( loginCred: LoginCred ): Observable<any> {
     // API call when the customer logs in
-    return this.http.post('http://localhost:3000/customer/login', loginCred)
+    return this.http.post(this.baseURL + '/customer/login', loginCred)
       .pipe(map((response: Response) => {
         this.setCustomerInfo(response);
         return response;
@@ -77,7 +80,7 @@ export class CustomerService {
 
   saveFirstTimeSetup(customerInfo: CustomerFirstTimeSetup) {
     console.log(customerInfo);
-    return this.http.post('http://localhost:3000/customer/savecustomersetupinfo', customerInfo)
+    return this.http.post(this.baseURL + '/customer/savecustomersetupinfo', customerInfo)
       .pipe(map(response => {
         console.log(response);
         return response;

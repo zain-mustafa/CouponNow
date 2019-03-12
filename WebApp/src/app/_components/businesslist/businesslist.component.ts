@@ -25,7 +25,7 @@ export class BusinesslistComponent implements OnInit {
   business: null,
   locationindex: null,
   location: null
-  }
+  };
 
   constructor(public businessService: BusinessService, public snackBar: MatSnackBar, public router: Router) {}
 
@@ -74,10 +74,11 @@ export class BusinesslistComponent implements OnInit {
       location: null,
 
     }
-    //console.log(deletequery);
+    // console.log(deletequery);
 
     this.businessService.deleteBusiness(deletequery)
     .subscribe(response => {
+      this.businesslist = response;
       //console.log('Response ' + response);
       this.snackBar.open(response.message, 'Dismiss', {
         duration: 5000,

@@ -28,7 +28,7 @@ const routes: Routes = [
   { path: 'ownersignup', component: OwnersignupComponent},
   { path: 'ownerlanding', component: OwnerlandingComponent, canActivate: [OwnerAuthGuard]},
   { path: 'campaign', component: CampaignComponent, canActivate: [OwnerAuthGuard]},
-  { path: 'ownerlanding/campaign/edit/:_id', component: CampaignComponent },
+  { path: 'ownerlanding/campaign/edit/:_id', component: CampaignComponent, canActivate: [OwnerAuthGuard]},
   { path: 'campaign/list', component: CampaignlistComponent, canActivate: [OwnerAuthGuard]},
   { path: 'business', component: BusinessComponent, canActivate: [OwnerAuthGuard]},
   { path: 'businesslist', component: BusinesslistComponent, canActivate: [OwnerAuthGuard]},

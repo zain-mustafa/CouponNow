@@ -57,7 +57,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   public logout() {
-    localStorage.setItem('token', '');
+    localStorage.setItem('ownerToken', '');
+    localStorage.setItem('customerToken', '');
     localStorage.setItem('email', '');
     this.router.navigate(['/login']);
     this.showLogout = false;

@@ -8,6 +8,7 @@ import {Observable, of} from 'rxjs';
 import { BusinessOwner } from '../_models/businessowner.model';
 import { BusinessQuery } from '../_models/businessquery.model';
 import { BusinessLocation} from '../_models/businesslocation.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,24 +17,27 @@ export class BusinessService {
 
   constructor(private http: HttpClient) {}
 
+  baseURL = environment.baseUrl;
+
   private businessesUpdated = new Subject<Business[]>();
   private businesslist: Business [] = [];
   business: Business;
 
   addBusiness(newbusiness: BusinessQuery): Observable<any> {
-     return this.http.post('http://localhost:3000/owner/addbusiness', newbusiness)
+     return this.http.post(this.baseURL + '/owner/addbusiness', newbusiness)
      .pipe(map((response) => {
+       this.getBusinesses(newbusiness);
         console.log('response', response);
         return response;
-      }))
+      }));
   }
 
   getBusinesses(businessquery: BusinessQuery) {
-    this.http.post('http://localhost:3000/owner/listbusiness', businessquery)
+    this.http.post(this.baseURL + '/owner/listbusiness', businessquery)
       .subscribe((response) => {
         //console.log('businesslist' , response);
         this.businesslist = response['businesslist'];
-        // console.log('getBusinesses' , this.businesslist);
+        console.log('getBusinesses' , this.businesslist);
        this.businessesUpdated.next([...this.businesslist]);
       });
     }
@@ -53,7 +57,7 @@ export class BusinessService {
 
   addLocation(businessquery: BusinessQuery): Observable<any>{
 
-    return this.http.post('http://localhost:3000/owner/addlocation', businessquery)
+    return this.http.post(this.baseURL + '/owner/addlocation', businessquery)
     .pipe(map((response) => {
         console.log('response', response);
         return response;
@@ -63,7 +67,7 @@ export class BusinessService {
   deleteLocation(businessquery: BusinessQuery): Observable<any>{
     //console.log('deleteLocation called' + businessquery);
 
-    return this.http.post('http://localhost:3000/owner/deletelocation', businessquery)
+    return this.http.post(this.baseURL + '/owner/deletelocation', businessquery)
     .pipe(map((response: Response) =>{
       console.log(response);
       return response;
@@ -71,18 +75,23 @@ export class BusinessService {
 
   }
 
-  deleteBusiness(businessquery: BusinessQuery): Observable<any>{
+  deleteBusiness(businessquery: BusinessQuery): Observable<any> {
 
-    return this.http.post('http://localhost:3000/owner/deletebusiness', businessquery)
-    .pipe(map((response: Response) =>{
-      return response;
-    }))
+    return this.http.post(this.baseURL + '/owner/deletebusiness', businessquery)
+    .pipe(map((response: Response) => {
+      console.log(businessquery);
+      console.log(this.businesslist);
+      const index = this.businesslist.findIndex((ind) => ind['_id'] === businessquery.businessindex);
+      console.log(index);
+      this.businesslist.splice(+index, 1);
+      return this.businesslist;
+    }));
 
   }
 
-  updateBusiness(businessquery: BusinessQuery): Observable<any>{
+  updateBusiness(businessquery: BusinessQuery): Observable<any> {
 
-    return this.http.post('http://localhost:3000/owner/updatebusiness', businessquery)
+    return this.http.post(this.baseURL + '/owner/updatebusiness', businessquery)
     .pipe(map((response: Response) =>{
       console.log(response);
       return response;
@@ -92,7 +101,7 @@ export class BusinessService {
 
   updateLocation(businessquery: BusinessQuery): Observable<any>{
 
-        return this.http.post('http://localhost:3000/owner/updatelocation', businessquery)
+        return this.http.post(this.baseURL + '/owner/updatelocation', businessquery)
          .pipe(map((response) => {
          console.log('response', response);
          return response;
