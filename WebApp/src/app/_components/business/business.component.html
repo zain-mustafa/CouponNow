@@ -7,17 +7,17 @@
                   <h2 class="title"> Business Details</h2>
                   <div>
                     <mat-form-field>
-                      <input  
-                      formControlName="businessname" 
-                      matInput type="text" 
+                      <input
+                      formControlName="businessname"
+                      matInput type="text"
                       placeholder="Business Name">
                       <mat-error *ngIf="form.get('businessName')invalid"> Please enter a valid name for the Business.</mat-error>
                     </mat-form-field>
 
                     <mat-form-field>
-                        <input 
-                        formControlName="licensenum" 
-                        matInput type="text" 
+                        <input
+                        formControlName="licensenum"
+                        matInput type="text"
                         placeholder="Business License Number">
                         <mat-error *ngIf="form.get('licensenum').invalid"> Please enter a valid license number.</mat-error>
                     </mat-form-field>

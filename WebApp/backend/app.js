@@ -12,7 +12,7 @@ const chooseInterestRoutes = require('./routes/chooseinterests');
 const app = express();
 
 //Connection set to MongoDB
-mongoose.connect("mongodb://localhost:27017/499ProjectManagement", { useNewUrlParser: true })
+mongoose.connect("mongodb://localhost:27017/499CouponNow", { useNewUrlParser: true })
   .then(() => {
     console.log('Connected to database');
   })

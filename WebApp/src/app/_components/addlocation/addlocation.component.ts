@@ -30,7 +30,7 @@ export class AddLocationComponent implements OnInit {
   businesslist: Business[] = [];
   private businessSubs : Subscription;
   form: FormGroup;
-  private mode = 'Add';
+  public mode = 'Add';
   locationID: string;
   editLocation: any;
 
@@ -103,6 +103,10 @@ export class AddLocationComponent implements OnInit {
       console.log(params.get('id1'));
       console.log(params.get('id2'));
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
       if (params.has('id1') && params.has('id2')) {
 
         this.mode = 'edit';
