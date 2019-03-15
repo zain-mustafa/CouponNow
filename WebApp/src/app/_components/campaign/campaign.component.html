@@ -25,7 +25,7 @@
                                 {{ business.businessname }}
                               </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="form.get('business').invalid"> Please select a valid Business from the drop down.</mat-error>
+                            <mat-error *ngIf="form.get('business').invalid"> Please select a Business</mat-error>
                           </mat-form-field>
 
                           <mat-form-field appearance="fill">
@@ -39,16 +39,32 @@
                                 {{ location.name }}
                               </mat-option>
                             </mat-select>
+                            <mat-error *ngIf="form.get('location').invalid"> Please select a Location</mat-error>
+                          </mat-form-field>
+
+                          <mat-form-field appearance="fill">
+                            <mat-select
+                            formControlName="tag"
+                            placeholder="Select Tag"
+                            multiple>
+                              <mat-option
+                                *ngFor="let tag of interests"
+                                [value]="tag.name">
+                                {{ tag.name }}
+                              </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="form.get('location').invalid"> Please select a Tag</mat-error>
                           </mat-form-field>
 
                           <mat-form-field appearance="fill">
                             <input
                             formControlName="maxQty"
                             matInput type="number"
+                            min="1"
                             placeholder="Max Coupons">
                             <mat-error
                             *ngIf="form.get('maxQty').invalid">
-                            Please enter amount.
+                            Please enter a valid quantity more than 0
                           </mat-error>
                           </mat-form-field>
 
@@ -67,7 +83,8 @@
 
                             <mat-form-field class="date" appearance="fill">
                               <input
-                              matInput [min]="minDate"
+                              matInput
+                              [min]="minDate"
                               [max]="maxDate"
                               [matDatepicker]="maxpicker"
                               placeholder="Choose an end date"

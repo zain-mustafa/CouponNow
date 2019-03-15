@@ -22,6 +22,7 @@ export class CampaginService {
   constructor(private http: HttpClient, public router: Router, public dataService: DataService, private _sanitizer: DomSanitizer) {}
 
   onCreate(campaign: Campaign) {
+    console.log('onCreate Tag', campaign.tag);
      this.http.post(this.baseURL + '/campaign/add', campaign)
       .subscribe((response) => {
         // TO DO: assign model campaignID from reponse._id

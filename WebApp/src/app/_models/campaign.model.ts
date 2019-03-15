@@ -5,6 +5,7 @@ export interface Campaign {
   busId: String;
   ownerEmail: String;
   location: [ string ];
+  tag: [ string ];
   startDate: string;
   endDate: string;
   maxQty: number;

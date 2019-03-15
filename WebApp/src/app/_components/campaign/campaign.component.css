@@ -29,12 +29,16 @@ input[type="file"] {
 }
 
 .image-preview {
-  height: 1 rem;
-  margin: 1 rem 0;
+  max-height: auto;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .image-preview img {
-  height: 100%;
+
+  height: 400px;
+  align-self: center;
 }
 
 .image-button {

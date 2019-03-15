@@ -215,9 +215,9 @@ router.post('/deletelocation', (req, res, next) => {
           message: "Account Authentication Failed"
          });
        }
-       let business = owner.business.id(req.body.businessindex);
+      let business = owner.business.id(req.body.businessindex);
 
-       business.locations.id(req.body.locationindex).remove();
+      business.locations.id(req.body.locationindex).remove();
 
        owner.save()
          .then(result => {

@@ -103,7 +103,10 @@ export class AddLocationComponent implements OnInit {
       console.log(params.get('id1'));
       console.log(params.get('id2'));
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
       if (params.has('id1') && params.has('id2')) {
 
         this.mode = 'edit';
@@ -193,6 +196,7 @@ export class AddLocationComponent implements OnInit {
           this.snackBar.open(response.message, 'Dismiss', {
             duration: 5000,
           });
+          this.form.reset();
           this.router.navigate(['/ownerlanding']);
         }, error => {
           this.snackBar.open('Error. Add location failed', 'Dismiss', {
@@ -206,7 +210,7 @@ export class AddLocationComponent implements OnInit {
         });
 
   } else {
-    //console.log('Update Mode');
+    // console.log('Update Mode');
     this.location = {
       _id: this.locationID,
       streetnum: this.form.value.streetnum,
@@ -227,13 +231,14 @@ export class AddLocationComponent implements OnInit {
           locationindex: this.locationID,
           location: this.location
         }
-        //console.log(this.businessquery);
+        // console.log(this.businessquery);
 
         this.businessService.updateLocation(this.businessquery).subscribe(response => {
           console.log("Addlocatiom component response" + response.message);
           this.snackBar.open(response.message, 'Dismiss', {
             duration: 5000,
           });
+          this.form.reset();
           this.router.navigate(['/ownerlanding']);
         }, error => {
           this.snackBar.open('Error. Update location failed', 'Dismiss', {
@@ -248,7 +253,7 @@ export class AddLocationComponent implements OnInit {
 
   }
 
-    this.form.reset();
+    // this.form.reset();
   };
 
 }

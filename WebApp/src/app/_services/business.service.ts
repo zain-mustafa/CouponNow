@@ -69,7 +69,12 @@ export class BusinessService {
 
     return this.http.post(this.baseURL + '/owner/deletelocation', businessquery)
     .pipe(map((response: Response) =>{
-      console.log(response);
+      // console.log('BQue', businessquery.locationindex);
+      // console.log('BList', this.businesslist);
+      // const index = this.businesslist.findIndex((ind) => ind['locations'] === businessquery.businessindex);
+      // console.log(index);
+      // // this.businesslist.splice(+index, 1);
+      // // return this.businesslist;
       return response;
     }))
 
@@ -79,10 +84,10 @@ export class BusinessService {
 
     return this.http.post(this.baseURL + '/owner/deletebusiness', businessquery)
     .pipe(map((response: Response) => {
-      console.log(businessquery);
-      console.log(this.businesslist);
+      // console.log(businessquery);
+      // console.log(this.businesslist);
       const index = this.businesslist.findIndex((ind) => ind['_id'] === businessquery.businessindex);
-      console.log(index);
+      // console.log(index);
       this.businesslist.splice(+index, 1);
       return this.businesslist;
     }));
