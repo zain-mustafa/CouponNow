@@ -80,7 +80,7 @@ export class BusinesslistComponent implements OnInit {
     .subscribe(response => {
       this.businesslist = response;
       //console.log('Response ' + response);
-      this.snackBar.open(response.message, 'Dismiss', {
+      this.snackBar.open('Business Deleted', 'Dismiss', {
         duration: 5000,
       });
     }, error => {

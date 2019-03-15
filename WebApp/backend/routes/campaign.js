@@ -23,12 +23,12 @@ router.post("/add", (req, res, next) => {
     busId: req.body.busId,
     ownerEmail: req.body.ownerEmail,
     locations: req.body.location,
+    tag: req.body.tag,
     startDate: req.body.startDate,
     endDate: req.body.endDate,
     maxQty: req.body.maxQty,
     image: req.body.image
   });
-
   cCampaign.save()
   .then(result => {
     res.status(201).json({ // 201 indicates creation and responds the result in json format
@@ -58,6 +58,7 @@ router.put("/edit/:id", (req, res, next) => {
     name: req.body.campaign.name,
     business: req.body.campaign.business,
     location: [ req.body.campaign.location ],
+    tag: req.body.campaign.tag,
     startDate: req.body.campaign.startDate,
     endDate: req.body.campaign.endDate,
     maxQty: req.body.campaign.maxQty

@@ -107,15 +107,16 @@ export class BusinessComponent implements OnInit {
       this.snackBar.open(response.message, 'Dismiss', {
         duration: 5000,
       });
+
+      this.form.reset();
       this.router.navigate(['/ownerlanding']);
     }, error => {
       this.snackBar.open('Error. Update business failed', 'Dismiss', {
         duration: 5000,
       });
-    });;
+    });
     this.router.navigate(['/ownerlanding']);
   } else {
-
     this.business = {
       _id: this.editBusiness._id,
       businessname: this.form.value.businessname,
@@ -147,9 +148,8 @@ export class BusinessComponent implements OnInit {
       this.snackBar.open('Error. Update business failed', 'Dismiss', {
         duration: 5000,
       });
-    });;
+    });
   }
-
-    this.form.reset();
+   this.form.reset();
   }
 }

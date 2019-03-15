@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 import { BusinessService } from 'src/app/_services/business.service';
 import { Business } from 'src/app/_models/business.model';
 import { CustomerService } from 'src/app/_services/customer.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MAT_DATEPICKER_VALIDATORS } from '@angular/material';
 
 
 @Component({
@@ -35,6 +35,15 @@ export class CampaignComponent implements OnInit {
   image;
   selectedBusinessId: String = '';
 
+  interests = [
+    { name: 'Music' },
+    { name: 'Art' },
+    { name: 'Restaurants' },
+    { name: 'Clothes' },
+    { name: 'Bars' },
+    { name: 'Books' }
+  ];
+
   locations: any = [
     {
     streetnum: '',
@@ -44,12 +53,6 @@ export class CampaignComponent implements OnInit {
     }
   ];
 
-  // business: Array<SearchedBusiness> = [
-  //   { name: 'business-0', locations: ['Mumbai', 'Lahore', 'Location']},
-  //   { name: 'business-1', locations: ['location-1', 'location-11', 'location-12']},
-  //   { name: 'business-2', locations: ['location-2', 'location-21', 'location-22']}
-  //   ];
-
   campaign: Campaign = {
     _id: null,
     name: '',
@@ -57,6 +60,7 @@ export class CampaignComponent implements OnInit {
     busId: '',
     ownerEmail: '',
     location: [''],
+    tag: [''],
     startDate:  '',
     endDate: '',
     maxQty: null,
@@ -72,7 +76,8 @@ export class CampaignComponent implements OnInit {
       'name': new FormControl(null, {validators: [Validators.required]}),
       'business': new FormControl(null, {validators: [Validators.required]}),
       'location': new FormControl(null, {validators: [Validators.required]}),
-      'maxQty': new FormControl(null, {validators: [Validators.required]}),
+      'tag': new FormControl(null, {validators: [Validators.required]}),
+      'maxQty': new FormControl(null, {validators: [Validators.required, Validators.min(1)]}),
       'startDate': new FormControl(null, {validators: [Validators.required]}),
       'endDate': new FormControl(null, {validators: [Validators.required]}),
       'image': new FormControl(null, {validators: [Validators.required]})
@@ -115,16 +120,18 @@ export class CampaignComponent implements OnInit {
           busId: this.editCampaign.busId,
           ownerEmail: this.customerInfo.customerInfo.email,
           location: [this.editCampaign.location],
+          tag: [this.editCampaign.tag],
           startDate: this.editCampaign.startDate,
           endDate: this.editCampaign.endDate,
           maxQty: this.editCampaign.maxQty,
-          image: ''
+          image: this.editCampaign.image
         };
 
           this.form.setValue({
             'name': this.campaign.name,
             'business':  this.campaign.business,
             'location': [this.campaign.location],
+            'tag': [this.campaign.tag],
             'maxQty': this.campaign.maxQty,
             'startDate': this.campaign.startDate,
             'endDate': this.campaign.endDate,
@@ -180,6 +187,7 @@ export class CampaignComponent implements OnInit {
         busId: this.selectedBusinessId,
         ownerEmail: this.customerInfo.customerInfo.email,
         location: [this.form.value.location],
+        tag:[this.form.value.tag],
         startDate: this.form.value.startDate,
         endDate: this.form.value.endDate,
         maxQty: this.form.value.maxQty,
