@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CampaginService } from 'src/app/_services/campagin.service';
 import { Campaign } from 'src/app/_models/campaign.model';
 import { Subscription } from 'rxjs';
-import { DomSanitizer } from '@angular/platform-browser';
 import { CustomerService } from 'src/app/_services/customer.service';
+import { BusinessService } from 'src/app/_services/business.service';
+import { BusinessQuery } from 'src/app/_models/businessquery.model';
 @Component({
   selector: 'app-campaignlist',
   templateUrl: './campaignlist.component.html',
@@ -11,11 +12,22 @@ import { CustomerService } from 'src/app/_services/customer.service';
 })
 export class CampaignlistComponent implements OnInit, OnDestroy {
 
+  owneremail: string = localStorage.ownerEmail;
+  businessquery: BusinessQuery = {
+  owneremail: this.owneremail,
+  businessindex: null,
+  business: null,
+  locationindex: null,
+  location: null
+  };
+
   public campaigns: Campaign[] = [];
   private campaingSubs: Subscription;
   imagePath;
-  constructor(private _sanitizer: DomSanitizer, public campaignService: CampaginService,
-              public customerInfo: CustomerService) { }
+  constructor (
+              public campaignService: CampaginService,
+              public customerInfo: CustomerService
+              ) { }
 
   ngOnInit() {
     this.campaignService.getCampaigns(this.customerInfo.customerInfo.email);

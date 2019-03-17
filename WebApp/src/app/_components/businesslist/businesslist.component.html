@@ -4,7 +4,7 @@
             <mat-expansion-panel *ngFor="let business of businesslist">
               <mat-expansion-panel-header>
                 {{ business.businessname }} <br />
-                License: 
+                License:
                 {{ business.licensenum }}
                 <p hidden>{{ business._id }}</p>
               </mat-expansion-panel-header>
@@ -47,4 +47,4 @@
         *ngIf="businesslist.length <= 0">
         No businesses added yet!</p>
         <a [routerLink]="['/business']"><button type="button" class="btn btn-info" style="width: 200px;">Add a Business</button></a>
-        <a [routerLink]="['/addlocation']"><button type="button" class="btn btn-info" style="width: 200px;">Add Location</button></a>
+        <a [routerLink]="['/addlocation']"><button type="button" class="btn btn-info" style="width: 200px;" [disabled]="businesslist.length <= 0">Add Location</button></a>

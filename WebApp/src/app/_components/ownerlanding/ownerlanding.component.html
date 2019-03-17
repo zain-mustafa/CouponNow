@@ -25,7 +25,7 @@
                                 <app-campaignlist></app-campaignlist>
                             </div>
                         </div>
-                        <a [routerLink]="['/campaign']"><button type="button" class="btn btn-info" style="width: 200px;">Add a Campaign</button></a>
+                        <a [routerLink]="['/campaign']"><button type="button" class="btn btn-info" style="width: 200px;" [disabled]="this.businessService.businesslist.length <= 0">Add a Campaign</button></a>
                       </mat-tab>
 
                        <!-- Reports Tab -->
