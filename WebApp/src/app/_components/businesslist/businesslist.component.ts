@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Business } from 'src/app/_models/business.model';
 import { BusinessQuery } from 'src/app/_models/businessquery.model';
 import { BusinessService } from 'src/app/_services/business.service';
@@ -13,10 +13,11 @@ import {Router} from '@angular/router';
   templateUrl: './businesslist.component.html',
   styleUrls: ['./businesslist.component.css']
 })
-export class BusinesslistComponent implements OnInit {
+export class BusinesslistComponent implements OnInit, OnDestroy {
   business: Business;
   businesslist: Business[] = [];
   private businessSubs: Subscription;
+  businessListLength = false;
 
   owneremail: string = localStorage.ownerEmail;
   businessquery: BusinessQuery = {
@@ -38,10 +39,10 @@ export class BusinesslistComponent implements OnInit {
   }
 
   deleteLocation(event: string){
-    //console.log(event);
+    // console.log(event);
     let string = event.split(' ');
-    //console.log(string[0]);
-    //console.log(string[1]);
+    // console.log(string[0]);
+    // console.log(string[1]);
     let deletequery: BusinessQuery = {
       owneremail: this.owneremail,
       businessindex: string[0],
@@ -54,7 +55,7 @@ export class BusinesslistComponent implements OnInit {
 
     this.businessService.deleteLocation(deletequery)
     .subscribe(response => {
-      //console.log('Response ' + response);
+      // console.log('Response ' + response);
       this.snackBar.open(response.message, 'Dismiss', {
         duration: 5000,
       });
@@ -79,7 +80,7 @@ export class BusinesslistComponent implements OnInit {
     this.businessService.deleteBusiness(deletequery)
     .subscribe(response => {
       this.businesslist = response;
-      //console.log('Response ' + response);
+      // console.log('Response ' + response);
       this.snackBar.open('Business Deleted', 'Dismiss', {
         duration: 5000,
       });
@@ -102,6 +103,7 @@ export class BusinesslistComponent implements OnInit {
     //console.log(string[1]);
     this.router.navigate(['ownerlanding/addlocation/edit/', string[0], string[1]]);
   }
+
   ngOnDestroy() {
     this.businessSubs.unsubscribe();
   }

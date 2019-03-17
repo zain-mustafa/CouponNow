@@ -4,6 +4,9 @@ import { BusinessOwner } from '../../_models/businessowner.model';
 import { OwnerService } from '../../_services/owner.service';
 import {MatSnackBar} from '@angular/material';
 import { Router } from '@angular/router';
+import { LoginCred } from 'src/app/_models/logincred.model';
+import { CustomerService } from 'src/app/_services/customer.service';
+import { DataService } from 'src/app/_services/data.service';
 
 @Component({
   selector: 'app-ownersignup',
@@ -23,7 +26,13 @@ export class OwnersignupComponent implements OnInit {
   };
 
   // Adding the owner.service service tp this file
-  constructor( public signupService: OwnerService, public snackBar: MatSnackBar, public router: Router ) { }
+  constructor(
+    public signupService: OwnerService,
+    public snackBar: MatSnackBar,
+    public router: Router,
+    public loginService: CustomerService,
+    public dataService: DataService
+    ) { }
 
   ngOnInit() {
   }
@@ -54,6 +63,23 @@ export class OwnersignupComponent implements OnInit {
         duration: 5000,
       });
 
+    }, () => {
+      console.log('logging in as: ' + this.businessOwner.email);
+
+      const loginCred: LoginCred = {
+        email: this.businessOwner.email,
+        password: this.businessOwner.password
+      };
+
+      this.loginService.loginCustomer(loginCred).subscribe(response => {
+        console.log(response);
+
+        localStorage.setItem('ownerToken', response['token']);
+        localStorage.setItem('ownerEmail', response['email']);
+        this.dataService.setLogin(true);
+        this.dataService.setOwner(true);
+        this.router.navigate(['/ownerlanding']);
+      });
     });
 
   }

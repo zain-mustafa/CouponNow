@@ -2,7 +2,7 @@
   <div class="container" style="text-align: center;">
       <div class="col-md-12 content-center" style="display: inline-block; padding-top: 100px;">
           <div>
-            <h2 class="title"> Admin Panel </h2>
+            <h2 class="title"> Control Panel </h2>
             <div class="separator separator-primary"></div>
             <mat-card class="z-depth-5">
                 <mat-tab-group style="text-align: left;">
@@ -25,7 +25,7 @@
                                 <app-campaignlist></app-campaignlist>
                             </div>
                         </div>
-                        <a [routerLink]="['/campaign']"><button type="button" class="btn btn-info" style="width: 200px;">Add a Campaign</button></a>
+                        <a [routerLink]="['/campaign']"><button type="button" class="btn btn-info" style="width: 200px;" [disabled]="this.businessService.businesslist.length <= 0">Add a Campaign</button></a>
                       </mat-tab>
 
                        <!-- Reports Tab -->
@@ -47,7 +47,6 @@
                                 You do not have any payment method set up.
                             </div>
                         </div>
-                        <a [routerLink]="['/campaign']"><button type="button" class="btn btn-info" style="width: 200px;">Add a Campaign</button></a>
                       </mat-tab>
 
                   </mat-tab-group>

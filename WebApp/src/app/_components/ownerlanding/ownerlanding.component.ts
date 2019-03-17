@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BusinessService } from 'src/app/_services/business.service';
 
 @Component({
   selector: 'app-ownerlanding',
@@ -10,8 +11,11 @@ export class OwnerlandingComponent implements OnInit {
   public businesses: string;
   public campaigns: string;
   public paymentMethod: string;
+  public isListTrue;
 
-  constructor() { }
+  constructor(
+    public businessService: BusinessService
+  ) { }
 
   ngOnInit() {
   }

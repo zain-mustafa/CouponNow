@@ -20,7 +20,7 @@ export class BusinessService {
   baseURL = environment.baseUrl;
 
   private businessesUpdated = new Subject<Business[]>();
-  private businesslist: Business [] = [];
+  public businesslist: Business [] = [];
   business: Business;
 
   addBusiness(newbusiness: BusinessQuery): Observable<any> {
