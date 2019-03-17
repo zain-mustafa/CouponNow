@@ -50,7 +50,7 @@ export class BusinesslistComponent implements OnInit, OnDestroy {
       locationindex: string[1],
       location: null,
 
-    }
+    };
     //console.log(deletequery);
 
     this.businessService.deleteLocation(deletequery)
@@ -63,10 +63,10 @@ export class BusinesslistComponent implements OnInit, OnDestroy {
       this.snackBar.open('Error. Delete location failed', 'Dismiss', {
         duration: 5000,
       });
-    });;
+    });
   }
 
-  deleteBusiness(event: string){
+  deleteBusiness(event: string) {
     let deletequery: BusinessQuery = {
       owneremail: this.owneremail,
       businessindex: event,
@@ -74,7 +74,7 @@ export class BusinesslistComponent implements OnInit, OnDestroy {
       locationindex: null,
       location: null,
 
-    }
+    };
     // console.log(deletequery);
 
     this.businessService.deleteBusiness(deletequery)
@@ -88,7 +88,7 @@ export class BusinesslistComponent implements OnInit, OnDestroy {
       this.snackBar.open('Error. Delete business failed', 'Dismiss', {
         duration: 5000,
       });
-    });;
+    });
   }
 
   editBusiness(event: string){
