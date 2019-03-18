@@ -4,12 +4,12 @@
       <mat-card-title>What are you interested in hearing about?</mat-card-title>
     </mat-card-header>
 
-    <form [formGroup]="form" (ngSubmit)="submit()">
+    <form (ngSubmit)="onSubmitInterests()">
 
       <div class="container">
-        <label formArrayName="interests" *ngFor="let interest of form['controls'].interests['controls']; let i = index">
-          <input type="checkbox" [formControlName]="i">
-          {{interests[i].name}}
+        <label  *ngFor="let interest of interests">
+          <input type="checkbox" (change)="onSelect($event)" [value]="interest.name">
+          {{ interest.name }}
         </label>
       </div>
 

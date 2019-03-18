@@ -22,7 +22,8 @@ export class CustomerService {
     dateOfBirth: '',
     gender: '',
     occupation: '',
-    couponRadius: ''
+    couponRadius: '',
+    interests: []
   };
 
   // Adds the http module to the service
@@ -69,6 +70,7 @@ export class CustomerService {
     this.customerInfo.gender = response['gender'];
     this.customerInfo.occupation = response['occupation'];
     this.customerInfo.couponRadius = response['couponRadius'];
+    this.customerInfo.interests = response['interests'];
   }
 
   setLoginSessionVariables(response: Response) {
