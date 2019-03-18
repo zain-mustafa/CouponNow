@@ -102,6 +102,7 @@ export class ChooseInterestsComponent implements OnInit {
     this.submitInterestsService.onSaveInterests(this.customerEmail, this.selectedInterests)
     .subscribe(response => {
       console.log(response);
+      this.router.navigate(['/customerprofile']);
     });
     }
   }
