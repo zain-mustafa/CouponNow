@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const ChooseInterests = require('./chooseinterests');
+const CustomerProfile = require('./customerprofile');
 
 const Customer = require('../models/customer');
 
@@ -96,8 +97,7 @@ router.post('/login', (req, res, next) => {
         dateOfBirth: fetchedCustomer.dateofbirth,
         gender: fetchedCustomer.gender,
         occupation: fetchedCustomer.occupation,
-        couponRadius: fetchedCustomer.couponradius,
-        interests: fetchedCustomer.interests
+        couponRadius: fetchedCustomer.couponradius
       });
     })
     // Catch any errors
@@ -183,6 +183,10 @@ router.post('/savecustomerinterests', (req, res, next) => {
       console.log(err);
       return res.status(400).json('Unable to save customer Interests');
     })
+});
+
+router.post('/updatecustomerprofileinfo', (req, res) => {
+  CustomerProfile.updateCustomerProfileInfo(req, res);
 });
 
 //Used to export the router so that it can be used externally

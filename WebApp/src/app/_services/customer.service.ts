@@ -54,12 +54,19 @@ export class CustomerService {
     return this.customerInfo;
   }
 
+  // updates the displayed customer info from the front end model
   updateCustomerInfo(info) {
     for (const key in info) {
       if (this.customerInfo.hasOwnProperty(key)) {
         this.customerInfo[key] = info[key];
       }
     }
+  }
+
+  // send new customer info to server to be saved
+  saveNewCustomerInfo(newInfo) {
+    return this.http.post(this.baseURL + '/customer/updatecustomerprofileinfo',
+      {customerToken: localStorage.getItem('customerToken'), newInfo: newInfo});
   }
 
   setCustomerInfo(response: Response) {
