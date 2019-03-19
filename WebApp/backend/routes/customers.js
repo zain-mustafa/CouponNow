@@ -154,6 +154,37 @@ router.post('/savecustomersetupinfo', (req, res, next) => {
     })
 });
 
+router.post('/savecustomerinterests', (req, res, next) => {
+  console.log("Received request to save:");
+  console.log(req.body);
+
+  Customer.findOne({email: req.body.customerEmail})
+    .then(customer => {
+      if (!customer) {
+        throw new Error('Customer ' + req.body.customerEmail + " was not found");
+      }
+      console.log("Customer found");
+
+      customer.interests = req.body.interests;
+
+      customer.save();
+
+      console.log('Updated customer with new personal info');
+      res.status(200)
+        .json(
+          {
+            message: 'Updated customer Interests',
+            customerInfo: {
+              Interests: customer.interests
+            }
+          });
+    })
+    .catch(err => {
+      console.log(err);
+      return res.status(400).json('Unable to save customer Interests');
+    })
+});
+
 router.post('/updatecustomerprofileinfo', (req, res) => {
   CustomerProfile.updateCustomerProfileInfo(req, res);
 });
