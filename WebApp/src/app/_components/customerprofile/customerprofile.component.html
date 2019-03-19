@@ -3,7 +3,7 @@
     <div class="col-md-8 content-center" style="display: inline-block;">
       <div>
         <mat-card class="z-depth-5" style="margin-top: 100px;">
-          <form class="form" #ownerForm="ngForm">
+          <form class="form" #ownerForm="ngForm" (ngSubmit)="onSubmit()">
 
             <div class="header header-primary text-center">
               <div class="logo-container">
@@ -14,15 +14,15 @@
             <div>
 
               <mat-form-field>
-                <input #firstnameInput name="firstname" [(ngModel)]="customerInfo.firstname" matInput type="text" required>
+                <input #firstnameInput="ngModel" name="firstname" ngModel matInput type="text" placeholder="First name" [(ngModel)]="customerInfo.firstname" required>
                 <mat-label class="color-placeholder">Firstname</mat-label>
-                <mat-error *ngIf="firstnameInput.invalid"> Please enter your Firstname.</mat-error>
+                <mat-error *ngIf="firstnameInput.invalid"> Please enter your first name.</mat-error>
               </mat-form-field>
 
               <mat-form-field>
-                <input #lastnameInput="ngModel" name="lastname" ngModel matInput type="text" placeholder="Lastname" [(ngModel)]="customerInfo.lastname" required>
+                <input #lastnameInput="ngModel" name="lastname" ngModel matInput type="text" placeholder="Last name" [(ngModel)]="customerInfo.lastname" required>
                 <mat-label class="color-placeholder">Lastname</mat-label>
-                <mat-error *ngIf="lastnameInput.invalid"> Please enter your Lastname.</mat-error>
+                <mat-error *ngIf="lastnameInput.invalid"> Please enter your last name.</mat-error>
               </mat-form-field>
 
               <mat-form-field>
@@ -44,7 +44,7 @@
               </mat-form-field>
 
               <mat-form-field>
-                <input #couponRadiusInput="ngModel" name="coupon-radius" ngModel matInput type="number" placeholder="Coupon radius" [(ngModel)]="customerInfo.couponRadius" required>
+                <input #couponRadiusInput="ngModel" name="coupon-radius" ngModel matInput type="number" placeholder="Coupon radius" [(ngModel)]="customerInfo.couponRadius" required min="1" oninput="validity.valid||(value='');">
                 <mat-label class="color-placeholder">Coupon radius (km)</mat-label>
                 <mat-error *ngIf="couponRadiusInput.invalid"> Please enter a valid number.</mat-error>
               </mat-form-field>
@@ -56,9 +56,8 @@
 
             </div>
             <div class="footer text-center">
-              <!-- <button class="btn btn-primary btn-round btn-lg btn-block">Save Changes</button> -->
               <a [routerLink]="['/chooseinterests']"> <button class="btn btn-primary btn-round btn-lg btn-block">Change Interests</button> </a>
-              <button [routerLink]="['/']" class="btn btn-success btn-round btn-lg btn-block">Done</button>
+              <button class="btn btn-success btn-round btn-lg btn-block">Done</button>
             </div>
           </form>
         </mat-card>
