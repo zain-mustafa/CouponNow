@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from 'src/app/_services/customer.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-customerprofile',
@@ -8,7 +9,7 @@ import { CustomerService } from 'src/app/_services/customer.service';
 })
 export class CustomerprofileComponent implements OnInit {
 
-  public customerInfo: any = {
+  private oldCustomerInfo: any = {
     email: '',
     firstname: '',
     lastname: '',
@@ -18,19 +19,54 @@ export class CustomerprofileComponent implements OnInit {
     couponRadius: ''
   };
 
-  constructor(public CustomerLoginService: CustomerService) { }
+  private customerInfo;
+
+  constructor(public customerService: CustomerService, private router: Router) { }
 
   ngOnInit() {
-    this.customerInfo = this.CustomerLoginService.getCustomerInfo();
+    this.oldCustomerInfo = this.customerService.getCustomerInfo();
+    this.oldCustomerInfo.dateOfBirth = formatDate(this.oldCustomerInfo.dateOfBirth);
 
-    this.format();
+    this.customerInfo = { ...this.oldCustomerInfo};
+
   }
 
-  format() {
-    const dateOptions = {day: 'numeric', month: 'long', year: 'numeric'};
-
-    this.customerInfo.dateOfBirth = new Date(this.customerInfo.dateOfBirth)
-      .toLocaleDateString('en-US', dateOptions);
+  onSubmit() {
+    if (objectsAreDifferent(this.oldCustomerInfo, this.customerInfo)) {
+      this.customerService.saveNewCustomerInfo({
+        firstName: this.customerInfo.firstname,
+        lastName: this.customerInfo.lastname,
+        email: this.customerInfo.email,
+        gender: this.customerInfo.gender,
+        occupation: this.customerInfo.occupation,
+        couponRadius: this.customerInfo.couponRadius
+      }).subscribe(response => {
+        console.log(response);
+        this.customerService.updateCustomerInfo(this.customerInfo);
+        this.router.navigate(['/']);
+      }, error => {
+        console.log(error);
+      });
+    }
   }
 
+}
+
+function formatDate(serverDateFormat) {
+  const dateOptions = {day: 'numeric', month: 'long', year: 'numeric'};
+
+  return new Date(serverDateFormat)
+    .toLocaleDateString('en-US', dateOptions);
+}
+
+function objectsAreDifferent(obj1, obj2) {
+  let result = false;
+
+  Object.keys(obj1).forEach(key => {
+    if (obj1[key] !== obj2[key]) {
+      result = true;
+    }
+  });
+
+  return result;
 }
