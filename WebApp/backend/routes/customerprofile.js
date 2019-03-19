@@ -6,12 +6,13 @@ const Customer = require('../models/customer');
 function updateCustomerProfileInfo(req, res) {
 
   const requiredFields = ['firstName', 'lastName', 'email', 'gender', 'occupation', 'couponRadius'];
-
-  const customerToken = jwt.decode(req.body.customerToken);
-  const customerId = mongoose.Types.ObjectId(customerToken.userId);
+  let customerId;
 
   validateRequest(req, res, requiredFields)
     .then(() => {
+      const customerToken = jwt.decode(req.body.customerToken);
+      customerId = mongoose.Types.ObjectId(customerToken.userId);
+
       return Customer.findById(customerId).exec();
     })
     .then(customer => {
@@ -37,15 +38,16 @@ function updateCustomerProfileInfo(req, res) {
       res.status(200).json({message: 'New profile information successfully saved for customerId ' + customerId});
     })
     .catch(err => {
-      res.status(400).json({error: 'Could not update profile information for customerId ' + customerId
+      console.log(err);
+      res.status(400).json({message: 'Could not update profile information for customerId ' + customerId
           + ' -> ' + err.message});
     });
 
 }
 
 function validateRequest(req, res, requiredFields) {
-  return Promise.resolve(() => {
-    if (req.body.customerToken == null) {
+  return Promise.resolve({ then: function(resolve) {
+    if (!req.body.hasOwnProperty('customerToken') || req.body.customerToken == null) {
       throw new Error('Request to update customer profile info was missing a token');
     } else if (req.body.newInfo == null) {
       throw new Error('Request to update customer profile info was missing the new info');
@@ -56,13 +58,14 @@ function validateRequest(req, res, requiredFields) {
         throw new Error('Required field was missing from the form: ' + field);
       }
     });
-  });
+    resolve('Validated request');
+  }});
 }
 
 function validateNewInfo(req, res, customer) {
   const newInfo = req.body.newInfo;
 
-  return Promise.resolve(() => {
+  return Promise.resolve({then: function(resolve) {
     const genderOptions = ['male', 'female', 'other'];
 
     if (!newInfo.firstName) {
@@ -76,7 +79,9 @@ function validateNewInfo(req, res, customer) {
     } else if (newInfo.couponRadius <= 0) {
       throw new Error('Coupon radius is invalid');
     }
-  }).then(() => {
+
+    resolve('Validated new info');
+  }}).then(() => {
     if (customer.email !== newInfo.email) {
       if (!customer.email) {
         throw new Error('Email is invalid');
