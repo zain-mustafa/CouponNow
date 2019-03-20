@@ -147,8 +147,10 @@ router.post('/addlocation', (req, res, next) => {
     streetname: req.body.location.streetname,
     city: req.body.location.city,
     postalcode: req.body.location.postalcode,
-    lat: req.body.location.lat,
-    lon: req.body.location.lon
+    geolocation: {
+      type: "Point",
+      coordinates: [req.body.location.geolocation.coordinates[0], req.body.location.geolocation.coordinates[1]]
+    }
   }
     BusinessOwner.findOne({email: req.body.owneremail})
     .then(owner => {
@@ -263,8 +265,7 @@ router.post('/updatelocation', (req, res, next) => {
      location.streetname = req.body.location.streetname;
      location.city = req.body.location.city;
      location.postalcode = req.body.location.postalcode;
-     location.lon = req.body.location.lon;
-     location.lat = req.body.location.lat;
+     location.geolocation = req.body.location.geolocation
 
       owner.save()
         .then(result => {
@@ -321,6 +322,40 @@ router.post('/updatebusiness', (req, res, next) => {
          });
      });
 
+});
+
+//needs to be completed
+router.get('/nearbylocations', (req, res, next) => {
+  
+  //max distance is in meters
+  //can specify $minDistance as well
+  BusinessOwner.find({
+    /*
+    "business.location.geolocation": {
+     $near: {
+      $maxDistance: 100000,
+      $geometry: {
+       type: "Point",
+       coordinates: [-83.026772, 42.317432]
+      }
+     }
+    }
+    */
+   }).then(results => {
+    res.status(200).json({
+      result: results
+    });
+  }).catch(err => { // 500 indicates Server Error and returns the error in json format
+    res.status(500).json({
+      message: 'Whoops',
+      error: err
+    });
+    });
+   /*
+   res.status(200).json({
+    result: "call works!"
+  });
+  */
 });
 
 //Used to export the router so that it can be used externally

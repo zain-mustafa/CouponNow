@@ -36,6 +36,7 @@ export class BusinesslistComponent implements OnInit, OnDestroy {
     .subscribe((business: Business[]) => {
       this.businesslist = business;
     });
+    this.businessService.getNearbyLocations();
   }
 
   deleteLocation(event: string){

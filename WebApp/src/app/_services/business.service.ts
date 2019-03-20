@@ -138,8 +138,10 @@ export class BusinessService {
          }
          console.log('LocationIQ response');
          console.log(response);
-         location.lat = response[0].lat;
-         location.lon = response[0].lon;
+         location.geolocation = {
+           type: {type: 'Point'},
+           coordinates: [response[0].lon, response[0].lat]
+         }
          //console.log('lat' + newlocation.lat);
          //console.log('lon' + newlocation.lon);
          return location;
@@ -147,4 +149,10 @@ export class BusinessService {
 
   }
 
+  getNearbyLocations(){
+    this.http.get(this.baseURL + '/owner/nearbylocations')
+    .subscribe((response) => {
+      console.log(response);
+    });
+  }
 }

@@ -72,8 +72,10 @@ export class AddLocationComponent implements OnInit {
             streetname: this.editLocation.streetname,
             city: this.editLocation.city,
             postalcode: this.editLocation.postalcode,
-            lon: null,
-            lat: null,
+            geolocation: {
+              type: null,
+              coordinates: [null, null]
+              }
           };
 
             this.form.setValue({
@@ -103,10 +105,6 @@ export class AddLocationComponent implements OnInit {
       console.log(params.get('id1'));
       console.log(params.get('id2'));
 
-<<<<<<< HEAD
-=======
-
->>>>>>> master
       if (params.has('id1') && params.has('id2')) {
 
         this.mode = 'edit';
@@ -172,8 +170,10 @@ export class AddLocationComponent implements OnInit {
       streetname: this.form.value.streetname,
       city: this.form.value.city,
       postalcode: this.form.value.postalcode,
-      lon: null,
-      lat: null,
+      geolocation: {
+        type: null,
+        coordinates: [null, null]
+        }
       }
       this.businessID = this.form.value.business._id;
       /*
@@ -181,7 +181,7 @@ export class AddLocationComponent implements OnInit {
       console.log(this.businessquery);
       */
       this.businessService.getGeoLocation(this.location).subscribe(location => {
-
+        console.log(location)
         this.businessquery = {
           owneremail: this.owneremail,
           businessindex: this.businessID,
@@ -217,13 +217,15 @@ export class AddLocationComponent implements OnInit {
       streetname: this.form.value.streetname,
       city: this.form.value.city,
       postalcode: this.form.value.postalcode,
-      lon: null,
-      lat: null,
+      geolocation: {
+        type: null,
+        coordinates: [null,null]
+        }
       }
       this.businessID = this.form.value.business._id;
 
       this.businessService.getGeoLocation(this.location).subscribe(location => {
-
+        console.log(this.location)
         this.businessquery = {
           owneremail: this.owneremail,
           businessindex: this.businessID,

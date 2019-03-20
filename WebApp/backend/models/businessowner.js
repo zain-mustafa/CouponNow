@@ -17,11 +17,16 @@ const customerSchema = mongoose.Schema({
         streetname: { type: String},
         city: { type: String},
         postalcode: { type: String},
-        lon: { type: Number},
-        lat: { type: Number}
+        geolocation: {
+          type: { type: String },
+          coordinates: [Number, Number]
+          }
       }]
   }]
 });
+
+//need to verify index has been properly created
+customerSchema.index({ "business.locations.geolocation": "2dsphere" });
 
 // For validation checks with the unique attribute
 customerSchema.plugin(uniqueValidator);
