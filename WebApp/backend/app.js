@@ -8,6 +8,7 @@ const customerRoutes = require('./routes/customers');
 const ownerRoutes = require('./routes/businessowner');
 const campaignRoutes = require('./routes/campaign');
 const chooseInterestRoutes = require('./routes/chooseinterests');
+const mobileRoutes = require('./routes/mobileRoutes');
 
 const app = express();
 
@@ -42,5 +43,6 @@ app.use((req, res, next) => {
 app.use("/owner/", ownerRoutes);
 app.use("/customer/", customerRoutes);
 app.use("/campaign/", campaignRoutes);
+app.use("/mobile/", mobileRoutes);
 
 module.exports = app;
