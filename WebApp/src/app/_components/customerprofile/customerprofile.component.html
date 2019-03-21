@@ -32,9 +32,11 @@
               </mat-form-field>
 
               <mat-form-field>
-                <input #genderInput="ngModel" name="gender" ngModel matInput type="text" placeholder="Gender" [(ngModel)]="customerInfo.gender" required>
-                <mat-label class="color-placeholder">Gender</mat-label>
-                <mat-error *ngIf="genderInput.invalid"> Please enter your gender.</mat-error>
+                <mat-select placeholder="Gender" name="gender" ngModel required [(ngModel)]="customerInfo.gender">
+                  <mat-option *ngFor="let gender of genders" [value]="gender.value">
+                    {{gender.viewValue}}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
 
               <mat-form-field>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from 'src/app/_services/customer.service';
 import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material';
+import {Gender} from "../customersetup/customersetup.component";
 
 @Component({
   selector: 'app-customerprofile',
@@ -19,9 +21,15 @@ export class CustomerprofileComponent implements OnInit {
     couponRadius: ''
   };
 
-  public customerInfo;
+  private customerInfo;
 
-  constructor(public customerService: CustomerService, private router: Router) { }
+  genders: Gender[] = [
+    {value: 'man', viewValue: 'Man'},
+    {value: 'woman', viewValue: 'Woman'},
+    {value: 'other', viewValue: 'Other'}
+  ];
+
+  constructor(public customerService: CustomerService, private router: Router, private snackbar: MatSnackBar) { }
 
   ngOnInit() {
     this.oldCustomerInfo = this.customerService.getCustomerInfo();
@@ -46,6 +54,7 @@ export class CustomerprofileComponent implements OnInit {
         this.router.navigate(['/']);
       }, error => {
         console.log(error);
+        this.snackbar.open('Something went wrong...');
       });
     }
   }
