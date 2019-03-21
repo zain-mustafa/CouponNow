@@ -19,7 +19,7 @@ export class CustomerprofileComponent implements OnInit {
     couponRadius: ''
   };
 
-  private customerInfo;
+  public customerInfo;
 
   constructor(public customerService: CustomerService, private router: Router) { }
 
