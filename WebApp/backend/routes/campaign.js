@@ -22,6 +22,7 @@ router.post("/add", (req, res, next) => {
     business: req.body.business,
     busId: req.body.busId,
     ownerEmail: req.body.ownerEmail,
+    locNames: req.body.locNames,
     locations: req.body.location,
     tag: req.body.tag,
     startDate: req.body.startDate,
@@ -29,6 +30,9 @@ router.post("/add", (req, res, next) => {
     maxQty: req.body.maxQty,
     image: req.body.image
   });
+
+  console.log(cCampaign);
+
   cCampaign.save()
   .then(result => {
     res.status(201).json({ // 201 indicates creation and responds the result in json format

@@ -13,6 +13,7 @@ import { BusinessService } from 'src/app/_services/business.service';
 import { Business } from 'src/app/_models/business.model';
 import { CustomerService } from 'src/app/_services/customer.service';
 import { MatSnackBar, MAT_DATEPICKER_VALIDATORS } from '@angular/material';
+import { CampaignLoc } from 'src/app/_models/campaignLoc.model';
 
 
 @Component({
@@ -44,14 +45,19 @@ export class CampaignComponent implements OnInit {
     { name: 'Books' }
   ];
 
-  locations: any = [
-    {
-    streetnum: '',
-    streetname: '',
-    city: '',
-    postalcode: '',
-    }
-  ];
+  // locations: any = [
+  //   {
+  //   streetnum: '',
+  //   streetname: '',
+  //   city: '',
+  //   postalcode: '',
+  //   }
+  // ];
+
+  Selectedlocations: CampaignLoc[] = [];
+  SelectedNames: String[] = [];
+  SelectedCoords: Number[][] = [];
+
 
   campaign: Campaign = {
     _id: null,
@@ -59,7 +65,11 @@ export class CampaignComponent implements OnInit {
     business: '',
     busId: '',
     ownerEmail: '',
-    location: [''],
+    locNames: [''],
+    location: {
+      type: '',
+      coordinates: []
+    },
     tag: [''],
     startDate:  '',
     endDate: '',
@@ -93,12 +103,25 @@ export class CampaignComponent implements OnInit {
       if ( businessName === business.businessname ) {
         this.selectedBusinessId = business._id;
         business.locations.forEach(locations => {
-          this.gottemlocations.push({'name': locations.streetname});
+          this.gottemlocations.push({'name': locations.streetname, 'longitude': locations.lon, 'latitude': locations.lat});
         });
-        // console.log(this.gottemlocations);
+        console.log(this.gottemlocations);
       }
     });
     });
+
+    // this.form.get('location').valueChanges.subscribe(value => {
+    //   let formLocations = [];
+    //   this.gottemlocations.forEach(location => {
+    //     value.forEach(gotLocations => {
+    //       if ( location.name === gotLocations ) {
+    //         console.log(location.longitude);
+    //         console.log(location.latitude);
+    //         console.log(location.name);
+    //       }
+    //     });
+    //   });
+    // });
 
     this.businessList = this.businessService.getBusinesslist();
     // console.log('businessList', this.businessList);
@@ -113,19 +136,19 @@ export class CampaignComponent implements OnInit {
         this.editCampaign = this.campaignService.getCampaign(this.campaignID);
         // console.log(this.editCampaign);
 
-        this.campaign = {
-          _id: this.editCampaign._id,
-          name: this.editCampaign.name,
-          business: this.editCampaign.business,
-          busId: this.editCampaign.busId,
-          ownerEmail: this.customerInfo.customerInfo.email,
-          location: [this.editCampaign.location],
-          tag: [this.editCampaign.tag],
-          startDate: this.editCampaign.startDate,
-          endDate: this.editCampaign.endDate,
-          maxQty: this.editCampaign.maxQty,
-          image: this.editCampaign.image
-        };
+        // this.campaign = {
+        //   _id: this.editCampaign._id,
+        //   name: this.editCampaign.name,
+        //   business: this.editCampaign.business,
+        //   busId: this.editCampaign.busId,
+        //   ownerEmail: this.customerInfo.customerInfo.email,
+        //   location: [this.editCampaign.location],
+        //   tag: [this.editCampaign.tag],
+        //   startDate: this.editCampaign.startDate,
+        //   endDate: this.editCampaign.endDate,
+        //   maxQty: this.editCampaign.maxQty,
+        //   image: this.editCampaign.image
+        // };
 
           this.form.setValue({
             'name': this.campaign.name,
@@ -179,21 +202,35 @@ export class CampaignComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
+
     if (this.mode === 'create') {
+      this.form.get('location').value.forEach(location => {
+        this.gottemlocations.forEach(gotLocations => {
+          if ( location === gotLocations.name ) {
+            this.SelectedNames.push(gotLocations.name);
+            this.SelectedCoords.push([gotLocations.longitude, gotLocations.latitude]);
+          }
+        });
+      });
+
+      console.log(this.SelectedCoords);
+
       this.campaign = {
         _id: '',
         name: this.form.value.name,
         business: this.form.value.business,
         busId: this.selectedBusinessId,
         ownerEmail: this.customerInfo.customerInfo.email,
-        location: [this.form.value.location],
-        tag:[this.form.value.tag],
+        locNames: this.SelectedNames,
+        location: {type: 'MultiPoint', coordinates: this.SelectedCoords},
+        tag: [this.form.value.tag],
         startDate: this.form.value.startDate,
         endDate: this.form.value.endDate,
         maxQty: this.form.value.maxQty,
         image: this.image
       };
       console.log('Oncreate', this.campaign);
+
       this.campaignService.onCreate(this.campaign);
     } else {
         this.campaignService.updateCampaign(this.campaign);

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
 
 // Model created for the schema to use with mongoose
 const campaignSchema = mongoose.Schema({
@@ -7,7 +6,14 @@ const campaignSchema = mongoose.Schema({
   business: { type: String, required: true },
   busId: { type: String, required: true },
   ownerEmail: { type: String, required: true },
-  locations: [{ type: String, required: true }],
+  locNames: {type: String, required: true},
+  locations: {
+    type: {
+      type: String,
+      default: "MultiPoint"
+    },
+    coordinates: [[]]
+  },
   tag: [{ type: String, required: true }],
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
@@ -16,6 +22,6 @@ const campaignSchema = mongoose.Schema({
 });
 
 // For validation checks with the unique attribute
-campaignSchema.plugin(uniqueValidator);
 
+campaignSchema.index({locations: "2dsphere"});
 module.exports = mongoose.model("Campaign", campaignSchema);
