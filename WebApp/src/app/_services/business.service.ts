@@ -35,7 +35,7 @@ export class BusinessService {
   getBusinesses(businessquery: BusinessQuery) {
     this.http.post(this.baseURL + '/owner/listbusiness', businessquery)
       .subscribe((response) => {
-        //console.log('businesslist' , response);
+        // console.log('businesslist' , response);
         this.businesslist = response['businesslist'];
         console.log('getBusinesses' , this.businesslist);
        this.businessesUpdated.next([...this.businesslist]);
@@ -61,11 +61,11 @@ export class BusinessService {
     .pipe(map((response) => {
         console.log('response', response);
         return response;
-      }))
+      }));
   }
 
   deleteLocation(businessquery: BusinessQuery): Observable<any>{
-    //console.log('deleteLocation called' + businessquery);
+    // console.log('deleteLocation called' + businessquery);
 
     return this.http.post(this.baseURL + '/owner/deletelocation', businessquery)
     .pipe(map((response: Response) =>{
@@ -100,7 +100,7 @@ export class BusinessService {
     .pipe(map((response: Response) =>{
       console.log(response);
       return response;
-    }))
+    }));
 
   }
 
@@ -125,7 +125,7 @@ export class BusinessService {
      const format = '&format=json&limit=1';
      let completeUrl = '';
      // %20 = space, %2C = ,
-     queryString = '&q=SEARCH_' + location.streetnum +'%20'+ location.streetname + '%2C' + location.city + '%2C '+ location.postalcode;
+     queryString = '&q=SEARCH_' + location.streetnum + '%20' + location.streetname + '%2C' + location.city + '%2C ' + location.postalcode;
 
      completeUrl = baseUrl + apiToken + queryString + format;
 
@@ -140,10 +140,10 @@ export class BusinessService {
          console.log(response);
          location.lat = response[0].lat;
          location.lon = response[0].lon;
-         //console.log('lat' + newlocation.lat);
-         //console.log('lon' + newlocation.lon);
+         // console.log('lat' + newlocation.lat);
+         // console.log('lon' + newlocation.lon);
          return location;
-     }))
+     }));
 
   }
 

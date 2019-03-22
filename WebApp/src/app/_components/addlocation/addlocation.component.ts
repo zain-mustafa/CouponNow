@@ -34,10 +34,13 @@ export class AddLocationComponent implements OnInit {
   locationID: string;
   editLocation: any;
 
-  constructor(public businessService: BusinessService, public snackBar: MatSnackBar, public route: ActivatedRoute, public router: Router) { }
+  constructor(public businessService: BusinessService,
+                      public snackBar: MatSnackBar,
+                      public route: ActivatedRoute,
+                      public router: Router) { }
 
   ngOnInit() {
-    //console.log(this.owneremail);
+    // console.log(this.owneremail);
     this.businessService.getBusinesses(this.businessquery);
     this.businessSubs = this.businessService.getPostsUpdateListener()
     .subscribe((business: Business[]) => {
@@ -58,12 +61,12 @@ export class AddLocationComponent implements OnInit {
           console.log('Business ID ' + this.businessID);
           console.log('Location ID ' + this.locationID);
 
-          //this.business = this.businessService.getBusiness(this.businessID);
+          // this.business = this.businessService.getBusiness(this.businessID);
           this.business = this.businesslist.find(business => business._id === this.businessID);
-          //console.log('Business ' + this.business.businessname);
+          // console.log('Business ' + this.business.businessname);
 
           this.editLocation = this.business.locations.find(location => location._id === this.locationID);
-          //console.log('Location' + this.editLocation);
+          // console.log('Location' + this.editLocation);
 
           this.location = {
 
@@ -144,7 +147,7 @@ export class AddLocationComponent implements OnInit {
   }
 
   onChangeBusiness(businessname) {
-    //console.log(businessname);
+    // console.log(businessname);
     }
 
   addLocation() {
@@ -159,8 +162,8 @@ export class AddLocationComponent implements OnInit {
     }
 
     if (this.mode === 'Add') {
-      //console.log('Create mode');
-      //console.log(this.form.value);
+      // console.log('Create mode');
+      // console.log(this.form.value);
 
       this.location = {
       _id: null,
@@ -170,7 +173,7 @@ export class AddLocationComponent implements OnInit {
       postalcode: this.form.value.postalcode,
       lon: null,
       lat: null,
-      }
+      };
       this.businessID = this.form.value.business._id;
       /*
       console.log(this.businessID);
@@ -230,7 +233,7 @@ export class AddLocationComponent implements OnInit {
         // console.log(this.businessquery);
 
         this.businessService.updateLocation(this.businessquery).subscribe(response => {
-          console.log("Addlocatiom component response" + response.message);
+          console.log('Add locatiom component response' + response.message);
           this.snackBar.open(response.message, 'Dismiss', {
             duration: 5000,
           });
