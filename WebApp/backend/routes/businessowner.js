@@ -1,6 +1,18 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const NodeGeocoder = require('node-geocoder');
+
+var options = {
+  provider: 'google',
+
+  // Optional depending on the providers
+  httpAdapter: 'https', // Default
+  apiKey: 'AIzaSyAc6XUKQ-h8zxGwF3SWY9uQ28wt8iQsSt0', // for Mapquest, OpenCage, Google Premier
+  formatter: null         // 'gpx', 'string', ...
+};
+
+var geocoder = NodeGeocoder(options);
 
 const BusinessOwner = require('../models/businessowner');
 
@@ -147,9 +159,15 @@ router.post('/addlocation', (req, res, next) => {
     streetname: req.body.location.streetname,
     city: req.body.location.city,
     postalcode: req.body.location.postalcode,
-    lat: req.body.location.lat,
-    lon: req.body.location.lon
+    lat: 0,
+    lon: 0
   }
+
+  geocoder.geocode({address: location.streetnum + " " + location.streetname, country: 'Canada', zipcode: location.postalcode})
+  .then(response => {
+    location.lat = response[0].latitude;
+    location.lon = response[0].longitude;
+
     BusinessOwner.findOne({email: req.body.owneremail})
     .then(owner => {
       // If the email is not found
@@ -175,6 +193,8 @@ router.post('/addlocation', (req, res, next) => {
           });
           });
       });
+
+  });
 });
 
 router.post('/deletebusiness', (req, res, next) => {
