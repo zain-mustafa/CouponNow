@@ -8,6 +8,9 @@ function updateCustomerProfileInfo(req, res) {
   const requiredFields = ['firstName', 'lastName', 'email', 'gender', 'occupation', 'couponRadius'];
   let customerId;
 
+  console.log('updateCustomerProfileInfo attempt:');
+  console.log(req.body);
+
   validateRequest(req, res, requiredFields)
     .then(() => {
       const customerToken = jwt.decode(req.body.customerToken);
@@ -35,12 +38,12 @@ function updateCustomerProfileInfo(req, res) {
       return customer.save()
     })
     .then(() => {
-      res.status(200).json({message: 'New profile information successfully saved for customerId ' + customerId});
+      console.log('New profile information successfully saved for customerId ' + customerId);
+      res.status(200).json({message: 'New profile information successfully saved'});
     })
     .catch(err => {
-      console.log(err);
-      res.status(400).json({message: 'Could not update profile information for customerId ' + customerId
-          + ' -> ' + err.message});
+      console.log('Could not update profile information for customerId ' + customerId + ' -> ' + err);
+      res.status(400).json({message: err.message});
     });
 
 }
@@ -66,7 +69,7 @@ function validateNewInfo(req, res, customer) {
   const newInfo = req.body.newInfo;
 
   return Promise.resolve({then: function(resolve) {
-    const genderOptions = ['male', 'female', 'other'];
+    const genderOptions = ['man', 'woman', 'other'];
 
     if (!newInfo.firstName) {
       throw new Error('First name is invalid');
