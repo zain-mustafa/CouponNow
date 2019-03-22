@@ -6,7 +6,7 @@ const campaignSchema = mongoose.Schema({
   business: { type: String, required: true },
   busId: { type: String, required: true },
   ownerEmail: { type: String, required: true },
-  locNames: {type: String, required: true},
+  locNames: [{type: String, required: true}],
   locations: {
     type: {
       type: String,
