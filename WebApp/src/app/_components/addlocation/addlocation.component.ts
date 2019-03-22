@@ -103,10 +103,6 @@ export class AddLocationComponent implements OnInit {
       console.log(params.get('id1'));
       console.log(params.get('id2'));
 
-<<<<<<< HEAD
-=======
-
->>>>>>> master
       if (params.has('id1') && params.has('id2')) {
 
         this.mode = 'edit';
@@ -188,11 +184,11 @@ export class AddLocationComponent implements OnInit {
           business: null,
           locationindex: null,
           location: this.location
-        }
-        //console.log(this.businessquery);
+        };
+        // console.log(this.businessquery);
 
         this.businessService.addLocation(this.businessquery).subscribe(response => {
-          console.log("Addlocatiom component response" + response.message);
+          console.log('Add locatiom component response' + response.message);
           this.snackBar.open(response.message, 'Dismiss', {
             duration: 5000,
           });
@@ -230,7 +226,7 @@ export class AddLocationComponent implements OnInit {
           business: null,
           locationindex: this.locationID,
           location: this.location
-        }
+        };
         // console.log(this.businessquery);
 
         this.businessService.updateLocation(this.businessquery).subscribe(response => {
