@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CustomerService } from 'src/app/_services/customer.service';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
-import {Gender} from "../customersetup/customersetup.component";
+import {Gender} from '../customersetup/customersetup.component';
 
 @Component({
   selector: 'app-customerprofile',
@@ -21,7 +21,7 @@ export class CustomerprofileComponent implements OnInit {
     couponRadius: ''
   };
 
-  private customerInfo;
+  public customerInfo;
 
   genders: Gender[] = [
     {value: 'man', viewValue: 'Man'},
@@ -56,9 +56,10 @@ export class CustomerprofileComponent implements OnInit {
         console.log(error);
         this.snackbar.open('Something went wrong...');
       });
+    } else {
+      this.router.navigate(['/']);
     }
   }
-
 }
 
 function formatDate(serverDateFormat) {
