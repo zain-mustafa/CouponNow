@@ -54,7 +54,8 @@ export class CustomerprofileComponent implements OnInit {
         this.router.navigate(['/']);
       }, error => {
         console.log(error);
-        this.snackbar.open('Something went wrong...');
+        this.snackbar.open('Something went wrong...', 'Dismiss', {
+        });
       });
     } else {
       this.router.navigate(['/']);

@@ -4,6 +4,7 @@ import { ChooseinterestsService } from '../../_services/chooseinterests.service'
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
 import { CustomerService } from 'src/app/_services/customer.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -14,6 +15,7 @@ import { CustomerService } from 'src/app/_services/customer.service';
 export class ChooseInterestsComponent implements OnInit {
 
  form: FormGroup;
+ private interestsSubs: Subscription;
 
  customerEmail: String;
   public interests = [
@@ -26,6 +28,10 @@ export class ChooseInterestsComponent implements OnInit {
   ];
 
   selectedInterests = [];
+
+  interestsToRemove = [];
+
+  interestToDisplay = this.interests;
 
   customerToken: string;
 
@@ -42,56 +48,24 @@ export class ChooseInterestsComponent implements OnInit {
     console.log(this.customerEmail);
   }
 
-  // submit() {
-  //   const selectedInterests = this.form.value.interests
-  //     .map((v, i) => v ? this.interests[i].name : null)
-  //     .filter(v => v !== null);
-
-  //   console.log(selectedInterests);
-
-  //   if (this.customerToken != null) {
-  //     this.submitInterestsService.onSubmitInterests(this.customerToken, selectedInterests);
-
-  //     this.snackBar.open('Your interests have been saved!', 'Dismiss', {
-  //       duration: 5000,
-  //     });
-
-  //     this.router.navigate(['/customerprofile']);
-  //   } else {
-  //     console.log('Unauthorized request to save customer interests');
-
-  //     this.snackBar.open('An error occurred while saving your interests.', 'Dismiss', {
-  //       duration: 5000,
-  //     });
-  //   }
-  // }
-
   ngOnInit() {
-    // this.customerToken = localStorage.getItem('customerToken');
 
-    // if (localStorage.getItem('customerToken') != null) {
-    //   this.submitInterestsService.getCustomerInterests(this.customerToken)
-    //     .subscribe(response => {
-    //       const prevInterests = response['interests'];
-
-    //       this.interests.forEach((interest, index) => {
-    //         this.form.controls.interests['controls'][index]
-    //           .setValue(prevInterests.includes(interest.name));
-    //       });
-
-    //     }, error => {
-    //       console.log(error);
-    //     });
-    // }
+    this.customerInfo.customerInfo.interests.forEach(savedInterest => {
+      this.interestToDisplay = this.interestToDisplay.filter(interest => {
+        return interest.name !== savedInterest.interest;
+      });
+    });
   }
 
   onSelect(values: any) {
     console.log(values.currentTarget.checked);
     if (values.currentTarget.checked) {
-      this.selectedInterests.push(values.currentTarget.value);
+      this.selectedInterests.push({
+        interest: values.currentTarget.value,
+        rating: 1});
     } else {
       this.selectedInterests = this.selectedInterests.filter(function(value, index, arr) {
-        if (value !== values.currentTarget.value) {
+        if (value.interest !== values.currentTarget.value) {
             return value;
         }
     });
@@ -99,13 +73,52 @@ export class ChooseInterestsComponent implements OnInit {
   }
 
   onSubmitInterests() {
-    this.submitInterestsService.onSaveInterests(this.customerEmail, this.selectedInterests)
-    .subscribe(response => {
-      console.log(response);
-      this.router.navigate(['/customerprofile']);
-    });
+    if (this.customerInfo.customerInfo.interests.length <= 0 && this.selectedInterests.length > 0) {
+      console.log('First Time');
+      this.submitInterestsService.onSaveInterests(this.customerEmail, this.selectedInterests)
+      .subscribe(response => {
+        console.log(response);
+        this.customerInfo.customerInfo.interests = this.selectedInterests;
+        this.snackBar.open('Interests Added', 'Dismiss', {
+          duration: 5000,
+        });
+        this.router.navigate(['/customerprofile']);
+      });
+    } else if ( this.customerInfo.customerInfo.interests.length > 0 && this.selectedInterests.length > 0 ) {
+      console.log('Appending Interests List');
+      console.log(this.selectedInterests);
+      this.submitInterestsService.onAppendInterests(this.customerEmail, this.selectedInterests)
+      .subscribe(response => {
+        console.log(response);
+        this.selectedInterests.forEach(interest => {
+          this.customerInfo.customerInfo.interests.push(interest);
+        });
+        this.snackBar.open('Interests Added', 'Dismiss', {
+          duration: 5000,
+        });
+        this.router.navigate(['/customerprofile']);
+      });
+
+    } else {
+      this.snackBar.open('Please select an interest to Add', 'Dismiss', {
+        duration: 5000,
+      });
+      console.log('Please select an interest to Add!!');
     }
-  }
+
+    }
+
+    onRemoveSubmitted(interestToDelete) {
+      const interestId = interestToDelete._id;
+      const interestName = interestToDelete.interest;
+      this.submitInterestsService.onDeleteInterests(this.customerEmail, interestName)
+      .subscribe(response => {
+        console.log(response);
+        this.interestToDisplay.push({name: interestName});
+      });
+    }
+
+  } // End of Main Function
 
 function minSelectedCheckboxes(min = 1) {
   const validator: ValidatorFn = (formArray: FormArray) => {

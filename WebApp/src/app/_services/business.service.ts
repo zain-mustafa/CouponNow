@@ -68,7 +68,7 @@ export class BusinessService {
     console.log(businessquery);
 
     return this.http.post(this.baseURL + '/owner/deletelocation', businessquery)
-    .pipe(map((response: Response) =>{
+    .pipe(map((response: Response) => {
       console.log(response);
       const businessIndex = this.businesslist.findIndex(business => business._id === businessquery.businessindex);
       const locationIndex = this.businesslist[businessIndex].locations.findIndex(location => location._id === businessquery.locationindex);

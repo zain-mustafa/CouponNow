@@ -1,5 +1,21 @@
 <div class="container center">
   <mat-card>
+      <mat-card-header *ngIf="this.customerInfo.customerInfo.interests.length > 0">
+          <mat-card-title>Interests you have previously selected: </mat-card-title>
+        </mat-card-header>
+
+        <form>
+        <div class="container">
+            <div  *ngFor="let interest of this.customerInfo.customerInfo.interests">
+              <!-- <input type="checkbox" (change)="onSelectRemove($event)" [value]="interest._id"> -->
+              <div>{{ interest.interest }}  <button mat-stroked-button (click)="onRemoveSubmitted(interest)" style="float: right; margin: 5px;">Delete</button></div>
+            </div>
+          </div>
+
+          <br/>
+        </form>
+
+
     <mat-card-header>
       <mat-card-title>What are you interested in hearing about?</mat-card-title>
     </mat-card-header>
@@ -7,16 +23,16 @@
     <form (ngSubmit)="onSubmitInterests()">
 
       <div class="container">
-        <label  *ngFor="let interest of interests">
+        <div  *ngFor="let interest of interestToDisplay">
           <input type="checkbox" (change)="onSelect($event)" [value]="interest.name">
           {{ interest.name }}
-        </label>
+        </div>
       </div>
 
       <br/>
       <div class="container center">
         <div *ngIf="!form.valid">At least one interest must be selected</div>
-        <button mat-stroked-button>submit</button>
+        <button mat-stroked-button>Add Selected</button>
       </div>
     </form>
   </mat-card>

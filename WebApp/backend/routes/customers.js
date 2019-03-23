@@ -97,7 +97,8 @@ router.post('/login', (req, res, next) => {
         dateOfBirth: fetchedCustomer.dateofbirth,
         gender: fetchedCustomer.gender,
         occupation: fetchedCustomer.occupation,
-        couponRadius: fetchedCustomer.couponradius
+        couponRadius: fetchedCustomer.couponradius,
+        interests: fetchedCustomer.interests
       });
     })
     // Catch any errors
@@ -175,7 +176,7 @@ router.post('/savecustomerinterests', (req, res, next) => {
           {
             message: 'Updated customer Interests',
             customerInfo: {
-              Interests: customer.interests
+            Interests: customer.interests
             }
           });
     })
@@ -183,6 +184,33 @@ router.post('/savecustomerinterests', (req, res, next) => {
       console.log(err);
       return res.status(400).json('Unable to save customer Interests');
     })
+});
+
+router.delete('/deleteinterest/:email/:name', (req, res, next) => {
+  console.log("Reached Service");
+  console.log(req.params.email);
+
+  console.log(req.params.name);
+  Customer.update(
+    {email: req.params.email},
+    {$pull: { interests: { interest: req.params.name }}}
+  ).then(result => {
+    console.log("Successfully deleted backend", result);
+    res.status(200).json({message: 'Interest Deleted'});
+  });
+});
+
+router.post('/appendcustomerinterests', (req, res, next) => {
+  console.log("Received request to save:");
+  console.log(req.body);
+
+  Customer.update(
+    {email: req.body.customerEmail},
+    {$push: { interests: { $each: req.body.interests }}}
+  ).then(result => {
+    console.log("Successfully deleted backend", result);
+    res.status(200).json({message: 'Interest Appended'});
+  });
 });
 
 router.post('/updatecustomerprofileinfo', (req, res) => {
