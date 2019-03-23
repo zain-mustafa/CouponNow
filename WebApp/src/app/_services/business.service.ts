@@ -20,7 +20,7 @@ export class BusinessService {
   baseURL = environment.baseUrl;
 
   private businessesUpdated = new Subject<Business[]>();
-  public businesslist: Business [] = [];
+  public businesslist: Business[] = [];
   business: Business;
 
   addBusiness(newbusiness: BusinessQuery): Observable<any> {
@@ -65,18 +65,16 @@ export class BusinessService {
   }
 
   deleteLocation(businessquery: BusinessQuery): Observable<any>{
-    // console.log('deleteLocation called' + businessquery);
+    console.log(businessquery);
 
     return this.http.post(this.baseURL + '/owner/deletelocation', businessquery)
     .pipe(map((response: Response) =>{
-      // console.log('BQue', businessquery.locationindex);
-      // console.log('BList', this.businesslist);
-      // const index = this.businesslist.findIndex((ind) => ind['locations'] === businessquery.businessindex);
-      // console.log(index);
-      // // this.businesslist.splice(+index, 1);
-      // // return this.businesslist;
+      console.log(response);
+      const businessIndex = this.businesslist.findIndex(business => business._id === businessquery.businessindex);
+      const locationIndex = this.businesslist[businessIndex].locations.findIndex(location => location._id === businessquery.locationindex);
+      this.businesslist[businessIndex].locations.splice(locationIndex, 1);
       return response;
-    }))
+    }));
 
   }
 

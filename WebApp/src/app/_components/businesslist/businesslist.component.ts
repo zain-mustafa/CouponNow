@@ -40,18 +40,17 @@ export class BusinesslistComponent implements OnInit, OnDestroy {
 
   deleteLocation(event: string){
     // console.log(event);
-    let string = event.split(' ');
+    const string = event.split(' ');
     // console.log(string[0]);
     // console.log(string[1]);
-    let deletequery: BusinessQuery = {
+    const deletequery: BusinessQuery = {
       owneremail: this.owneremail,
       businessindex: string[0],
       business: null,
       locationindex: string[1],
       location: null,
-
     };
-    //console.log(deletequery);
+    // console.log(deletequery);
 
     this.businessService.deleteLocation(deletequery)
     .subscribe(response => {
@@ -67,7 +66,7 @@ export class BusinesslistComponent implements OnInit, OnDestroy {
   }
 
   deleteBusiness(event: string) {
-    let deletequery: BusinessQuery = {
+    const deletequery: BusinessQuery = {
       owneremail: this.owneremail,
       businessindex: event,
       business: null,
@@ -97,10 +96,10 @@ export class BusinesslistComponent implements OnInit, OnDestroy {
   }
 
   editLocation(event: string){
-    //console.log(event);
-    let string = event.split(' ');
-    //console.log(string[0]);
-    //console.log(string[1]);
+    // console.log(event);
+    const string = event.split(' ');
+    // console.log(string[0]);
+    // console.log(string[1]);
     this.router.navigate(['ownerlanding/addlocation/edit/', string[0], string[1]]);
   }
 
