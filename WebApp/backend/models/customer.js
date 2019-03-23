@@ -12,7 +12,10 @@ const customerSchema = mongoose.Schema({
   gender: { type: String },
   occupation: { type: String },
   couponradius: { type: Number, default: 10 },
-  interests: [ { type: String  } ]
+  interests: [{
+    interest: { type: String},
+    rating: { type: Number}
+  }]
 });
 
 // For validation checks with the unique attribute
