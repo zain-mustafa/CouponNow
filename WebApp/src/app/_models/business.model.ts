@@ -4,5 +4,5 @@ export interface Business {
     _id: string;
     businessname: string;
     licensenum: string;
-    locations: BusinessLocation[]
+    locations: BusinessLocation[];
 }
