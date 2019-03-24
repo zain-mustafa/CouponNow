@@ -11,7 +11,7 @@ export interface Campaign {
     type: String;
     coordinates: Number[][];
   };
-  tag: [ string ];
+  tag: String[];
   startDate: string;
   endDate: string;
   maxQty: number;

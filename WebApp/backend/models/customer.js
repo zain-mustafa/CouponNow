@@ -15,7 +15,8 @@ const customerSchema = mongoose.Schema({
   interests: [{
     interest: { type: String},
     rating: { type: Number}
-  }]
+  }],
+  acceptedCoupons: []
 });
 
 // For validation checks with the unique attribute

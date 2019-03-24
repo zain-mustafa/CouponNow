@@ -14,7 +14,7 @@ const campaignSchema = mongoose.Schema({
     },
     coordinates: [[]]
   },
-  tag: [{ type: String, required: true }],
+  tag: [ { type: String, required: true } ],
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
   maxQty: { type: Number, required: true},

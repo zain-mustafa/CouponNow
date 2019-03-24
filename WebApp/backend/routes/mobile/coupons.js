@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const Coupons = require('../../models/campaign');
+const Customer = require('../../models/customer');
 
 var couponsInRad = [];
 
@@ -41,19 +42,11 @@ router.get('/', (req, res, next) => {
         busId: coupon.busId,
         locNames: coupon.locNames,
         coordinates: coupon.locations.coordinates,
-        tag: coupon.tag
-        // image: coupon.image
+        tags: coupon.tag,
+        startDate: coupon.startDate,
+        endDate: coupon.endDate
       })
     });
-
-    // couponsInRad.forEach(coupon => {
-    //   console.log(coupon.name);
-    //   console.log(coupon.campaignId);
-    //   console.log(coupon.business);
-    //   console.log(coupon.busId);
-    //   console.log(coupon.locNames);
-    //   console.log(coupon.tag);
-    // });
 
     res.status(200).json({
       message: "Recieved CouponList Request",
@@ -69,6 +62,64 @@ router.get('/', (req, res, next) => {
     });
   });
 });
+
+router.post('/save', (req, res, next) => {
+  console.log(req.body.coupon.tags);
+  console.log(req.body.email);
+  let tags = req.body.coupon.tags;
+  Customer.update(
+    {email: req.body.email},
+    {$push: {acceptedCoupons: req.body.coupon}}
+  ).then(result => {
+    console.log("Successfully Saved Coupon", result);
+    res.status(200).json({message: 'Coupon Appended'});
+  })
+
+  tags.forEach(tag => {
+    Customer.update(
+    {email: req.body.email, "interests.interest": tag},
+    {$inc: {"interests.$.rating": 1 } }
+    ).then(result => {
+      console.log("Successfully Incremented Interest", result);
+    })
+  })
+});
+
+router.post('/unsave', (req, res, next) => {
+  console.log(req.body.coupon);
+  console.log(req.body.email);
+  let tags = req.body.coupon.tags;
+  Customer.update(
+    {email: req.body.email},
+    {$pull: {acceptedCoupons: req.body.coupon}}
+  ).then(result => {
+    console.log("Successfully Saved Coupon", result);
+    res.status(200).json({message: 'Coupon Unsaved'});
+  })
+
+  tags.forEach(tag => {
+    Customer.update(
+    {email: req.body.email, "interests.interest": tag},
+    {$inc: {"interests.$.rating": -1 } }
+    ).then(result => {
+      console.log("Successfully Decremented Interest", result);
+    })
+  })
+});
+
+router.post('/updateradius', (req, res, next) => {
+  console.log(req.body.email);
+  console.log(req.body.radius);
+  Customer.update(
+    {email: req.body.email},
+    {$set: {couponradius: req.body.radius}}
+  ).then(result => {
+    console.log("Successfully Updated Radius", result);
+    res.status(200).json({message: 'Radius Updated'});
+  })
+});
+
+
 
 
 module.exports = router;
