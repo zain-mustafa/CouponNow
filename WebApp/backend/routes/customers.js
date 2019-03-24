@@ -208,7 +208,7 @@ router.post('/appendcustomerinterests', (req, res, next) => {
     {email: req.body.customerEmail},
     {$push: { interests: { $each: req.body.interests }}}
   ).then(result => {
-    console.log("Successfully deleted backend", result);
+    console.log("Successfully added to database", result);
     res.status(200).json({message: 'Interest Appended'});
   });
 });
