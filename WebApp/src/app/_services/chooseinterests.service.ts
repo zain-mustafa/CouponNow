@@ -42,9 +42,6 @@ export class ChooseinterestsService {
         });
         console.log(this.customerInfo.customerInfo.interests);
         return response;
-        // const updatedCampaign = this.campaigns.filter(post => this.campaign._id !== campaignID);
-        // this.campaigns = updatedCampaign;
-        // this.campaignsUpdated.next([...this.campaigns]);
       }));
   }
 
