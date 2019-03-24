@@ -70,7 +70,7 @@ export class CampaignComponent implements OnInit {
       type: '',
       coordinates: []
     },
-    tag: [''],
+    tag: [],
     startDate:  '',
     endDate: '',
     maxQty: null,
@@ -223,7 +223,7 @@ export class CampaignComponent implements OnInit {
         ownerEmail: this.customerInfo.customerInfo.email,
         locNames: this.SelectedNames,
         location: {type: 'MultiPoint', coordinates: this.SelectedCoords},
-        tag: [this.form.value.tag],
+        tag: this.form.value.tag,
         startDate: this.form.value.startDate,
         endDate: this.form.value.endDate,
         maxQty: this.form.value.maxQty,

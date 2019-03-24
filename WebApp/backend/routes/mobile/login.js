@@ -56,7 +56,8 @@ router.post('/', (req, res, next) => {
         gender: fetchedCustomer.gender,
         occupation: fetchedCustomer.occupation,
         couponRadius: fetchedCustomer.couponradius,
-        interests: fetchedCustomer.interests
+        interests: fetchedCustomer.interests,
+        acceptedCoupons: fetchedCustomer.acceptedCoupons
       });
     })
     // Catch any errors
@@ -68,5 +69,7 @@ router.post('/', (req, res, next) => {
       });
     });
 });
+
+
 
 module.exports = router;
