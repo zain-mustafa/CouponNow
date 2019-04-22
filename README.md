@@ -4,7 +4,7 @@ This web application is created geared towards small business owners. It provide
 
 # Development Stack Used
 
-M - MongoDB
+M - MongoDB <br>
 E - ExpressJS
 A - Angular 6
 N - NodeJS
