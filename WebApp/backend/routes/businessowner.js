@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const NodeGeocoder = require('node-geocoder');
 const googleMapsClient = require('@google/maps').createClient({
-  key: 'AIzaSyAc6XUKQ-h8zxGwF3SWY9uQ28wt8iQsSt0',
+  key: '<< YOUR GOOGLE API KEY >>',
   Promise: Promise
 });
 
@@ -12,7 +12,7 @@ var options = {
 
   // Optional depending on the providers
   httpAdapter: 'https', // Default
-  apiKey: 'AIzaSyAc6XUKQ-h8zxGwF3SWY9uQ28wt8iQsSt0', // for Mapquest, OpenCage, Google Premier
+  apiKey: '<< YOUR GOOGLE API KEY >>', // for Mapquest, OpenCage, Google Premier
   formatter: null         // 'gpx', 'string', ...
 };
 
